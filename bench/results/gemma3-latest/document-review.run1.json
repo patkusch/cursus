@@ -1,0 +1,108 @@
+{
+ "model": "gemma3:latest",
+ "case": "document-review",
+ "run": 1,
+ "attempts": 2,
+ "seconds": 29.5,
+ "fault": "",
+ "errors": [],
+ "reading": {
+  "title": "Document Publication Process",
+  "lanes": [],
+  "steps": [
+   {
+    "id": "s1",
+    "kind": "start",
+    "text": "Write draft",
+    "lane": null,
+    "quote": "A draft is written.",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Review draft",
+    "lane": null,
+    "quote": "The draft is reviewed.",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Are changes needed?",
+    "lane": null,
+    "quote": "If changes are needed, the draft is revised and reviewed again.",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "subprocess",
+    "text": "Revise draft",
+    "lane": null,
+    "quote": "The draft is revised and reviewed again.",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Review revised draft",
+    "lane": null,
+    "quote": "The draft is reviewed.",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "end",
+    "text": "Publish document",
+    "lane": null,
+    "quote": "When no more changes are needed, the document is published.",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s1",
+    "to": "s2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s3",
+    "label": "Yes",
+    "quote": "If changes are needed, the draft is revised and reviewed again."
+   },
+   {
+    "from": "d1",
+    "to": "s4",
+    "label": "No",
+    "quote": "If changes are needed, the draft is revised and reviewed again."
+   },
+   {
+    "from": "s3",
+    "to": "s4",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "d1",
+    "text": "Are changes needed?",
+    "quote": "If changes are needed, the draft is revised and reviewed again."
+   }
+  ]
+ }
+}

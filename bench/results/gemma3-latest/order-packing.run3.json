@@ -1,0 +1,96 @@
+{
+ "model": "gemma3:latest",
+ "case": "order-packing",
+ "run": 3,
+ "attempts": 3,
+ "seconds": 43.5,
+ "fault": "",
+ "errors": [
+  "ERROR   no-lane            s2             the process has lanes but this step is in none",
+  "ERROR   no-lane            s6             the process has lanes but this step is in none"
+ ],
+ "reading": {
+  "title": "Order Fulfillment Process",
+  "lanes": [
+   {
+    "id": "s1",
+    "name": "Warehouse Staff"
+   }
+  ],
+  "steps": [
+   {
+    "id": "s2",
+    "kind": "start",
+    "text": "Start",
+    "lane": null,
+    "quote": "When an order arrives, the items are picked from the shelves.",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Pick items",
+    "lane": "s1",
+    "quote": "The items are then packed into a box.",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Pack items",
+    "lane": "s1",
+    "quote": "A shipping label is stuck on the box.",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Stick label",
+    "lane": "s1",
+    "quote": "The box is handed to the courier.",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "end",
+    "text": "End",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s2",
+    "to": "s3",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s3",
+    "to": "s4",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "s6",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "s5",
+    "text": "What happens if the courier does not accept the box?",
+    "quote": ""
+   }
+  ]
+ }
+}

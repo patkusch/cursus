@@ -1,0 +1,162 @@
+{
+ "model": "gemma3:latest",
+ "case": "support-ticket-interview",
+ "run": 3,
+ "attempts": 3,
+ "seconds": 61.4,
+ "fault": "",
+ "errors": [
+  "ERROR   no-lane            s1             the process has lanes but this step is in none",
+  "ERROR   no-lane            e1             the process has lanes but this step is in none",
+  "ERROR   no-lane            e2             the process has lanes but this step is in none",
+  "ERROR   hidden-decision    s2             two arrows leave a step that is not a decision",
+  "ERROR   one-exit-decision  d1             a decision needs two exits, or a question saying the text gives only one",
+  "ERROR   unlabelled-exit    d1             every exit from a decision needs a label",
+  "ERROR   quote-not-found    s1             the quote is not in the text: \"Start\"",
+  "ERROR   quote-not-found    s2             the quote is not in the text: \"If it's a duplicate we just close it.\""
+ ],
+ "reading": {
+  "title": "Ticket Processing Flow",
+  "lanes": [
+   {
+    "id": "s1",
+    "name": "Support Desk"
+   },
+   {
+    "id": "p1",
+    "name": "Product Team"
+   }
+  ],
+  "steps": [
+   {
+    "id": "s1",
+    "kind": "start",
+    "text": "Start",
+    "lane": null,
+    "quote": "Start",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Check if duplicate",
+    "lane": "s1",
+    "quote": "If it's a duplicate we just close it.",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Is it a duplicate?",
+    "lane": "s1",
+    "quote": "If it is a duplicate we just close it.",
+    "assumed": false
+   },
+   {
+    "id": "e1",
+    "kind": "end",
+    "text": "Close duplicate ticket",
+    "lane": null,
+    "quote": "If it is a duplicate we just close it.",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Tag with product area",
+    "lane": "s1",
+    "quote": "Then, yeah, the product team picks it up and they write a reply. ",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "subprocess",
+    "text": "Product team writes reply",
+    "lane": "p1",
+    "quote": "Oh, and before the reply goes out, the support desk proofreads it.",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Support desk proofreads reply",
+    "lane": "s1",
+    "quote": "Oh, and before the reply goes out, the support desk proofreads it.",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "task",
+    "text": "Send reply to customer",
+    "lane": "s1",
+    "quote": "Then we send it to the customer.",
+    "assumed": false
+   },
+   {
+    "id": "e2",
+    "kind": "end",
+    "text": "End",
+    "lane": null,
+    "quote": "End",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s1",
+    "to": "s2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "e1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "s3",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s3",
+    "to": "s4",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "s6",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "e2",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "s2",
+    "text": "What happens when a ticket is not a duplicate?",
+    "quote": ""
+   }
+  ]
+ }
+}

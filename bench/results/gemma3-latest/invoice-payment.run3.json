@@ -1,0 +1,145 @@
+{
+ "model": "gemma3:latest",
+ "case": "invoice-payment",
+ "run": 3,
+ "attempts": 3,
+ "seconds": 63.7,
+ "fault": "",
+ "errors": [
+  "ERROR   unlabelled-exit    d1             every exit from a decision needs a label",
+  "ERROR   repeated-label     d1             two exits from this decision carry the same label",
+  "ERROR   dead-end           s3             the flow stops here without reaching an end"
+ ],
+ "reading": {
+  "title": "Supplier Invoice Process",
+  "lanes": [
+   {
+    "id": "s1",
+    "name": "Accounts payable"
+   }
+  ],
+  "steps": [
+   {
+    "id": "s1",
+    "kind": "start",
+    "text": "Receives invoice",
+    "lane": "s1",
+    "quote": "Accounts payable receives the supplier invoice and matches it to the purchase order.",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Matches invoice",
+    "lane": "s1",
+    "quote": "Accounts payable receives the supplier invoice and matches it to the purchase order.",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Invoice matches purchase order?",
+    "lane": "s1",
+    "quote": "If the invoice does not match, accounts payable returns it to the supplier. If it matches, two checks run at the same time: the budget owner confirms the goods arrived, and the tax team checks the VAT. Once both checks are complete, accounts payable pays the invoice.",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "subprocess",
+    "text": "Returns invoice to supplier",
+    "lane": "s1",
+    "quote": "If the invoice does not match, accounts payable returns it to the supplier.",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "parallel",
+    "text": "Run checks",
+    "lane": "s1",
+    "quote": "If it matches, two checks run at the same time: the budget owner confirms the goods arrived, and the tax team checks the VAT. Once both checks are complete, accounts payable pays the invoice.",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Budget owner confirms goods",
+    "lane": "s1",
+    "quote": "the budget owner confirms the goods arrived",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "task",
+    "text": "Tax team checks VAT",
+    "lane": "s1",
+    "quote": "the tax team checks the VAT",
+    "assumed": false
+   },
+   {
+    "id": "s7",
+    "kind": "end",
+    "text": "Pays invoice",
+    "lane": "s1",
+    "quote": "Once both checks are complete, accounts payable pays the invoice.",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s1",
+    "to": "s2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s3",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s4",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "s6",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "s7",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "s7",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "d1",
+    "text": "What happens if the invoice does not match?",
+    "quote": ""
+   }
+  ]
+ }
+}

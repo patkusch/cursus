@@ -1,0 +1,129 @@
+{
+ "model": "gemma3:latest",
+ "case": "new-starter",
+ "run": 3,
+ "attempts": 3,
+ "seconds": 52.4,
+ "fault": "",
+ "errors": [],
+ "reading": {
+  "title": "New Starter Process",
+  "lanes": [
+   {
+    "id": "s1",
+    "name": "HR"
+   },
+   {
+    "id": "s2",
+    "name": "IT"
+   },
+   {
+    "id": "s3",
+    "name": "Hiring Manager"
+   }
+  ],
+  "steps": [
+   {
+    "id": "s4",
+    "kind": "start",
+    "text": "New Starter Accepts Offer",
+    "lane": "s1",
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Creates Staff Record",
+    "lane": "s1",
+    "quote": "When a new starter accepts an offer, HR creates their staff record.",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "task",
+    "text": "Orders Laptop",
+    "lane": "s2",
+    "quote": "After that, two things happen at the same time: IT orders a laptop, and the hiring manager writes a first-week plan.",
+    "assumed": false
+   },
+   {
+    "id": "s7",
+    "kind": "task",
+    "text": "Writes First Week Plan",
+    "lane": "s3",
+    "quote": "After that, two things happen at the same time: IT orders a laptop, and the hiring manager writes a first-week plan.",
+    "assumed": false
+   },
+   {
+    "id": "s8",
+    "kind": "subprocess",
+    "text": "Sends Welcome Email",
+    "lane": "s1",
+    "quote": "When both are done, HR sends the welcome email.",
+    "assumed": false
+   },
+   {
+    "id": "s9",
+    "kind": "task",
+    "text": "Meets New Starter",
+    "lane": "s3",
+    "quote": "On the first day, the hiring manager meets the new starter.",
+    "assumed": false
+   },
+   {
+    "id": "s10",
+    "kind": "end",
+    "text": "Process Complete",
+    "lane": "s1",
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s4",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "s6",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "s7",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s7",
+    "to": "s8",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s8",
+    "to": "s9",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s9",
+    "to": "s10",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "s6",
+    "text": "What happens if IT fails to order a laptop?",
+    "quote": ""
+   }
+  ]
+ }
+}

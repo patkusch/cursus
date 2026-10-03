@@ -1,0 +1,297 @@
+{
+ "model": "gemma3:12b",
+ "case": "expense-claim",
+ "run": 1,
+ "attempts": 1,
+ "seconds": 121.8,
+ "fault": "",
+ "errors": [],
+ "reading": {
+  "title": "Expense Claims",
+  "lanes": [],
+  "steps": [
+   {
+    "id": "s1",
+    "kind": "start",
+    "text": "Start",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Fill in claim form",
+    "lane": null,
+    "quote": "An employee fills in the claim form and attaches the receipts.",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Attach receipts",
+    "lane": null,
+    "quote": "An employee fills in the claim form and attaches the receipts.",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Submit claim",
+    "lane": null,
+    "quote": "The employee then submits the claim to their line manager.",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Check against policy",
+    "lane": null,
+    "quote": "The line manager checks the claim against the travel policy.",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Claim within policy?",
+    "lane": null,
+    "quote": "If the claim is within policy, the line manager approves it. If it is not, the manager sends the claim back to the employee with a note, and the employee corrects the claim and submits it again.",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "task",
+    "text": "Approve claim",
+    "lane": null,
+    "quote": "If the claim is within policy, the line manager approves it.",
+    "assumed": false
+   },
+   {
+    "id": "s7",
+    "kind": "task",
+    "text": "Send claim back",
+    "lane": null,
+    "quote": "If it is not, the manager sends the claim back to the employee with a note, and the employee corrects the claim and submits it again.",
+    "assumed": false
+   },
+   {
+    "id": "s8",
+    "kind": "task",
+    "text": "Correct claim",
+    "lane": null,
+    "quote": "If it is not, the manager sends the claim back to the employee with a note, and the employee corrects the claim and submits it again.",
+    "assumed": false
+   },
+   {
+    "id": "s9",
+    "kind": "task",
+    "text": "Submit claim again",
+    "lane": null,
+    "quote": "If it is not, the manager sends the claim back to the employee with a note, and the employee corrects the claim and submits it again.",
+    "assumed": false
+   },
+   {
+    "id": "s10",
+    "kind": "task",
+    "text": "Go to finance",
+    "lane": null,
+    "quote": "Approved claims go to the finance team.",
+    "assumed": false
+   },
+   {
+    "id": "s11",
+    "kind": "task",
+    "text": "Check claim amount",
+    "lane": null,
+    "quote": "Finance checks whether the claim is over 500 pounds.",
+    "assumed": false
+   },
+   {
+    "id": "d2",
+    "kind": "decision",
+    "text": "Claim over 500 pounds?",
+    "lane": null,
+    "quote": "Claims over 500 pounds need sign-off from the finance director.",
+    "assumed": false
+   },
+   {
+    "id": "s12",
+    "kind": "task",
+    "text": "Get finance director sign-off",
+    "lane": null,
+    "quote": "Claims over 500 pounds need sign-off from the finance director.",
+    "assumed": false
+   },
+   {
+    "id": "s13",
+    "kind": "task",
+    "text": "Schedule payment",
+    "lane": null,
+    "quote": "Once a claim is cleared, finance schedules the payment for the next pay run and the system emails a confirmation to the employee.",
+    "assumed": false
+   },
+   {
+    "id": "s14",
+    "kind": "task",
+    "text": "Email confirmation",
+    "lane": null,
+    "quote": "Once a claim is cleared, finance schedules the payment for the next pay run and the system emails a confirmation to the employee.",
+    "assumed": false
+   },
+   {
+    "id": "s15",
+    "kind": "task",
+    "text": "Review large claims",
+    "lane": null,
+    "quote": "The finance director reviews large claims within five working days.",
+    "assumed": false
+   },
+   {
+    "id": "s16",
+    "kind": "end",
+    "text": "End",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s1",
+    "to": "s2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "s3",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s3",
+    "to": "s4",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s6",
+    "label": "Yes",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s7",
+    "label": "No",
+    "quote": ""
+   },
+   {
+    "from": "s7",
+    "to": "s8",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s8",
+    "to": "s9",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s9",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "s10",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s10",
+    "to": "s11",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s11",
+    "to": "d2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d2",
+    "to": "s12",
+    "label": "Yes",
+    "quote": ""
+   },
+   {
+    "from": "d2",
+    "to": "s13",
+    "label": "No",
+    "quote": ""
+   },
+   {
+    "from": "s12",
+    "to": "s13",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s13",
+    "to": "s14",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s14",
+    "to": "s15",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s15",
+    "to": "s16",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "",
+    "text": "Who is responsible for checking the claim against the travel policy?",
+    "quote": "The line manager checks the claim against the travel policy."
+   },
+   {
+    "about": "",
+    "text": "What happens when a claim is not within policy?",
+    "quote": "If it is not, the manager sends the claim back to the employee with a note, and the employee corrects the claim and submits it again."
+   },
+   {
+    "about": "",
+    "text": "Who is responsible for scheduling the payment?",
+    "quote": "Once a claim is cleared, finance schedules the payment for the next pay run and the system emails a confirmation to the employee."
+   },
+   {
+    "about": "",
+    "text": "What happens after a claim is approved?",
+    "quote": "Approved claims go to the finance team."
+   }
+  ]
+ }
+}

@@ -1,0 +1,96 @@
+{
+ "model": "gemma3:12b",
+ "case": "order-packing",
+ "run": 1,
+ "attempts": 1,
+ "seconds": 38.4,
+ "fault": "",
+ "errors": [],
+ "reading": {
+  "title": "Order Fulfillment",
+  "lanes": [],
+  "steps": [
+   {
+    "id": "s1",
+    "kind": "start",
+    "text": "Order arrives",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Pick items from shelves",
+    "lane": null,
+    "quote": "When an order arrives, the items are picked from the shelves.",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Pack items into box",
+    "lane": null,
+    "quote": "The items are then packed into a box.",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Stick label on box",
+    "lane": null,
+    "quote": "A shipping label is stuck on the box.",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Hand box to courier",
+    "lane": null,
+    "quote": "The box is handed to the courier.",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "end",
+    "text": "Process complete",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s1",
+    "to": "s2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "s3",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s3",
+    "to": "s4",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "s6",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": []
+ }
+}

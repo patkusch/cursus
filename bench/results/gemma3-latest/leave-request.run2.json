@@ -1,0 +1,138 @@
+{
+ "model": "gemma3:latest",
+ "case": "leave-request",
+ "run": 2,
+ "attempts": 3,
+ "seconds": 56.0,
+ "fault": "",
+ "errors": [
+  "ERROR   no-lane            s9             the process has lanes but this step is in none",
+  "ERROR   no-start           -              the process has no start"
+ ],
+ "reading": {
+  "title": "Leave Request Process",
+  "lanes": [
+   {
+    "id": "s1",
+    "name": "Employee"
+   },
+   {
+    "id": "s2",
+    "name": "HR Portal"
+   },
+   {
+    "id": "s3",
+    "name": "Manager"
+   }
+  ],
+  "steps": [
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Submits Leave Request",
+    "lane": "s1",
+    "quote": "An employee submits a leave request in the HR portal.",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Reviews Request",
+    "lane": "s3",
+    "quote": "The manager reviews the request.",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Team has enough cover?",
+    "lane": "s3",
+    "quote": "If the team has enough cover, the manager approves the request. Otherwise the manager declines the request.",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "subprocess",
+    "text": "Approves Request",
+    "lane": "s3",
+    "quote": "If the team has enough cover, the manager approves the request.",
+    "assumed": false
+   },
+   {
+    "id": "s7",
+    "kind": "subprocess",
+    "text": "Declines Request",
+    "lane": "s3",
+    "quote": "Otherwise the manager declines the request.",
+    "assumed": false
+   },
+   {
+    "id": "s8",
+    "kind": "document",
+    "text": "Notifies Employee",
+    "lane": "s2",
+    "quote": "In both cases the HR portal notifies the employee of the outcome.",
+    "assumed": false
+   },
+   {
+    "id": "s9",
+    "kind": "end",
+    "text": "Process Complete",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s4",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s6",
+    "label": "Approved",
+    "quote": "If the team has enough cover, the manager approves the request."
+   },
+   {
+    "from": "d1",
+    "to": "s7",
+    "label": "Declined",
+    "quote": "Otherwise the manager declines the request."
+   },
+   {
+    "from": "s6",
+    "to": "s8",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s7",
+    "to": "s8",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s8",
+    "to": "s9",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "d1",
+    "text": "What happens when the request is declined?",
+    "quote": "If the team has enough cover, the manager approves the request. Otherwise the manager declines the request."
+   }
+  ]
+ }
+}

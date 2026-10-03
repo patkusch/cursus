@@ -1,0 +1,146 @@
+{
+ "model": "gemma3:12b",
+ "case": "document-review",
+ "run": 2,
+ "attempts": 1,
+ "seconds": 55.6,
+ "fault": "",
+ "errors": [],
+ "reading": {
+  "title": "Document Publishing",
+  "lanes": [],
+  "steps": [
+   {
+    "id": "s1",
+    "kind": "start",
+    "text": "Start",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Write a draft",
+    "lane": null,
+    "quote": "A draft is written.",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Review the draft",
+    "lane": null,
+    "quote": "The draft is reviewed.",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Are changes needed?",
+    "lane": null,
+    "quote": "If changes are needed, the draft is revised and reviewed again.",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Revise the draft",
+    "lane": null,
+    "quote": "If changes are needed, the draft is revised and reviewed again.",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Review the draft",
+    "lane": null,
+    "quote": "If changes are needed, the draft is revised and reviewed again.",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "task",
+    "text": "Publish the document",
+    "lane": null,
+    "quote": "When no more changes are needed, the document is published.",
+    "assumed": false
+   },
+   {
+    "id": "s7",
+    "kind": "end",
+    "text": "End",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s1",
+    "to": "s2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "s3",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s3",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s4",
+    "label": "Yes",
+    "quote": "If changes are needed, the draft is revised and reviewed again."
+   },
+   {
+    "from": "s4",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s6",
+    "label": "No",
+    "quote": "When no more changes are needed, the document is published."
+   },
+   {
+    "from": "s6",
+    "to": "s7",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "",
+    "text": "Who writes the draft?",
+    "quote": "A draft is written."
+   },
+   {
+    "about": "",
+    "text": "Who reviews the draft?",
+    "quote": "The draft is reviewed."
+   },
+   {
+    "about": "d1",
+    "text": "What happens if changes are needed?",
+    "quote": "If changes are needed, the draft is revised and reviewed again."
+   }
+  ]
+ }
+}

@@ -1,0 +1,222 @@
+{
+ "model": "gemma3:latest",
+ "case": "purchase-order",
+ "run": 2,
+ "attempts": 3,
+ "seconds": 93.3,
+ "fault": "",
+ "errors": [
+  "ERROR   no-lane            s4             the process has lanes but this step is in none",
+  "ERROR   no-lane            d1             the process has lanes but this step is in none",
+  "ERROR   no-lane            d2             the process has lanes but this step is in none",
+  "ERROR   no-lane            s13            the process has lanes but this step is in none",
+  "ERROR   hidden-decision    s5             two arrows leave a step that is not a decision",
+  "ERROR   quote-not-found    s6             the quote is not in the text: \"For requests under 1,000 pounds, procurement checks the amount.\""
+ ],
+ "reading": {
+  "title": "Purchase Request Flow",
+  "lanes": [
+   {
+    "id": "s1",
+    "name": "Requester"
+   },
+   {
+    "id": "s2",
+    "name": "Procurement"
+   },
+   {
+    "id": "s3",
+    "name": "Budget Holder"
+   }
+  ],
+  "steps": [
+   {
+    "id": "s4",
+    "kind": "start",
+    "text": "Raises Purchase Request",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Checks Supplier List",
+    "lane": "s2",
+    "quote": "Procurement checks whether the supplier is on the approved list.",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Supplier is on the list?",
+    "lane": null,
+    "quote": "If the supplier is on the list,",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "task",
+    "text": "Checks Amount",
+    "lane": "s2",
+    "quote": "For requests under 1,000 pounds, procurement checks the amount.",
+    "assumed": false
+   },
+   {
+    "id": "d2",
+    "kind": "decision",
+    "text": "Amount under 1,000 pounds?",
+    "lane": null,
+    "quote": "For requests under 1,000 pounds",
+    "assumed": false
+   },
+   {
+    "id": "s7",
+    "kind": "task",
+    "text": "Places Order",
+    "lane": "s2",
+    "quote": "procurement places the order straight away",
+    "assumed": false
+   },
+   {
+    "id": "s8",
+    "kind": "task",
+    "text": "Requests of 1,000 pounds or more go to the budget holder",
+    "lane": "s2",
+    "quote": "Requests of 1,000 pounds or more go to the budget holder.",
+    "assumed": false
+   },
+   {
+    "id": "s9",
+    "kind": "task",
+    "text": "Approves Request",
+    "lane": "s3",
+    "quote": "If the budget holder approves the request,",
+    "assumed": false
+   },
+   {
+    "id": "s10",
+    "kind": "task",
+    "text": "Places Order",
+    "lane": "s2",
+    "quote": "procurement places the order",
+    "assumed": false
+   },
+   {
+    "id": "s11",
+    "kind": "task",
+    "text": "Refuses Request",
+    "lane": "s3",
+    "quote": "If the budget holder refuses, procurement rejects the request.",
+    "assumed": false
+   },
+   {
+    "id": "s12",
+    "kind": "task",
+    "text": "Rejects Request",
+    "lane": "s2",
+    "quote": "procurement rejects the request",
+    "assumed": false
+   },
+   {
+    "id": "s13",
+    "kind": "end",
+    "text": "Request Rejected",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s4",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s6",
+    "label": "Supplier Approved",
+    "quote": "If the supplier is on the list"
+   },
+   {
+    "from": "s6",
+    "to": "d2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d2",
+    "to": "s7",
+    "label": "Amount Under 1000",
+    "quote": "Requests under 1,000 pounds"
+   },
+   {
+    "from": "s7",
+    "to": "s13",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "s8",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s8",
+    "to": "s9",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s9",
+    "to": "s10",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s10",
+    "to": "s11",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s11",
+    "to": "s12",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s12",
+    "to": "s13",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "d1",
+    "text": "About decision d1: Is the supplier on the approved list?",
+    "quote": ""
+   },
+   {
+    "about": "d2",
+    "text": "About decision d2: Is the amount under 1,000 pounds?",
+    "quote": ""
+   },
+   {
+    "about": "s12",
+    "text": "What happens when the budget holder refuses the request?",
+    "quote": ""
+   }
+  ]
+ }
+}

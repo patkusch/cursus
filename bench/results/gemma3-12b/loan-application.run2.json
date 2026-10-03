@@ -1,0 +1,166 @@
+{
+ "model": "gemma3:12b",
+ "case": "loan-application",
+ "run": 2,
+ "attempts": 3,
+ "seconds": 321.1,
+ "fault": "",
+ "errors": [
+  "ERROR   one-exit-decision  d1             a decision needs two exits, or a question saying the text gives only one",
+  "ERROR   one-exit-decision  d2             a decision needs two exits, or a question saying the text gives only one"
+ ],
+ "reading": {
+  "title": "Loan Application Process",
+  "lanes": [],
+  "steps": [
+   {
+    "id": "s1",
+    "kind": "start",
+    "text": "Start",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Fill in online form",
+    "lane": null,
+    "quote": "The applicant fills in the online loan form.",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Run credit check",
+    "lane": null,
+    "quote": "The system runs a credit check.",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Credit score over 600?",
+    "lane": null,
+    "quote": "If the credit score is 600 or above, the system passes the application to an underwriter.",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Pass to underwriter",
+    "lane": null,
+    "quote": "the system passes the application to an underwriter.",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Verify applicant income",
+    "lane": null,
+    "quote": "The underwriter verifies the applicant's income.",
+    "assumed": false
+   },
+   {
+    "id": "d2",
+    "kind": "decision",
+    "text": "Income verified?",
+    "lane": null,
+    "quote": "If the income is verified, the underwriter approves the loan and the system sends the contract to the applicant.",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "task",
+    "text": "Approve the loan",
+    "lane": null,
+    "quote": "the underwriter approves the loan",
+    "assumed": false
+   },
+   {
+    "id": "s7",
+    "kind": "task",
+    "text": "Send contract to applicant",
+    "lane": null,
+    "quote": "the system sends the contract to the applicant.",
+    "assumed": false
+   },
+   {
+    "id": "s8",
+    "kind": "end",
+    "text": "End",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s1",
+    "to": "s2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "s3",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s3",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s4",
+    "label": "Yes",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "d2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d2",
+    "to": "s6",
+    "label": "Yes",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "s7",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s7",
+    "to": "s8",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "",
+    "text": "What happens if the credit score is below 600?",
+    "quote": "The applicant fills in the online loan form. The system runs a credit check. If the credit score is 600 or above, the system passes the application to an underwriter. The underwriter verifies the applicant's income. If the income is verified, the underwriter approves the loan and the system sends the contract to the applicant."
+   },
+   {
+    "about": "",
+    "text": "What happens if the underwriter doesn't verify the applicant's income?",
+    "quote": "The applicant fills in the online loan form. The system runs a credit check. If the credit score is 600 or above, the system passes the application to an underwriter. The underwriter verifies the applicant's income. If the income is verified, the underwriter approves the loan and the system sends the contract to the applicant."
+   }
+  ]
+ }
+}

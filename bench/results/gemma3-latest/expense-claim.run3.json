@@ -1,0 +1,259 @@
+{
+ "model": "gemma3:latest",
+ "case": "expense-claim",
+ "run": 3,
+ "attempts": 3,
+ "seconds": 105.9,
+ "fault": "",
+ "errors": [
+  "ERROR   no-lane            s1             the process has lanes but this step is in none",
+  "ERROR   no-lane            e5             the process has lanes but this step is in none",
+  "ERROR   unlabelled-exit    d1             every exit from a decision needs a label",
+  "ERROR   repeated-label     d1             two exits from this decision carry the same label",
+  "ERROR   dead-end           e1             the flow stops here without reaching an end",
+  "ERROR   one-exit-decision  d2             a decision needs two exits, or a question saying the text gives only one",
+  "ERROR   unlabelled-exit    d2             every exit from a decision needs a label",
+  "ERROR   quote-not-found    s1             the quote is not in the text: \"Start\""
+ ],
+ "reading": {
+  "title": "Expense Claims Process",
+  "lanes": [
+   {
+    "id": "s1",
+    "name": "Employee"
+   },
+   {
+    "id": "lm1",
+    "name": "Line Manager"
+   },
+   {
+    "id": "ft1",
+    "name": "Finance Team"
+   },
+   {
+    "id": "fd1",
+    "name": "Finance Director"
+   }
+  ],
+  "steps": [
+   {
+    "id": "s1",
+    "kind": "start",
+    "text": "Start",
+    "lane": null,
+    "quote": "Start",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Fills in claim form",
+    "lane": "s1",
+    "quote": "An employee fills in the claim form and attaches the receipts.",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Attaches receipts",
+    "lane": "s1",
+    "quote": "An employee fills in the claim form and attaches the receipts.",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Submits claim to line manager",
+    "lane": "s1",
+    "quote": "The employee then submits the claim to their line manager.",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Is claim within policy?",
+    "lane": "lm1",
+    "quote": "The line manager checks the claim against the travel policy. If the claim is within policy, the line manager approves it.",
+    "assumed": false
+   },
+   {
+    "id": "e1",
+    "kind": "subprocess",
+    "text": "Approves claim",
+    "lane": "lm1",
+    "quote": "If the claim is within policy, the line manager approves it.",
+    "assumed": false
+   },
+   {
+    "id": "e2",
+    "kind": "subprocess",
+    "text": "Sends claim back to employee",
+    "lane": "lm1",
+    "quote": "If it is not, the manager sends the claim back to the employee with a note, and the employee corrects the claim and submits it again.",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Corrects claim",
+    "lane": "s1",
+    "quote": "The employee corrects the claim and submits it again.",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "document",
+    "text": "Approved claims",
+    "lane": "ft1",
+    "quote": "Approved claims go to the finance team.",
+    "assumed": false
+   },
+   {
+    "id": "s7",
+    "kind": "task",
+    "text": "Checks claim amount",
+    "lane": "ft1",
+    "quote": "Finance checks whether the claim is over 500 pounds.",
+    "assumed": false
+   },
+   {
+    "id": "d2",
+    "kind": "decision",
+    "text": "Is claim over 500 pounds?",
+    "lane": "ft1",
+    "quote": "Claims over 500 pounds need sign-off from the finance director.",
+    "assumed": false
+   },
+   {
+    "id": "e3",
+    "kind": "subprocess",
+    "text": "Requests sign-off from finance director",
+    "lane": "ft1",
+    "quote": "Claims over 500 pounds need sign-off from the finance director.",
+    "assumed": false
+   },
+   {
+    "id": "e4",
+    "kind": "subprocess",
+    "text": "Schedules payment for next pay run",
+    "lane": "ft1",
+    "quote": "Once a claim is cleared, finance schedules the payment for the next pay run and the system emails a confirmation to the employee.",
+    "assumed": false
+   },
+   {
+    "id": "s8",
+    "kind": "task",
+    "text": "Reviews large claims",
+    "lane": "fd1",
+    "quote": "The finance director reviews large claims within five working days.",
+    "assumed": false
+   },
+   {
+    "id": "e5",
+    "kind": "end",
+    "text": "End",
+    "lane": null,
+    "quote": "End",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s1",
+    "to": "s2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "s3",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s3",
+    "to": "s4",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "e1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "e2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "e2",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "s6",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "s7",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s7",
+    "to": "d2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d2",
+    "to": "e3",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "e3",
+    "to": "e4",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "e4",
+    "to": "s8",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s8",
+    "to": "e5",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "d1",
+    "text": "Does the claim require sign-off?",
+    "quote": ""
+   },
+   {
+    "about": "s8",
+    "text": "Is the finance director reviewing this claim?",
+    "quote": ""
+   }
+  ]
+ }
+}

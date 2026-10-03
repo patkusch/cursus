@@ -1,0 +1,194 @@
+{
+ "model": "gemma3:latest",
+ "case": "incident-triage",
+ "run": 1,
+ "attempts": 3,
+ "seconds": 41.0,
+ "fault": "",
+ "errors": [
+  "ERROR   no-lane            s4             the process has lanes but this step is in none",
+  "ERROR   no-lane            s14            the process has lanes but this step is in none",
+  "ERROR   unlabelled-exit    s6             every exit from a decision needs a label",
+  "ERROR   repeated-label     s6             two exits from this decision carry the same label",
+  "ERROR   dead-end           s7             the flow stops here without reaching an end",
+  "ERROR   dead-end           s8             the flow stops here without reaching an end",
+  "ERROR   quote-not-found    s6             the quote is not in the text: \"The service desk rates its severity\"",
+  "ERROR   quote-not-found    s11            the quote is not in the text: \"The incident manager assigns the incident to the duty engineer\""
+ ],
+ "reading": {
+  "title": "Incident Management Process",
+  "lanes": [
+   {
+    "id": "s1",
+    "name": "Service Desk"
+   },
+   {
+    "id": "s2",
+    "name": "Incident Manager"
+   },
+   {
+    "id": "s3",
+    "name": "Duty Engineer"
+   }
+  ],
+  "steps": [
+   {
+    "id": "s4",
+    "kind": "start",
+    "text": "Starts",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Logs Incident",
+    "lane": "s1",
+    "quote": "The service desk logs the incident",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "decision",
+    "text": "Rates Severity",
+    "lane": "s1",
+    "quote": "The service desk rates its severity",
+    "assumed": false
+   },
+   {
+    "id": "s7",
+    "kind": "task",
+    "text": "Adds Low Severity",
+    "lane": "s1",
+    "quote": "The service desk adds a low severity incident to the weekly backlog",
+    "assumed": false
+   },
+   {
+    "id": "s8",
+    "kind": "task",
+    "text": "Assigns Medium Severity",
+    "lane": "s1",
+    "quote": "The service desk assigns a medium severity incident to the duty engineer",
+    "assumed": false
+   },
+   {
+    "id": "s9",
+    "kind": "task",
+    "text": "Escalates High Severity",
+    "lane": "s1",
+    "quote": "The service desk escalates a high severity incident to the incident manager",
+    "assumed": false
+   },
+   {
+    "id": "s10",
+    "kind": "task",
+    "text": "Opens Call",
+    "lane": "s2",
+    "quote": "The incident manager opens a call with the affected teams",
+    "assumed": false
+   },
+   {
+    "id": "s11",
+    "kind": "task",
+    "text": "Assigns Incident",
+    "lane": "s2",
+    "quote": "The incident manager assigns the incident to the duty engineer",
+    "assumed": false
+   },
+   {
+    "id": "s12",
+    "kind": "task",
+    "text": "Fixes Incident",
+    "lane": "s3",
+    "quote": "The duty engineer fixes the incident",
+    "assumed": false
+   },
+   {
+    "id": "s13",
+    "kind": "task",
+    "text": "Closes Ticket",
+    "lane": "s1",
+    "quote": "The service desk closes the ticket once the incident is fixed",
+    "assumed": false
+   },
+   {
+    "id": "s14",
+    "kind": "end",
+    "text": "Ends",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s4",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "s6",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "s7",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "s8",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "s9",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s9",
+    "to": "s10",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s10",
+    "to": "s11",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s11",
+    "to": "s12",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s12",
+    "to": "s13",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s13",
+    "to": "s14",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "s6",
+    "text": "What happens when the severity rating is high?",
+    "quote": ""
+   }
+  ]
+ }
+}

@@ -1,0 +1,259 @@
+{
+ "model": "gemma3:latest",
+ "case": "purchase-order",
+ "run": 3,
+ "attempts": 3,
+ "seconds": 103.9,
+ "fault": "",
+ "errors": [
+  "ERROR   no-lane            s4             the process has lanes but this step is in none",
+  "ERROR   no-lane            d1             the process has lanes but this step is in none",
+  "ERROR   no-lane            d2             the process has lanes but this step is in none",
+  "ERROR   no-lane            d3             the process has lanes but this step is in none",
+  "ERROR   no-lane            s15            the process has lanes but this step is in none",
+  "ERROR   unlabelled-exit    d1             every exit from a decision needs a label",
+  "ERROR   hidden-decision    s6             two arrows leave a step that is not a decision",
+  "ERROR   one-exit-decision  d2             a decision needs two exits, or a question saying the text gives only one",
+  "ERROR   unlabelled-exit    d2             every exit from a decision needs a label",
+  "ERROR   unlabelled-exit    d3             every exit from a decision needs a label",
+  "ERROR   dead-end           s13            the flow stops here without reaching an end",
+  "ERROR   unreachable        s14            no path leads here from the start"
+ ],
+ "reading": {
+  "title": "Purchase Request Process",
+  "lanes": [
+   {
+    "id": "s1",
+    "name": "Requester"
+   },
+   {
+    "id": "s2",
+    "name": "Procurement"
+   },
+   {
+    "id": "s3",
+    "name": "Budget Holder"
+   }
+  ],
+  "steps": [
+   {
+    "id": "s4",
+    "kind": "start",
+    "text": "Raises Purchase Request",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Checks Supplier List",
+    "lane": "s2",
+    "quote": "Procurement checks whether the supplier is on the approved list.",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Is Supplier on List?",
+    "lane": null,
+    "quote": "If the supplier is not on the list, procurement rejects the request.",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "subprocess",
+    "text": "Supplier Not on List",
+    "lane": "s2",
+    "quote": "If the supplier is not on the list, procurement rejects the request.",
+    "assumed": false
+   },
+   {
+    "id": "s7",
+    "kind": "subprocess",
+    "text": "Supplier on List",
+    "lane": "s2",
+    "quote": "If the supplier is on the list, procurement checks the amount.",
+    "assumed": false
+   },
+   {
+    "id": "s8",
+    "kind": "task",
+    "text": "Checks Amount",
+    "lane": "s2",
+    "quote": "For requests under 1,000 pounds, procurement places the order straight away.",
+    "assumed": false
+   },
+   {
+    "id": "d2",
+    "kind": "decision",
+    "text": "Amount Under 1000 Pounds?",
+    "lane": null,
+    "quote": "For requests under 1,000 pounds, procurement places the order straight away.",
+    "assumed": false
+   },
+   {
+    "id": "s9",
+    "kind": "task",
+    "text": "Places Order",
+    "lane": "s2",
+    "quote": "For requests under 1,000 pounds, procurement places the order straight away.",
+    "assumed": false
+   },
+   {
+    "id": "s10",
+    "kind": "task",
+    "text": "Requests 1000 Pounds or More",
+    "lane": "s2",
+    "quote": "Requests of 1,000 pounds or more go to the budget holder.",
+    "assumed": false
+   },
+   {
+    "id": "s11",
+    "kind": "task",
+    "text": "Sends to Budget Holder",
+    "lane": "s3",
+    "quote": "Requests of 1,000 pounds or more go to the budget holder.",
+    "assumed": false
+   },
+   {
+    "id": "d3",
+    "kind": "decision",
+    "text": "Budget Holder Approval?",
+    "lane": null,
+    "quote": "If the budget holder approves the request, procurement places the order.",
+    "assumed": false
+   },
+   {
+    "id": "s12",
+    "kind": "task",
+    "text": "Places Order",
+    "lane": "s2",
+    "quote": "If the budget holder approves the request, procurement places the order.",
+    "assumed": false
+   },
+   {
+    "id": "s13",
+    "kind": "subprocess",
+    "text": "Budget Holder Refuses",
+    "lane": "s3",
+    "quote": "If the budget holder refuses, procurement rejects the request.",
+    "assumed": false
+   },
+   {
+    "id": "s14",
+    "kind": "subprocess",
+    "text": "Budget Holder Approves",
+    "lane": "s3",
+    "quote": "If the budget holder approves the request, procurement places the order.",
+    "assumed": false
+   },
+   {
+    "id": "s15",
+    "kind": "end",
+    "text": "Request Completed",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s4",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s6",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "s7",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s7",
+    "to": "s8",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s8",
+    "to": "d2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d2",
+    "to": "s9",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s9",
+    "to": "s10",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s10",
+    "to": "s11",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s11",
+    "to": "d3",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d3",
+    "to": "s12",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s12",
+    "to": "s15",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "s13",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s14",
+    "to": "s12",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "d1",
+    "text": "What happens when the supplier is not on the list?",
+    "quote": "If the supplier is not on the list, procurement rejects the request."
+   },
+   {
+    "about": "d3",
+    "text": "What happens when the budget holder refuses?",
+    "quote": "If the budget holder refuses, procurement rejects the request."
+   }
+  ]
+ }
+}

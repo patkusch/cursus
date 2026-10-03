@@ -1,0 +1,174 @@
+{
+ "model": "gemma3:12b",
+ "case": "customer-refund",
+ "run": 1,
+ "attempts": 3,
+ "seconds": 226.8,
+ "fault": "",
+ "errors": [],
+ "reading": {
+  "title": "Refund Request Process",
+  "lanes": [],
+  "steps": [
+   {
+    "id": "s1",
+    "kind": "start",
+    "text": "Customer requests refund",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Agent checks order age",
+    "lane": null,
+    "quote": "The support agent checks whether the order is less than 30 days old.",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Is order less than 30 days old?",
+    "lane": null,
+    "quote": "The support agent checks whether the order is less than 30 days old.",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Agent sends returns label",
+    "lane": null,
+    "quote": "If it is, the agent sends the customer a returns label.",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Customer posts item back",
+    "lane": null,
+    "quote": "The customer posts the item back.",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Warehouse inspects item",
+    "lane": null,
+    "quote": "The warehouse inspects the returned item.",
+    "assumed": false
+   },
+   {
+    "id": "d2",
+    "kind": "decision",
+    "text": "Is item undamaged?",
+    "lane": null,
+    "quote": "If the item is undamaged, the finance team issues the refund. If the item is damaged, the support agent tells the customer the refund is refused.",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "task",
+    "text": "Finance team issues refund",
+    "lane": null,
+    "quote": "If the item is undamaged, the finance team issues the refund.",
+    "assumed": false
+   },
+   {
+    "id": "s7",
+    "kind": "task",
+    "text": "Agent refuses refund",
+    "lane": null,
+    "quote": "If the item is damaged, the support agent tells the customer the refund is refused.",
+    "assumed": false
+   },
+   {
+    "id": "s8",
+    "kind": "end",
+    "text": "Process ends",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s1",
+    "to": "s2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s3",
+    "label": "Yes",
+    "quote": ""
+   },
+   {
+    "from": "s3",
+    "to": "s4",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "d2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d2",
+    "to": "s6",
+    "label": "Yes",
+    "quote": ""
+   },
+   {
+    "from": "d2",
+    "to": "s7",
+    "label": "No",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "s8",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s7",
+    "to": "s8",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "",
+    "text": "What happens if the order is not less than 30 days old?",
+    "quote": "The support agent checks whether the order is less than 30 days old."
+   },
+   {
+    "about": "",
+    "text": "What happens if the order is less than 30 days old, but the item is damaged?",
+    "quote": "If the item is damaged, the support agent tells the customer the refund is refused."
+   },
+   {
+    "about": "d1",
+    "text": "What happens if the order is not less than 30 days old?",
+    "quote": "The support agent checks whether the order is less than 30 days old."
+   }
+  ]
+ }
+}

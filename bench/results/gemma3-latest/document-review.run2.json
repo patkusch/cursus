@@ -1,0 +1,142 @@
+{
+ "model": "gemma3:latest",
+ "case": "document-review",
+ "run": 2,
+ "attempts": 3,
+ "seconds": 47.2,
+ "fault": "",
+ "errors": [
+  "ERROR   no-lane            s2             the process has lanes but this step is in none",
+  "ERROR   no-lane            d1             the process has lanes but this step is in none",
+  "ERROR   no-lane            s8             the process has lanes but this step is in none",
+  "ERROR   unlabelled-exit    d1             every exit from a decision needs a label",
+  "ERROR   quote-not-found    s2             the quote is not in the text: \"start\"",
+  "ERROR   quote-not-found    s8             the quote is not in the text: \"end\""
+ ],
+ "reading": {
+  "title": "Document Publication Process",
+  "lanes": [
+   {
+    "id": "s1",
+    "name": "Author"
+   }
+  ],
+  "steps": [
+   {
+    "id": "s2",
+    "kind": "start",
+    "text": "start",
+    "lane": null,
+    "quote": "start",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "written",
+    "lane": "s1",
+    "quote": "A draft is written.",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "reviewed",
+    "lane": "s1",
+    "quote": "The draft is reviewed.",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "changes needed?",
+    "lane": null,
+    "quote": "If changes are needed, the draft is revised and reviewed again.",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "subprocess",
+    "text": "revised",
+    "lane": "s1",
+    "quote": "the draft is revised",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "subprocess",
+    "text": "reviewed",
+    "lane": "s1",
+    "quote": "reviewed again",
+    "assumed": false
+   },
+   {
+    "id": "s7",
+    "kind": "task",
+    "text": "published",
+    "lane": "s1",
+    "quote": "When no more changes are needed, the document is published.",
+    "assumed": false
+   },
+   {
+    "id": "s8",
+    "kind": "end",
+    "text": "end",
+    "lane": null,
+    "quote": "end",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s2",
+    "to": "s3",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s3",
+    "to": "s4",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "s6",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "s7",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s7",
+    "to": "s8",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "d1",
+    "text": "changes needed?",
+    "quote": "If changes are needed, the draft is revised and reviewed again."
+   }
+  ]
+ }
+}

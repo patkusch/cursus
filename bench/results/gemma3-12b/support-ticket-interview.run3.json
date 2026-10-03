@@ -1,0 +1,160 @@
+{
+ "model": "gemma3:12b",
+ "case": "support-ticket-interview",
+ "run": 3,
+ "attempts": 2,
+ "seconds": 130.6,
+ "fault": "",
+ "errors": [],
+ "reading": {
+  "title": "Ticket Handling Process",
+  "lanes": [],
+  "steps": [
+   {
+    "id": "s1",
+    "kind": "start",
+    "text": "Ticket received",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Check for duplicates",
+    "lane": null,
+    "quote": "the support desk does is check if it's a duplicate",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Is it a duplicate?",
+    "lane": null,
+    "quote": "If it is a duplicate we just close it",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Close ticket",
+    "lane": null,
+    "quote": "we just close it",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Tag with product area",
+    "lane": null,
+    "quote": "we tag it with the product area",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Product team writes reply",
+    "lane": null,
+    "quote": "the product team picks it up and they write a reply",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "task",
+    "text": "Support desk proofreads",
+    "lane": null,
+    "quote": "the support desk proofreads it",
+    "assumed": false
+   },
+   {
+    "id": "s7",
+    "kind": "task",
+    "text": "Send to customer",
+    "lane": null,
+    "quote": "Then we send it to the customer",
+    "assumed": false
+   },
+   {
+    "id": "e1",
+    "kind": "end",
+    "text": "Process end",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s1",
+    "to": "s2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s3",
+    "label": "Yes",
+    "quote": ""
+   },
+   {
+    "from": "s3",
+    "to": "e1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s4",
+    "label": "No",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "s6",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "s7",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s7",
+    "to": "e1",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "",
+    "text": "Who is responsible for checking for duplicates?",
+    "quote": "the support desk does is check if it's a duplicate"
+   },
+   {
+    "about": "",
+    "text": "What happens if the ticket *is* a duplicate?",
+    "quote": "If it is a duplicate we just close it"
+   },
+   {
+    "about": "d1",
+    "text": "What happens if the ticket is *not* a duplicate?",
+    "quote": "If it is a duplicate we just close it"
+   }
+  ]
+ }
+}

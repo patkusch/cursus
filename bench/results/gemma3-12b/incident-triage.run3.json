@@ -1,0 +1,201 @@
+{
+ "model": "gemma3:12b",
+ "case": "incident-triage",
+ "run": 3,
+ "attempts": 3,
+ "seconds": 235.3,
+ "fault": "",
+ "errors": [
+  "ERROR   dead-end           s4             the flow stops here without reaching an end"
+ ],
+ "reading": {
+  "title": "Incident Management",
+  "lanes": [
+   {
+    "id": "sd",
+    "name": "Service Desk"
+   },
+   {
+    "id": "im",
+    "name": "Incident Manager"
+   },
+   {
+    "id": "de",
+    "name": "Duty Engineer"
+   }
+  ],
+  "steps": [
+   {
+    "id": "s1",
+    "kind": "start",
+    "text": "Start",
+    "lane": "sd",
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Logs the incident",
+    "lane": "sd",
+    "quote": "The service desk logs the incident",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Rates incident severity",
+    "lane": "sd",
+    "quote": "then rates its severity",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Is severity low?",
+    "lane": "sd",
+    "quote": "The service desk adds a low severity incident to the weekly backlog",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Adds to backlog",
+    "lane": "sd",
+    "quote": "The service desk adds a low severity incident to the weekly backlog",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Assigns to engineer",
+    "lane": "sd",
+    "quote": "The service desk assigns a medium severity incident to the duty engineer",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "task",
+    "text": "Escalates to manager",
+    "lane": "sd",
+    "quote": "The service desk escalates a high severity incident to the incident manager",
+    "assumed": false
+   },
+   {
+    "id": "s7",
+    "kind": "task",
+    "text": "Opens call with teams",
+    "lane": "im",
+    "quote": "The incident manager opens a call with the affected teams",
+    "assumed": false
+   },
+   {
+    "id": "s8",
+    "kind": "task",
+    "text": "Assigns to engineer",
+    "lane": "im",
+    "quote": "then assigns the incident to the duty engineer",
+    "assumed": false
+   },
+   {
+    "id": "s9",
+    "kind": "task",
+    "text": "Fixes the incident",
+    "lane": "de",
+    "quote": "The duty engineer fixes the incident",
+    "assumed": false
+   },
+   {
+    "id": "s10",
+    "kind": "task",
+    "text": "Closes the ticket",
+    "lane": "sd",
+    "quote": "The service desk closes the ticket once the incident is fixed",
+    "assumed": false
+   },
+   {
+    "id": "s11",
+    "kind": "end",
+    "text": "End",
+    "lane": "sd",
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s1",
+    "to": "s2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "s3",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s3",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s4",
+    "label": "Yes",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s5",
+    "label": "No",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "s6",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "s7",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s7",
+    "to": "s8",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s8",
+    "to": "s9",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s9",
+    "to": "s10",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s10",
+    "to": "s11",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "",
+    "text": "What happens if severity is not low?",
+    "quote": "The service desk adds a low severity incident to the weekly backlog"
+   }
+  ]
+ }
+}

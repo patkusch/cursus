@@ -1,0 +1,116 @@
+{
+ "model": "gemma3:latest",
+ "case": "order-packing",
+ "run": 2,
+ "attempts": 2,
+ "seconds": 23.8,
+ "fault": "",
+ "errors": [],
+ "reading": {
+  "title": "Order Fulfillment Process",
+  "lanes": [],
+  "steps": [
+   {
+    "id": "s1",
+    "kind": "start",
+    "text": "Start",
+    "lane": null,
+    "quote": "When an order arrives, the items are picked from the shelves.",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Pick items",
+    "lane": null,
+    "quote": "When an order arrives, the items are picked from the shelves.",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Items picked?",
+    "lane": null,
+    "quote": "When an order arrives, the items are picked from the shelves.",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Pack items",
+    "lane": null,
+    "quote": "The items are then packed into a box.",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Stick label",
+    "lane": null,
+    "quote": "A shipping label is stuck on the box.",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Hand to courier",
+    "lane": null,
+    "quote": "The box is handed to the courier.",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "end",
+    "text": "End",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s1",
+    "to": "s2",
+    "label": "Pick items",
+    "quote": "When an order arrives, the items are picked from the shelves."
+   },
+   {
+    "from": "s2",
+    "to": "d1",
+    "label": "Items picked?",
+    "quote": "When an order arrives, the items are picked from the shelves."
+   },
+   {
+    "from": "d1",
+    "to": "s3",
+    "label": "Pack items",
+    "quote": "The items are then packed into a box."
+   },
+   {
+    "from": "s3",
+    "to": "s4",
+    "label": "Stick label",
+    "quote": "A shipping label is stuck on the box."
+   },
+   {
+    "from": "s4",
+    "to": "s5",
+    "label": "Hand to courier",
+    "quote": "The box is handed to the courier."
+   },
+   {
+    "from": "s5",
+    "to": "s6",
+    "label": "End",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "d1",
+    "text": "Items picked?",
+    "quote": "When an order arrives, the items are picked from the shelves."
+   }
+  ]
+ }
+}

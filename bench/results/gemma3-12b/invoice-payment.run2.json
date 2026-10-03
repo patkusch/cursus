@@ -1,0 +1,154 @@
+{
+ "model": "gemma3:12b",
+ "case": "invoice-payment",
+ "run": 2,
+ "attempts": 3,
+ "seconds": 181.0,
+ "fault": "",
+ "errors": [
+  "ERROR   repeated-label     d1             two exits from this decision carry the same label",
+  "ERROR   dead-end           s3             the flow stops here without reaching an end"
+ ],
+ "reading": {
+  "title": "Supplier Invoice Processing",
+  "lanes": [],
+  "steps": [
+   {
+    "id": "s1",
+    "kind": "start",
+    "text": "Receive supplier invoice",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Match invoice to purchase order",
+    "lane": null,
+    "quote": "Accounts payable receives the supplier invoice and matches it to the purchase order.",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Does invoice match?",
+    "lane": null,
+    "quote": "If the invoice does not match, accounts payable returns it to the supplier. If it matches...",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Return invoice to supplier",
+    "lane": null,
+    "quote": "If the invoice does not match, accounts payable returns it to the supplier.",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "parallel",
+    "text": "Confirm goods arrived",
+    "lane": null,
+    "quote": "the budget owner confirms the goods arrived",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "parallel",
+    "text": "Check the VAT",
+    "lane": null,
+    "quote": "the tax team checks the VAT",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "task",
+    "text": "Pay the invoice",
+    "lane": null,
+    "quote": "Once both checks are complete, accounts payable pays the invoice.",
+    "assumed": false
+   },
+   {
+    "id": "s7",
+    "kind": "end",
+    "text": "Process complete",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s1",
+    "to": "s2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s3",
+    "label": "No",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s4",
+    "label": "Yes",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s5",
+    "label": "Yes",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "s6",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "s7",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "",
+    "text": "Who returns the invoice to the supplier?",
+    "quote": "If the invoice does not match, accounts payable returns it to the supplier."
+   },
+   {
+    "about": "",
+    "text": "Who is the budget owner?",
+    "quote": "the budget owner confirms the goods arrived"
+   },
+   {
+    "about": "",
+    "text": "Who is the tax team?",
+    "quote": "the tax team checks the VAT"
+   },
+   {
+    "about": "d1",
+    "text": "What happens if the VAT check fails?",
+    "quote": "If it matches..."
+   }
+  ]
+ }
+}

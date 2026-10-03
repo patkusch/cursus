@@ -1,0 +1,196 @@
+{
+ "model": "gemma3:12b",
+ "case": "purchase-order",
+ "run": 2,
+ "attempts": 3,
+ "seconds": 233.0,
+ "fault": "",
+ "errors": [
+  "ERROR   dead-end           s4             the flow stops here without reaching an end"
+ ],
+ "reading": {
+  "title": "Purchase Request Process",
+  "lanes": [],
+  "steps": [
+   {
+    "id": "s1",
+    "kind": "start",
+    "text": "Requester raises request",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Procurement checks supplier",
+    "lane": null,
+    "quote": "Procurement checks whether the supplier is on the approved list.",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Is supplier on approved list?",
+    "lane": null,
+    "quote": "If the supplier is not on the list, procurement rejects the request.",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Procurement checks amount",
+    "lane": null,
+    "quote": "If the supplier is on the list, procurement checks the amount.",
+    "assumed": false
+   },
+   {
+    "id": "d2",
+    "kind": "decision",
+    "text": "Is amount under 1,000 pounds?",
+    "lane": null,
+    "quote": "For requests under 1,000 pounds, procurement places the order straight away.",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Procurement places order",
+    "lane": null,
+    "quote": "For requests under 1,000 pounds, procurement places the order straight away.",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Request goes to budget holder",
+    "lane": null,
+    "quote": "Requests of 1,000 pounds or more go to the budget holder.",
+    "assumed": false
+   },
+   {
+    "id": "d3",
+    "kind": "decision",
+    "text": "Does budget holder approve?",
+    "lane": null,
+    "quote": "If the budget holder approves the request, procurement places the order.",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "task",
+    "text": "Procurement places order",
+    "lane": null,
+    "quote": "If the budget holder approves the request, procurement places the order.",
+    "assumed": false
+   },
+   {
+    "id": "s7",
+    "kind": "task",
+    "text": "Procurement rejects request",
+    "lane": null,
+    "quote": "If the budget holder refuses, procurement rejects the request.",
+    "assumed": false
+   },
+   {
+    "id": "s8",
+    "kind": "end",
+    "text": "Process ends",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s1",
+    "to": "s2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s3",
+    "label": "No",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s3",
+    "label": "Yes",
+    "quote": ""
+   },
+   {
+    "from": "s3",
+    "to": "d2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d2",
+    "to": "s4",
+    "label": "Yes",
+    "quote": ""
+   },
+   {
+    "from": "d2",
+    "to": "s5",
+    "label": "No",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "d3",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d3",
+    "to": "s6",
+    "label": "Yes",
+    "quote": ""
+   },
+   {
+    "from": "d3",
+    "to": "s7",
+    "label": "No",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "s8",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s7",
+    "to": "s8",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "",
+    "text": "What happens if the supplier is not on the approved list?",
+    "quote": "If the supplier is not on the list, procurement rejects the request."
+   },
+   {
+    "about": "",
+    "text": "What happens if the budget holder refuses the request?",
+    "quote": "If the budget holder refuses, procurement rejects the request."
+   },
+   {
+    "about": "",
+    "text": "Who places the order?",
+    "quote": "For requests under 1,000 pounds, procurement places the order straight away."
+   }
+  ]
+ }
+}

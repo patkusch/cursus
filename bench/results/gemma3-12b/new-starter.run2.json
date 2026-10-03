@@ -1,0 +1,167 @@
+{
+ "model": "gemma3:12b",
+ "case": "new-starter",
+ "run": 2,
+ "attempts": 3,
+ "seconds": 180.3,
+ "fault": "",
+ "errors": [
+  "ERROR   no-lane            d1             the process has lanes but this step is in none",
+  "ERROR   hidden-decision    s2             two arrows leave a step that is not a decision"
+ ],
+ "reading": {
+  "title": "New Starter Onboarding",
+  "lanes": [
+   {
+    "id": "hr",
+    "name": "HR"
+   },
+   {
+    "id": "it",
+    "name": "IT"
+   },
+   {
+    "id": "hm",
+    "name": "Hiring Manager"
+   }
+  ],
+  "steps": [
+   {
+    "id": "s1",
+    "kind": "start",
+    "text": "Offer accepted",
+    "lane": "hr",
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Create staff record",
+    "lane": "hr",
+    "quote": "When a new starter accepts an offer, HR creates their staff record.",
+    "assumed": false
+   },
+   {
+    "id": "p1",
+    "kind": "parallel",
+    "text": "Order laptop",
+    "lane": "it",
+    "quote": "two things happen at the same time: IT orders a laptop",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Write first-week plan",
+    "lane": "hm",
+    "quote": "the hiring manager writes a first-week plan",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Are both done?",
+    "lane": null,
+    "quote": "When both are done,",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Send welcome email",
+    "lane": "hr",
+    "quote": "HR sends the welcome email.",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "task",
+    "text": "Meet new starter",
+    "lane": "hm",
+    "quote": "the hiring manager meets the new starter.",
+    "assumed": false
+   },
+   {
+    "id": "e1",
+    "kind": "end",
+    "text": "Onboarding complete",
+    "lane": "hr",
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s1",
+    "to": "s2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "p1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "s4",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "p1",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s5",
+    "label": "Yes",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "s6",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "e1",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "",
+    "text": "Which lane owns the start and end steps?",
+    "quote": ""
+   },
+   {
+    "about": "",
+    "text": "What happens if both tasks are not done?",
+    "quote": "When both are done,"
+   },
+   {
+    "about": "",
+    "text": "Who is responsible for confirming both tasks are complete?",
+    "quote": "When both are done,"
+   },
+   {
+    "about": "d1",
+    "text": "What happens if the tasks are not both done?",
+    "quote": "When both are done,"
+   }
+  ]
+ }
+}

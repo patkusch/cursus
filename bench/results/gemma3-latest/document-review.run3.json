@@ -1,0 +1,155 @@
+{
+ "model": "gemma3:latest",
+ "case": "document-review",
+ "run": 3,
+ "attempts": 3,
+ "seconds": 56.5,
+ "fault": "",
+ "errors": [
+  "ERROR   no-lane            s3             the process has lanes but this step is in none",
+  "ERROR   no-lane            d1             the process has lanes but this step is in none",
+  "ERROR   no-lane            s8             the process has lanes but this step is in none",
+  "ERROR   no-lane            s9             the process has lanes but this step is in none",
+  "ERROR   one-exit-decision  s8             a decision needs two exits, or a question saying the text gives only one",
+  "ERROR   unlabelled-exit    s8             every exit from a decision needs a label",
+  "ERROR   quote-not-found    s3             the quote is not in the text: \"Start\"",
+  "ERROR   quote-not-found    s4             the quote is not in the text: \"The draft is written.\"",
+  "ERROR   quote-not-found    s9             the quote is not in the text: \"End\""
+ ],
+ "reading": {
+  "title": "Document Publication Process",
+  "lanes": [
+   {
+    "id": "s1",
+    "name": "Author"
+   },
+   {
+    "id": "s2",
+    "name": "Reviewer"
+   }
+  ],
+  "steps": [
+   {
+    "id": "s3",
+    "kind": "start",
+    "text": "Start",
+    "lane": null,
+    "quote": "Start",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Write draft",
+    "lane": "s1",
+    "quote": "The draft is written.",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Review draft",
+    "lane": "s2",
+    "quote": "The draft is reviewed.",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Changes needed?",
+    "lane": null,
+    "quote": "If changes are needed, the draft is revised and reviewed again.",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "subprocess",
+    "text": "Revise draft",
+    "lane": "s1",
+    "quote": "The draft is revised and reviewed again.",
+    "assumed": false
+   },
+   {
+    "id": "s7",
+    "kind": "task",
+    "text": "Review revised draft",
+    "lane": "s2",
+    "quote": "The draft is revised and reviewed again.",
+    "assumed": false
+   },
+   {
+    "id": "s8",
+    "kind": "decision",
+    "text": "No more changes?",
+    "lane": null,
+    "quote": "When no more changes are needed, the document is published.",
+    "assumed": false
+   },
+   {
+    "id": "s9",
+    "kind": "end",
+    "text": "End",
+    "lane": null,
+    "quote": "End",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s3",
+    "to": "s4",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s6",
+    "label": "Yes",
+    "quote": "If changes are needed"
+   },
+   {
+    "from": "s6",
+    "to": "s7",
+    "label": "Yes",
+    "quote": "The draft is revised and reviewed again."
+   },
+   {
+    "from": "s7",
+    "to": "d1",
+    "label": "No",
+    "quote": "When no more changes are needed"
+   },
+   {
+    "from": "d1",
+    "to": "s8",
+    "label": "No",
+    "quote": "When no more changes are needed"
+   },
+   {
+    "from": "s8",
+    "to": "s9",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "d1",
+    "text": "Changes needed?",
+    "quote": "If changes are needed, the draft is revised and reviewed again."
+   }
+  ]
+ }
+}

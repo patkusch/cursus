@@ -1,0 +1,173 @@
+{
+ "model": "gemma3:latest",
+ "case": "loan-application",
+ "run": 2,
+ "attempts": 3,
+ "seconds": 64.6,
+ "fault": "",
+ "errors": [
+  "ERROR   no-lane            s4             the process has lanes but this step is in none",
+  "ERROR   no-lane            s5             the process has lanes but this step is in none",
+  "ERROR   no-lane            d1             the process has lanes but this step is in none",
+  "ERROR   no-lane            s6             the process has lanes but this step is in none",
+  "ERROR   no-lane            s7             the process has lanes but this step is in none",
+  "ERROR   no-lane            d2             the process has lanes but this step is in none",
+  "ERROR   no-lane            s8             the process has lanes but this step is in none",
+  "ERROR   no-lane            s9             the process has lanes but this step is in none",
+  "ERROR   no-lane            s10            the process has lanes but this step is in none",
+  "ERROR   no-start           -              the process has no start"
+ ],
+ "reading": {
+  "title": "Loan Application Process",
+  "lanes": [
+   {
+    "id": "s1",
+    "name": "Applicant"
+   },
+   {
+    "id": "s2",
+    "name": "System"
+   },
+   {
+    "id": "s3",
+    "name": "Underwriter"
+   }
+  ],
+  "steps": [
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Fills in online loan form",
+    "lane": null,
+    "quote": "The applicant fills in the online loan form.",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Runs credit check",
+    "lane": null,
+    "quote": "The system runs a credit check.",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Credit score is 600 or above?",
+    "lane": null,
+    "quote": "If the credit score is 600 or above, the system passes the application to an underwriter.",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "subprocess",
+    "text": "Passes application to underwriter",
+    "lane": null,
+    "quote": "the system passes the application to an underwriter.",
+    "assumed": false
+   },
+   {
+    "id": "s7",
+    "kind": "task",
+    "text": "Verifies applicant's income",
+    "lane": null,
+    "quote": "The underwriter verifies the applicant's income.",
+    "assumed": false
+   },
+   {
+    "id": "d2",
+    "kind": "decision",
+    "text": "Income is verified?",
+    "lane": null,
+    "quote": "If the income is verified, the underwriter approves the loan and the system sends the contract to the applicant.",
+    "assumed": false
+   },
+   {
+    "id": "s8",
+    "kind": "subprocess",
+    "text": "Approves the loan",
+    "lane": null,
+    "quote": "the underwriter approves the loan",
+    "assumed": false
+   },
+   {
+    "id": "s9",
+    "kind": "subprocess",
+    "text": "Sends contract to applicant",
+    "lane": null,
+    "quote": "the system sends the contract to the applicant.",
+    "assumed": false
+   },
+   {
+    "id": "s10",
+    "kind": "end",
+    "text": "Ends",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s4",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s6",
+    "label": "Approved",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "s7",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s7",
+    "to": "d2",
+    "label": "Approved",
+    "quote": ""
+   },
+   {
+    "from": "d2",
+    "to": "s8",
+    "label": "Approved",
+    "quote": ""
+   },
+   {
+    "from": "s8",
+    "to": "s9",
+    "label": "Approved",
+    "quote": ""
+   },
+   {
+    "from": "s9",
+    "to": "s10",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "d1",
+    "text": "About d1",
+    "quote": "If the credit score is 600 or above, the system passes the application to an underwriter."
+   },
+   {
+    "about": "d2",
+    "text": "About d2",
+    "quote": "If the income is verified, the underwriter approves the loan and the system sends the contract to the applicant."
+   }
+  ]
+ }
+}

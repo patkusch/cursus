@@ -1,0 +1,184 @@
+{
+ "model": "gemma3:latest",
+ "case": "loan-application",
+ "run": 1,
+ "attempts": 3,
+ "seconds": 74.9,
+ "fault": "",
+ "errors": [
+  "ERROR   no-lane            s4             the process has lanes but this step is in none",
+  "ERROR   no-lane            d1             the process has lanes but this step is in none",
+  "ERROR   no-lane            d2             the process has lanes but this step is in none",
+  "ERROR   no-lane            s11            the process has lanes but this step is in none",
+  "ERROR   unlabelled-exit    d1             every exit from a decision needs a label",
+  "ERROR   one-exit-decision  d2             a decision needs two exits, or a question saying the text gives only one",
+  "ERROR   unlabelled-exit    d2             every exit from a decision needs a label"
+ ],
+ "reading": {
+  "title": "Loan Application Process",
+  "lanes": [
+   {
+    "id": "s1",
+    "name": "Applicant"
+   },
+   {
+    "id": "s2",
+    "name": "System"
+   },
+   {
+    "id": "s3",
+    "name": "Underwriter"
+   }
+  ],
+  "steps": [
+   {
+    "id": "s4",
+    "kind": "start",
+    "text": "Starts",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Fills in online form",
+    "lane": "s1",
+    "quote": "The applicant fills in the online loan form.",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "task",
+    "text": "Runs credit check",
+    "lane": "s2",
+    "quote": "The system runs a credit check.",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Credit score is 600 or above?",
+    "lane": null,
+    "quote": "If the credit score is 600 or above, the system passes the application to an underwriter.",
+    "assumed": false
+   },
+   {
+    "id": "s7",
+    "kind": "subprocess",
+    "text": "Passes application to underwriter",
+    "lane": "s2",
+    "quote": "If the credit score is 600 or above, the system passes the application to an underwriter.",
+    "assumed": false
+   },
+   {
+    "id": "s8",
+    "kind": "task",
+    "text": "Verifies applicant's income",
+    "lane": "s3",
+    "quote": "The underwriter verifies the applicant's income.",
+    "assumed": false
+   },
+   {
+    "id": "d2",
+    "kind": "decision",
+    "text": "Income is verified?",
+    "lane": null,
+    "quote": "If the income is verified, the underwriter approves the loan and the system sends the contract to the applicant.",
+    "assumed": false
+   },
+   {
+    "id": "s9",
+    "kind": "subprocess",
+    "text": "Approves loan",
+    "lane": "s3",
+    "quote": "If the income is verified, the underwriter approves the loan and the system sends the contract to the applicant.",
+    "assumed": false
+   },
+   {
+    "id": "s10",
+    "kind": "task",
+    "text": "Sends contract to applicant",
+    "lane": "s2",
+    "quote": "The system sends the contract to the applicant.",
+    "assumed": false
+   },
+   {
+    "id": "s11",
+    "kind": "end",
+    "text": "Ends",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s4",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "s6",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s7",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s7",
+    "to": "s8",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s8",
+    "to": "d2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d2",
+    "to": "s9",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s9",
+    "to": "s10",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s10",
+    "to": "s11",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "d1",
+    "text": "What happens if the credit score is below 600?",
+    "quote": ""
+   },
+   {
+    "about": "s8",
+    "text": "Who is responsible for the applicant's income verification?",
+    "quote": ""
+   }
+  ]
+ }
+}

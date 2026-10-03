@@ -1,0 +1,132 @@
+{
+ "model": "gemma3:12b",
+ "case": "leave-request",
+ "run": 3,
+ "attempts": 1,
+ "seconds": 45.4,
+ "fault": "",
+ "errors": [],
+ "reading": {
+  "title": "Leave Request Process",
+  "lanes": [],
+  "steps": [
+   {
+    "id": "s1",
+    "kind": "start",
+    "text": "Employee submits request",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Manager reviews request",
+    "lane": null,
+    "quote": "The manager reviews the request.",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Does team have enough cover?",
+    "lane": null,
+    "quote": "If the team has enough cover, the manager approves the request. Otherwise the manager declines the request.",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Manager approves request",
+    "lane": null,
+    "quote": "If the team has enough cover, the manager approves the request.",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Manager declines request",
+    "lane": null,
+    "quote": "Otherwise the manager declines the request.",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Portal notifies employee",
+    "lane": null,
+    "quote": "In both cases the HR portal notifies the employee of the outcome.",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "end",
+    "text": "Process ends",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s1",
+    "to": "s2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s3",
+    "label": "Yes",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s4",
+    "label": "No",
+    "quote": ""
+   },
+   {
+    "from": "s3",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "s6",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "",
+    "text": "Who is responsible for the manager reviewing the request?",
+    "quote": "The manager reviews the request."
+   },
+   {
+    "about": "",
+    "text": "What happens when the manager declines the request?",
+    "quote": "Otherwise the manager declines the request."
+   },
+   {
+    "about": "",
+    "text": "What does the HR portal do after the manager approves or declines the request?",
+    "quote": "In both cases the HR portal notifies the employee of the outcome."
+   }
+  ]
+ }
+}

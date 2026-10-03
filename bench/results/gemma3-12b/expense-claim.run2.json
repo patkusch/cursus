@@ -1,0 +1,245 @@
+{
+ "model": "gemma3:12b",
+ "case": "expense-claim",
+ "run": 2,
+ "attempts": 2,
+ "seconds": 189.0,
+ "fault": "",
+ "errors": [],
+ "reading": {
+  "title": "Expense Claims",
+  "lanes": [],
+  "steps": [
+   {
+    "id": "s1",
+    "kind": "start",
+    "text": "Start",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Fills in claim form",
+    "lane": null,
+    "quote": "An employee fills in the claim form and attaches the receipts.",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Attaches the receipts",
+    "lane": null,
+    "quote": "An employee fills in the claim form and attaches the receipts.",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Submits claim to manager",
+    "lane": null,
+    "quote": "The employee then submits the claim to their line manager.",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Claim within policy?",
+    "lane": null,
+    "quote": "If the claim is within policy, the line manager approves it. If it is not, the manager sends the claim back to the employee with a note...",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Approves the claim",
+    "lane": null,
+    "quote": "If the claim is within policy, the line manager approves it.",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "task",
+    "text": "Sends claim back",
+    "lane": null,
+    "quote": "If it is not, the manager sends the claim back to the employee with a note...",
+    "assumed": false
+   },
+   {
+    "id": "s7",
+    "kind": "task",
+    "text": "Corrects the claim",
+    "lane": null,
+    "quote": "...and the employee corrects the claim and submits it again.",
+    "assumed": false
+   },
+   {
+    "id": "s8",
+    "kind": "task",
+    "text": "Submits claim again",
+    "lane": null,
+    "quote": "...and the employee corrects the claim and submits it again.",
+    "assumed": false
+   },
+   {
+    "id": "s9",
+    "kind": "task",
+    "text": "Goes to finance team",
+    "lane": null,
+    "quote": "Approved claims go to the finance team.",
+    "assumed": false
+   },
+   {
+    "id": "d2",
+    "kind": "decision",
+    "text": "Claim over 500 pounds?",
+    "lane": null,
+    "quote": "Finance checks whether the claim is over 500 pounds. Claims over 500 pounds need sign-off from the finance director.",
+    "assumed": false
+   },
+   {
+    "id": "s10",
+    "kind": "task",
+    "text": "Schedules payment",
+    "lane": null,
+    "quote": "Once a claim is cleared, finance schedules the payment for the next pay run and the system emails a confirmation to the employee.",
+    "assumed": false
+   },
+   {
+    "id": "s11",
+    "kind": "task",
+    "text": "Emails confirmation",
+    "lane": null,
+    "quote": "Once a claim is cleared, finance schedules the payment for the next pay run and the system emails a confirmation to the employee.",
+    "assumed": false
+   },
+   {
+    "id": "s12",
+    "kind": "task",
+    "text": "Reviews large claims",
+    "lane": null,
+    "quote": "The finance director reviews large claims within five working days.",
+    "assumed": false
+   },
+   {
+    "id": "s13",
+    "kind": "end",
+    "text": "End",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s1",
+    "to": "s2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "s3",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s3",
+    "to": "s4",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s5",
+    "label": "Yes",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s6",
+    "label": "No",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "s7",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s7",
+    "to": "s8",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s8",
+    "to": "s4",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "s9",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s9",
+    "to": "d2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d2",
+    "to": "s10",
+    "label": "No",
+    "quote": ""
+   },
+   {
+    "from": "d2",
+    "to": "s12",
+    "label": "Yes",
+    "quote": ""
+   },
+   {
+    "from": "s10",
+    "to": "s11",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s11",
+    "to": "s13",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s12",
+    "to": "s13",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "",
+    "text": "What happens if a claim is rejected by the line manager?",
+    "quote": "If it is not, the manager sends the claim back to the employee with a note..."
+   },
+   {
+    "about": "",
+    "text": "What is considered a 'large claim'?",
+    "quote": "The finance director reviews large claims within five working days."
+   }
+  ]
+ }
+}

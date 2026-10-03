@@ -1,0 +1,179 @@
+{
+ "model": "gemma3:latest",
+ "case": "incident-triage",
+ "run": 2,
+ "attempts": 3,
+ "seconds": 143.9,
+ "fault": "",
+ "errors": [
+  "ERROR   no-lane            s4             the process has lanes but this step is in none",
+  "ERROR   no-lane            s6             the process has lanes but this step is in none",
+  "ERROR   no-lane            s13            the process has lanes but this step is in none",
+  "ERROR   one-exit-decision  s6             a decision needs two exits, or a question saying the text gives only one",
+  "ERROR   unlabelled-exit    s6             every exit from a decision needs a label",
+  "ERROR   quote-not-found    s6             the quote is not in the text: \"The service desk rates its severity. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed.\"",
+  "ERROR   quote-not-found    s10            the quote is not in the text: \"The incident manager assigns the incident to the duty engineer\""
+ ],
+ "reading": {
+  "title": "Incident Resolution Process",
+  "lanes": [
+   {
+    "id": "s1",
+    "name": "Service Desk"
+   },
+   {
+    "id": "s2",
+    "name": "Incident Manager"
+   },
+   {
+    "id": "s3",
+    "name": "Duty Engineer"
+   }
+  ],
+  "steps": [
+   {
+    "id": "s4",
+    "kind": "start",
+    "text": "Start",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Logs Incident",
+    "lane": "s1",
+    "quote": "The service desk logs the incident",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "decision",
+    "text": "Rate Severity",
+    "lane": null,
+    "quote": "The service desk rates its severity. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed. The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager. The incident manager opens a call with the affected teams and then assigns the incident to the duty engineer. The duty engineer fixes the incident. The service desk closes the ticket once the incident is fixed.",
+    "assumed": false
+   },
+   {
+    "id": "s7",
+    "kind": "task",
+    "text": "Assigns Medium Severity Incident",
+    "lane": "s2",
+    "quote": "The service desk assigns a medium severity incident to the duty engineer",
+    "assumed": false
+   },
+   {
+    "id": "s8",
+    "kind": "task",
+    "text": "Escalates High Severity Incident",
+    "lane": "s2",
+    "quote": "The service desk escalates a high severity incident to the incident manager",
+    "assumed": false
+   },
+   {
+    "id": "s9",
+    "kind": "subprocess",
+    "text": "Opens Call With Affected Teams",
+    "lane": "s2",
+    "quote": "The incident manager opens a call with the affected teams",
+    "assumed": false
+   },
+   {
+    "id": "s10",
+    "kind": "task",
+    "text": "Assigns Incident to Duty Engineer",
+    "lane": "s2",
+    "quote": "The incident manager assigns the incident to the duty engineer",
+    "assumed": false
+   },
+   {
+    "id": "s11",
+    "kind": "task",
+    "text": "Fixes Incident",
+    "lane": "s3",
+    "quote": "The duty engineer fixes the incident",
+    "assumed": false
+   },
+   {
+    "id": "s12",
+    "kind": "task",
+    "text": "Closes Ticket",
+    "lane": "s1",
+    "quote": "The service desk closes the ticket once the incident is fixed",
+    "assumed": false
+   },
+   {
+    "id": "s13",
+    "kind": "end",
+    "text": "End",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s4",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "s6",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "s7",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s7",
+    "to": "s8",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s8",
+    "to": "s9",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s9",
+    "to": "s10",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s10",
+    "to": "s11",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s11",
+    "to": "s12",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s12",
+    "to": "s13",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "s8",
+    "text": "What happens when an incident is escalated?",
+    "quote": ""
+   }
+  ]
+ }
+}

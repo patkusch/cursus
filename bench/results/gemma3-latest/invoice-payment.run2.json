@@ -1,0 +1,96 @@
+{
+ "model": "gemma3:latest",
+ "case": "invoice-payment",
+ "run": 2,
+ "attempts": 3,
+ "seconds": 40.8,
+ "fault": "",
+ "errors": [
+  "ERROR   unlabelled-exit    d1             every exit from a decision needs a label",
+  "ERROR   repeated-label     d1             two exits from this decision carry the same label"
+ ],
+ "reading": {
+  "title": "Supplier Invoice Processing",
+  "lanes": [
+   {
+    "id": "s1",
+    "name": "Accounts payable"
+   }
+  ],
+  "steps": [
+   {
+    "id": "s1",
+    "kind": "start",
+    "text": "Receive invoice",
+    "lane": "s1",
+    "quote": "Accounts payable receives the supplier invoice and matches it to the purchase order.",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Match invoice",
+    "lane": "s1",
+    "quote": "Accounts payable receives the supplier invoice and matches it to the purchase order.",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Invoice matches purchase order?",
+    "lane": "s1",
+    "quote": "If the invoice does not match, accounts payable returns it to the supplier. If it matches, two checks run at the same time: the budget owner confirms the goods arrived, and the tax team checks the VAT.",
+    "assumed": false
+   },
+   {
+    "id": "e1",
+    "kind": "end",
+    "text": "Invoice paid",
+    "lane": "s1",
+    "quote": "Once both checks are complete, accounts payable pays the invoice.",
+    "assumed": false
+   },
+   {
+    "id": "e2",
+    "kind": "end",
+    "text": "Return to supplier",
+    "lane": "s1",
+    "quote": "If the invoice does not match, accounts payable returns it to the supplier.",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s1",
+    "to": "s2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "e1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "e2",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "d1",
+    "text": "Invoice matches purchase order?",
+    "quote": "If the invoice does not match, accounts payable returns it to the supplier. If it matches, two checks run at the same time: the budget owner confirms the goods arrived, and the tax team checks the VAT."
+   }
+  ]
+ }
+}

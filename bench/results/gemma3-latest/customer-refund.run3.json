@@ -1,0 +1,178 @@
+{
+ "model": "gemma3:latest",
+ "case": "customer-refund",
+ "run": 3,
+ "attempts": 3,
+ "seconds": 65.6,
+ "fault": "",
+ "errors": [
+  "ERROR   no-lane            s1             the process has lanes but this step is in none",
+  "ERROR   no-lane            d1             the process has lanes but this step is in none",
+  "ERROR   no-lane            t3             the process has lanes but this step is in none",
+  "ERROR   no-lane            d2             the process has lanes but this step is in none",
+  "ERROR   no-end             -              the process has no end",
+  "ERROR   unlabelled-exit    d1             every exit from a decision needs a label",
+  "ERROR   unlabelled-exit    d2             every exit from a decision needs a label",
+  "ERROR   repeated-label     d2             two exits from this decision carry the same label",
+  "ERROR   dead-end           t5             the flow stops here without reaching an end",
+  "ERROR   dead-end           t6             the flow stops here without reaching an end"
+ ],
+ "reading": {
+  "title": "Refund Process",
+  "lanes": [
+   {
+    "id": "s1",
+    "name": "Support Agent"
+   },
+   {
+    "id": "w1",
+    "name": "Warehouse"
+   },
+   {
+    "id": "f1",
+    "name": "Finance Team"
+   }
+  ],
+  "steps": [
+   {
+    "id": "s1",
+    "kind": "start",
+    "text": "Customer Requests Refund",
+    "lane": null,
+    "quote": "A customer asks for a refund through the website.",
+    "assumed": false
+   },
+   {
+    "id": "t1",
+    "kind": "task",
+    "text": "Checks Order Age",
+    "lane": "s1",
+    "quote": "The support agent checks whether the order is less than 30 days old.",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Order Less Than 30 Days?",
+    "lane": null,
+    "quote": "If it is, the agent sends the customer a returns label.",
+    "assumed": false
+   },
+   {
+    "id": "t2",
+    "kind": "task",
+    "text": "Sends Returns Label",
+    "lane": "s1",
+    "quote": "The agent sends the customer a returns label.",
+    "assumed": false
+   },
+   {
+    "id": "t3",
+    "kind": "task",
+    "text": "Customer Posts Item",
+    "lane": null,
+    "quote": "The customer posts the item back.",
+    "assumed": false
+   },
+   {
+    "id": "t4",
+    "kind": "task",
+    "text": "Warehouse Inspects Item",
+    "lane": "w1",
+    "quote": "The warehouse inspects the returned item.",
+    "assumed": false
+   },
+   {
+    "id": "d2",
+    "kind": "decision",
+    "text": "Item Is Undamaged?",
+    "lane": null,
+    "quote": "If the item is undamaged, the finance team issues the refund.",
+    "assumed": false
+   },
+   {
+    "id": "t5",
+    "kind": "task",
+    "text": "Issues Refund",
+    "lane": "f1",
+    "quote": "the finance team issues the refund.",
+    "assumed": false
+   },
+   {
+    "id": "t6",
+    "kind": "task",
+    "text": "Refuses Refund",
+    "lane": "s1",
+    "quote": "If the item is damaged, the support agent tells the customer the refund is refused.",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s1",
+    "to": "t1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "t1",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "t2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "t2",
+    "to": "t3",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "t3",
+    "to": "t4",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "t4",
+    "to": "d2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d2",
+    "to": "t5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d2",
+    "to": "t6",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "d1",
+    "text": "Order Less Than 30 Days?",
+    "quote": "If it is, the agent sends the customer a returns label."
+   },
+   {
+    "about": "d2",
+    "text": "Item Is Undamaged?",
+    "quote": "If the item is undamaged, the finance team issues the refund."
+   },
+   {
+    "about": "d2",
+    "text": "What happens when the item is damaged?",
+    "quote": ""
+   }
+  ]
+ }
+}
