@@ -43,7 +43,8 @@ def test_faults_go_back_to_the_model_until_the_reading_passes():
     second, third = model.seen[1], model.seen[2]
     assert "no JSON object" in second[-1]["content"]
     assert "The warehouse ships it." in third[-1]["content"]  # told exactly which quote is not in the text
-    assert [m["role"] for m in third] == ["user", "assistant", "user", "assistant", "user"]
+    assert [m["role"] for m in third] == ["user", "assistant", "user"]  # the first request plus the latest failed try only
+    assert third[0] == second[0] and "Sorry, I cannot." not in str(third)
 
 
 def test_gives_up_after_the_allowed_repairs_and_keeps_the_best_try():
@@ -57,6 +58,20 @@ def test_gives_up_after_the_allowed_repairs_and_keeps_the_best_try():
 def test_nothing_readable_at_all():
     result = read(TEXT, Scripted("no", "still no"), repairs=1)
     assert result.process is None and "no JSON object" in result.fault
+
+
+def test_a_step_that_quotes_the_text_cannot_hide_behind_assumed():
+    raw = json.loads(reading(quote="Not in the text."))
+    raw["steps"][1]["assumed"] = True
+    result = read(TEXT, Scripted(json.dumps(raw)), repairs=0)
+    assert result.errors == 1 and result.process.steps[1].assumed is False
+
+
+def test_the_model_is_not_offered_the_assumed_field():
+    from cursus.prompts import reading_prompt, reading_schema
+
+    assert "assumed" not in json.dumps(reading_schema())
+    assert '"assumed"' not in reading_prompt(TEXT)
 
 
 def test_answer_wrapped_in_a_fence_or_missing_fields():

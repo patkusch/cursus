@@ -1,0 +1,6 @@
+A customer asks for a refund through the website. The support agent checks
+whether the order is less than 30 days old. If it is, the agent sends the
+customer a returns label. The customer posts the item back. The warehouse
+inspects the returned item. If the item is undamaged, the finance team issues
+the refund. If the item is damaged, the support agent tells the customer the
+refund is refused.

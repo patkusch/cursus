@@ -1,0 +1,119 @@
+{
+ "title": "New starter",
+ "lanes": [
+  {
+   "id": "hr",
+   "name": "HR"
+  },
+  {
+   "id": "it",
+   "name": "IT"
+  },
+  {
+   "id": "manager",
+   "name": "Hiring manager"
+  }
+ ],
+ "steps": [
+  {
+   "id": "start",
+   "kind": "start",
+   "text": "Start",
+   "lane": "hr"
+  },
+  {
+   "id": "t1",
+   "kind": "task",
+   "text": "Create staff record",
+   "lane": "hr",
+   "quote": "HR creates their staff record"
+  },
+  {
+   "id": "p1",
+   "kind": "parallel",
+   "text": "At the same time",
+   "lane": "hr",
+   "quote": "two things happen at the same time"
+  },
+  {
+   "id": "t2",
+   "kind": "task",
+   "text": "Order a laptop",
+   "lane": "it",
+   "quote": "IT orders a laptop"
+  },
+  {
+   "id": "t3",
+   "kind": "task",
+   "text": "Write first-week plan",
+   "lane": "manager",
+   "quote": "the hiring manager writes a first-week plan"
+  },
+  {
+   "id": "p2",
+   "kind": "parallel",
+   "text": "Both done",
+   "lane": "hr",
+   "quote": "When both are done"
+  },
+  {
+   "id": "t4",
+   "kind": "task",
+   "text": "Send welcome email",
+   "lane": "hr",
+   "quote": "HR sends the welcome email"
+  },
+  {
+   "id": "t5",
+   "kind": "task",
+   "text": "Meet the new starter",
+   "lane": "manager",
+   "quote": "the hiring manager meets the new starter"
+  },
+  {
+   "id": "end",
+   "kind": "end",
+   "text": "End",
+   "lane": "manager"
+  }
+ ],
+ "flows": [
+  {
+   "from": "start",
+   "to": "t1"
+  },
+  {
+   "from": "t1",
+   "to": "p1"
+  },
+  {
+   "from": "p1",
+   "to": "t2"
+  },
+  {
+   "from": "p1",
+   "to": "t3"
+  },
+  {
+   "from": "t2",
+   "to": "p2"
+  },
+  {
+   "from": "t3",
+   "to": "p2"
+  },
+  {
+   "from": "p2",
+   "to": "t4"
+  },
+  {
+   "from": "t4",
+   "to": "t5"
+  },
+  {
+   "from": "t5",
+   "to": "end"
+  }
+ ],
+ "questions": []
+}

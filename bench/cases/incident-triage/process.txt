@@ -1,0 +1,7 @@
+The service desk logs the incident and then rates its severity. The service desk
+adds a low severity incident to the weekly backlog. The service desk assigns a
+medium severity incident to the duty engineer. The service desk escalates a high
+severity incident to the incident manager. The incident manager opens a call
+with the affected teams and then assigns the incident to the duty engineer. The
+duty engineer fixes the incident. The service desk closes the ticket once the
+incident is fixed.

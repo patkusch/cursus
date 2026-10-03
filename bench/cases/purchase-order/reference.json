@@ -1,0 +1,129 @@
+{
+ "title": "Purchase order",
+ "lanes": [
+  {
+   "id": "requester",
+   "name": "Requester"
+  },
+  {
+   "id": "procurement",
+   "name": "Procurement"
+  },
+  {
+   "id": "holder",
+   "name": "Budget holder"
+  }
+ ],
+ "steps": [
+  {
+   "id": "start",
+   "kind": "start",
+   "text": "Start",
+   "lane": "requester"
+  },
+  {
+   "id": "t1",
+   "kind": "task",
+   "text": "Raise purchase request",
+   "lane": "requester",
+   "quote": "A requester raises a purchase request."
+  },
+  {
+   "id": "d1",
+   "kind": "decision",
+   "text": "Supplier on approved list?",
+   "lane": "procurement",
+   "quote": "Procurement checks whether the supplier is on the approved list."
+  },
+  {
+   "id": "t2",
+   "kind": "task",
+   "text": "Reject the request",
+   "lane": "procurement",
+   "quote": "procurement rejects the request"
+  },
+  {
+   "id": "end1",
+   "kind": "end",
+   "text": "Rejected",
+   "lane": "procurement"
+  },
+  {
+   "id": "d2",
+   "kind": "decision",
+   "text": "Under 1,000 pounds?",
+   "lane": "procurement",
+   "quote": "procurement checks the amount"
+  },
+  {
+   "id": "t3",
+   "kind": "task",
+   "text": "Place the order",
+   "lane": "procurement",
+   "quote": "procurement places the order straight away"
+  },
+  {
+   "id": "end2",
+   "kind": "end",
+   "text": "Ordered",
+   "lane": "procurement"
+  },
+  {
+   "id": "d3",
+   "kind": "decision",
+   "text": "Budget holder approves?",
+   "lane": "holder",
+   "quote": "If the budget holder approves the request"
+  }
+ ],
+ "flows": [
+  {
+   "from": "start",
+   "to": "t1"
+  },
+  {
+   "from": "t1",
+   "to": "d1"
+  },
+  {
+   "from": "d1",
+   "to": "t2",
+   "label": "No"
+  },
+  {
+   "from": "d1",
+   "to": "d2",
+   "label": "Yes"
+  },
+  {
+   "from": "d2",
+   "to": "t3",
+   "label": "Yes"
+  },
+  {
+   "from": "d2",
+   "to": "d3",
+   "label": "No",
+   "quote": "Requests of 1,000 pounds or more go to the budget holder."
+  },
+  {
+   "from": "d3",
+   "to": "t3",
+   "label": "Yes"
+  },
+  {
+   "from": "d3",
+   "to": "t2",
+   "label": "No"
+  },
+  {
+   "from": "t2",
+   "to": "end1"
+  },
+  {
+   "from": "t3",
+   "to": "end2"
+  }
+ ],
+ "questions": []
+}

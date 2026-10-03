@@ -36,7 +36,9 @@ For one description, four files:
 | Excel table for Visio | Built. Not yet tried in Visio. |
 | Visio file | Built. **Not yet opened in Visio.** See [testpack](testpack/README.md). |
 | Rows per role | Drawn as plain rectangles. Visio's own swimlanes come next. |
-| Reading the text with a model | By hand for now: `cursus prompt` writes the instructions, you paste the answer back. |
+| Reading the text with a model | Built for models running on your own machine through Ollama. Any other model works by copy and paste. |
+| Asking the author about gaps | Built. Answers are added to the text and the flow is redrawn. |
+| Scoreboard | Built. See [how well models read](#how-well-models-read). |
 
 ## Try it
 
@@ -48,17 +50,63 @@ pip install -e ".[dev]"
 cursus build examples/expense-claim/reading.json --source examples/expense-claim/process.txt
 ```
 
-To start from your own text:
+To start from your own text, with a model running on your machine
+([Ollama](https://ollama.com)); nothing leaves the computer:
+
+```bash
+cursus read my-process.txt --model gemma3:12b -o reading.json
+```
+
+```bash
+cursus build reading.json --source my-process.txt
+```
+
+The reading is checked as soon as it comes back. If it fails, the faults go
+back to the model for another try, twice at most.
+
+To use any other model, by copy and paste:
 
 ```bash
 cursus prompt my-process.txt -o prompt.md
 ```
 
-Give `prompt.md` to any model, save its answer as `reading.json`, then:
+Give `prompt.md` to the model and save its answer as `reading.json`.
+
+## Closing the gaps
+
+When the text does not say what happens, cursus asks instead of guessing.
 
 ```bash
-cursus build reading.json --source my-process.txt
+cursus questions reading.json -o answers.md
 ```
+
+Write the answers into `answers.md`, then read and build again with
+`--answers answers.md`. The answers become part of the text, so a step that
+comes from an answer quotes the answer.
+
+| Before | After the author answered one question |
+| --- | --- |
+| ![Flow with a dashed "Not stated" box](docs/expense-claim.svg) | ![Flow where the dashed box is replaced by a real step](docs/expense-claim-answered.svg) |
+
+The answer given was: *"If the finance director refuses, finance rejects the
+claim and tells the employee why."*
+
+## How well models read
+
+A drawing is only as good as the reading behind it. [bench/cases](bench/cases)
+holds eleven process descriptions, each with a reference reading written by
+hand. A model reads each one several times and every reading is scored against
+the reference: steps found, arrows that agree, the right role on each step,
+and whether a gap in the text was asked about or papered over.
+
+Results are in [bench/SCOREBOARD.md](bench/SCOREBOARD.md).
+
+```bash
+cursus score --model gemma3:12b --runs 3
+```
+
+The references were written for this project by the same hands as the tool.
+Public sets of process descriptions are not in yet.
 
 ## What gets checked before anything is drawn
 
@@ -96,8 +144,8 @@ For engineers. The plain version ends above.
 
 - Visio's own swimlanes (rows that boxes belong to, not rectangles behind them).
 - Sub-process and document shapes (drawn as a Process box for now).
-- Calling a model directly instead of pasting.
-- A scoreboard: readings scored against reference processes.
+- Calling a hosted model directly (local models work today; hosted ones by copy and paste).
+- Public reference sets on the scoreboard, next to our own eleven cases.
 
 ## Credits
 

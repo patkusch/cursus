@@ -1,0 +1,3 @@
+A draft is written. The draft is reviewed. If changes are needed, the draft is
+revised and reviewed again. When no more changes are needed, the document is
+published.

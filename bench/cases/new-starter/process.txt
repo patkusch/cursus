@@ -1,0 +1,4 @@
+When a new starter accepts an offer, HR creates their staff record. After that,
+two things happen at the same time: IT orders a laptop, and the hiring manager
+writes a first-week plan. When both are done, HR sends the welcome email. On the
+first day, the hiring manager meets the new starter.

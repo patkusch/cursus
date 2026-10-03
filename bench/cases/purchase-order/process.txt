@@ -1,0 +1,7 @@
+A requester raises a purchase request. Procurement checks whether the supplier
+is on the approved list. If the supplier is not on the list, procurement rejects
+the request. If the supplier is on the list, procurement checks the amount. For
+requests under 1,000 pounds, procurement places the order straight away.
+Requests of 1,000 pounds or more go to the budget holder. If the budget holder
+approves the request, procurement places the order. If the budget holder
+refuses, procurement rejects the request.

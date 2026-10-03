@@ -1,0 +1,154 @@
+{
+ "title": "Incident triage",
+ "lanes": [
+  {
+   "id": "desk",
+   "name": "Service desk"
+  },
+  {
+   "id": "manager",
+   "name": "Incident manager"
+  },
+  {
+   "id": "engineer",
+   "name": "Duty engineer"
+  }
+ ],
+ "steps": [
+  {
+   "id": "start",
+   "kind": "start",
+   "text": "Start",
+   "lane": "desk"
+  },
+  {
+   "id": "t1",
+   "kind": "task",
+   "text": "Log the incident",
+   "lane": "desk",
+   "quote": "The service desk logs the incident"
+  },
+  {
+   "id": "d1",
+   "kind": "decision",
+   "text": "How severe?",
+   "lane": "desk",
+   "quote": "then rates its severity"
+  },
+  {
+   "id": "t2",
+   "kind": "task",
+   "text": "Add to weekly backlog",
+   "lane": "desk",
+   "quote": "The service desk adds a low severity incident to the weekly backlog."
+  },
+  {
+   "id": "end1",
+   "kind": "end",
+   "text": "In backlog",
+   "lane": "desk"
+  },
+  {
+   "id": "t3",
+   "kind": "task",
+   "text": "Assign to duty engineer",
+   "lane": "desk",
+   "quote": "The service desk assigns a medium severity incident to the duty engineer."
+  },
+  {
+   "id": "t4",
+   "kind": "task",
+   "text": "Escalate to incident manager",
+   "lane": "desk",
+   "quote": "The service desk escalates a high severity incident to the incident manager."
+  },
+  {
+   "id": "t5",
+   "kind": "task",
+   "text": "Open call with affected teams",
+   "lane": "manager",
+   "quote": "The incident manager opens a call with the affected teams"
+  },
+  {
+   "id": "t6",
+   "kind": "task",
+   "text": "Assign incident to duty engineer",
+   "lane": "manager",
+   "quote": "then assigns the incident to the duty engineer"
+  },
+  {
+   "id": "t7",
+   "kind": "task",
+   "text": "Fix the incident",
+   "lane": "engineer",
+   "quote": "The duty engineer fixes the incident."
+  },
+  {
+   "id": "t8",
+   "kind": "task",
+   "text": "Close the ticket",
+   "lane": "desk",
+   "quote": "The service desk closes the ticket once the incident is fixed."
+  },
+  {
+   "id": "end2",
+   "kind": "end",
+   "text": "Closed",
+   "lane": "desk"
+  }
+ ],
+ "flows": [
+  {
+   "from": "start",
+   "to": "t1"
+  },
+  {
+   "from": "t1",
+   "to": "d1"
+  },
+  {
+   "from": "d1",
+   "to": "t2",
+   "label": "Low"
+  },
+  {
+   "from": "d1",
+   "to": "t3",
+   "label": "Medium"
+  },
+  {
+   "from": "d1",
+   "to": "t4",
+   "label": "High"
+  },
+  {
+   "from": "t2",
+   "to": "end1"
+  },
+  {
+   "from": "t3",
+   "to": "t7"
+  },
+  {
+   "from": "t4",
+   "to": "t5"
+  },
+  {
+   "from": "t5",
+   "to": "t6"
+  },
+  {
+   "from": "t6",
+   "to": "t7"
+  },
+  {
+   "from": "t7",
+   "to": "t8"
+  },
+  {
+   "from": "t8",
+   "to": "end2"
+  }
+ ],
+ "questions": []
+}

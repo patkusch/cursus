@@ -1,0 +1,149 @@
+{
+ "title": "Customer refund",
+ "lanes": [
+  {
+   "id": "customer",
+   "name": "Customer"
+  },
+  {
+   "id": "agent",
+   "name": "Support agent"
+  },
+  {
+   "id": "warehouse",
+   "name": "Warehouse"
+  },
+  {
+   "id": "finance",
+   "name": "Finance team"
+  }
+ ],
+ "steps": [
+  {
+   "id": "start",
+   "kind": "start",
+   "text": "Start",
+   "lane": "customer"
+  },
+  {
+   "id": "t1",
+   "kind": "task",
+   "text": "Ask for a refund",
+   "lane": "customer",
+   "quote": "A customer asks for a refund through the website."
+  },
+  {
+   "id": "d1",
+   "kind": "decision",
+   "text": "Order under 30 days old?",
+   "lane": "agent",
+   "quote": "The support agent checks whether the order is less than 30 days old."
+  },
+  {
+   "id": "t2",
+   "kind": "task",
+   "text": "Send returns label",
+   "lane": "agent",
+   "quote": "the agent sends the customer a returns label"
+  },
+  {
+   "id": "t3",
+   "kind": "task",
+   "text": "Post the item back",
+   "lane": "customer",
+   "quote": "The customer posts the item back."
+  },
+  {
+   "id": "t4",
+   "kind": "task",
+   "text": "Inspect returned item",
+   "lane": "warehouse",
+   "quote": "The warehouse inspects the returned item."
+  },
+  {
+   "id": "d2",
+   "kind": "decision",
+   "text": "Item undamaged?",
+   "lane": "warehouse",
+   "quote": "If the item is undamaged"
+  },
+  {
+   "id": "t5",
+   "kind": "task",
+   "text": "Issue the refund",
+   "lane": "finance",
+   "quote": "the finance team issues the refund"
+  },
+  {
+   "id": "t6",
+   "kind": "task",
+   "text": "Tell customer refund refused",
+   "lane": "agent",
+   "quote": "the support agent tells the customer the refund is refused"
+  },
+  {
+   "id": "end1",
+   "kind": "end",
+   "text": "Refunded",
+   "lane": "finance"
+  },
+  {
+   "id": "end2",
+   "kind": "end",
+   "text": "Refused",
+   "lane": "agent"
+  }
+ ],
+ "flows": [
+  {
+   "from": "start",
+   "to": "t1"
+  },
+  {
+   "from": "t1",
+   "to": "d1"
+  },
+  {
+   "from": "d1",
+   "to": "t2",
+   "label": "Yes"
+  },
+  {
+   "from": "t2",
+   "to": "t3"
+  },
+  {
+   "from": "t3",
+   "to": "t4"
+  },
+  {
+   "from": "t4",
+   "to": "d2"
+  },
+  {
+   "from": "d2",
+   "to": "t5",
+   "label": "Yes"
+  },
+  {
+   "from": "d2",
+   "to": "t6",
+   "label": "No"
+  },
+  {
+   "from": "t5",
+   "to": "end1"
+  },
+  {
+   "from": "t6",
+   "to": "end2"
+  }
+ ],
+ "questions": [
+  {
+   "about": "d1",
+   "text": "What happens when the order is 30 days old or more?",
+   "quote": "The support agent checks whether the order is less than 30 days old."
+  }
+ ]
+}

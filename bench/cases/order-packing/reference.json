@@ -1,0 +1,63 @@
+{
+ "title": "Order packing",
+ "lanes": [],
+ "steps": [
+  {
+   "id": "start",
+   "kind": "start",
+   "text": "Start"
+  },
+  {
+   "id": "t1",
+   "kind": "task",
+   "text": "Pick items from shelves",
+   "quote": "the items are picked from the shelves"
+  },
+  {
+   "id": "t2",
+   "kind": "task",
+   "text": "Pack items into box",
+   "quote": "The items are then packed into a box."
+  },
+  {
+   "id": "t3",
+   "kind": "task",
+   "text": "Stick label on box",
+   "quote": "A shipping label is stuck on the box."
+  },
+  {
+   "id": "t4",
+   "kind": "task",
+   "text": "Hand box to courier",
+   "quote": "The box is handed to the courier."
+  },
+  {
+   "id": "end",
+   "kind": "end",
+   "text": "End"
+  }
+ ],
+ "flows": [
+  {
+   "from": "start",
+   "to": "t1"
+  },
+  {
+   "from": "t1",
+   "to": "t2"
+  },
+  {
+   "from": "t2",
+   "to": "t3"
+  },
+  {
+   "from": "t3",
+   "to": "t4"
+  },
+  {
+   "from": "t4",
+   "to": "end"
+  }
+ ],
+ "questions": []
+}

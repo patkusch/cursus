@@ -1,0 +1,139 @@
+{
+ "title": "Loan application",
+ "lanes": [
+  {
+   "id": "applicant",
+   "name": "Applicant"
+  },
+  {
+   "id": "system",
+   "name": "System"
+  },
+  {
+   "id": "underwriter",
+   "name": "Underwriter"
+  }
+ ],
+ "steps": [
+  {
+   "id": "start",
+   "kind": "start",
+   "text": "Start",
+   "lane": "applicant"
+  },
+  {
+   "id": "t1",
+   "kind": "task",
+   "text": "Fill in loan form",
+   "lane": "applicant",
+   "quote": "The applicant fills in the online loan form."
+  },
+  {
+   "id": "t2",
+   "kind": "task",
+   "text": "Run credit check",
+   "lane": "system",
+   "quote": "The system runs a credit check."
+  },
+  {
+   "id": "d1",
+   "kind": "decision",
+   "text": "Score 600 or above?",
+   "lane": "system",
+   "quote": "If the credit score is 600 or above"
+  },
+  {
+   "id": "t3",
+   "kind": "task",
+   "text": "Pass application to underwriter",
+   "lane": "system",
+   "quote": "the system passes the application to an underwriter"
+  },
+  {
+   "id": "t4",
+   "kind": "task",
+   "text": "Verify applicant's income",
+   "lane": "underwriter",
+   "quote": "The underwriter verifies the applicant's income."
+  },
+  {
+   "id": "d2",
+   "kind": "decision",
+   "text": "Income verified?",
+   "lane": "underwriter",
+   "quote": "If the income is verified"
+  },
+  {
+   "id": "t5",
+   "kind": "task",
+   "text": "Approve the loan",
+   "lane": "underwriter",
+   "quote": "the underwriter approves the loan"
+  },
+  {
+   "id": "t6",
+   "kind": "task",
+   "text": "Send contract to applicant",
+   "lane": "system",
+   "quote": "the system sends the contract to the applicant"
+  },
+  {
+   "id": "end",
+   "kind": "end",
+   "text": "End",
+   "lane": "system"
+  }
+ ],
+ "flows": [
+  {
+   "from": "start",
+   "to": "t1"
+  },
+  {
+   "from": "t1",
+   "to": "t2"
+  },
+  {
+   "from": "t2",
+   "to": "d1"
+  },
+  {
+   "from": "d1",
+   "to": "t3",
+   "label": "Yes"
+  },
+  {
+   "from": "t3",
+   "to": "t4"
+  },
+  {
+   "from": "t4",
+   "to": "d2"
+  },
+  {
+   "from": "d2",
+   "to": "t5",
+   "label": "Yes"
+  },
+  {
+   "from": "t5",
+   "to": "t6"
+  },
+  {
+   "from": "t6",
+   "to": "end"
+  }
+ ],
+ "questions": [
+  {
+   "about": "d1",
+   "text": "What happens when the credit score is below 600?",
+   "quote": "If the credit score is 600 or above"
+  },
+  {
+   "about": "d2",
+   "text": "What happens when the income cannot be verified?",
+   "quote": "If the income is verified"
+  }
+ ]
+}

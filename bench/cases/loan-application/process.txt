@@ -1,0 +1,5 @@
+The applicant fills in the online loan form. The system runs a credit check. If
+the credit score is 600 or above, the system passes the application to an
+underwriter. The underwriter verifies the applicant's income. If the income is
+verified, the underwriter approves the loan and the system sends the contract to
+the applicant.

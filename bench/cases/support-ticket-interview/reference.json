@@ -1,0 +1,138 @@
+{
+ "title": "Support tickets",
+ "lanes": [
+  {
+   "id": "customer",
+   "name": "Customer"
+  },
+  {
+   "id": "desk",
+   "name": "Support desk"
+  },
+  {
+   "id": "product",
+   "name": "Product team"
+  }
+ ],
+ "steps": [
+  {
+   "id": "start",
+   "kind": "start",
+   "text": "Start",
+   "lane": "customer"
+  },
+  {
+   "id": "t1",
+   "kind": "task",
+   "text": "Send in a ticket",
+   "lane": "customer",
+   "quote": "the customer sends in a ticket"
+  },
+  {
+   "id": "d1",
+   "kind": "decision",
+   "text": "Duplicate?",
+   "lane": "desk",
+   "quote": "check if it's a duplicate"
+  },
+  {
+   "id": "t2",
+   "kind": "task",
+   "text": "Close the ticket",
+   "lane": "desk",
+   "quote": "we just close it"
+  },
+  {
+   "id": "end1",
+   "kind": "end",
+   "text": "Closed",
+   "lane": "desk"
+  },
+  {
+   "id": "t3",
+   "kind": "task",
+   "text": "Tag with product area",
+   "lane": "desk",
+   "quote": "we tag it with the product area"
+  },
+  {
+   "id": "t4",
+   "kind": "task",
+   "text": "Pick up the ticket",
+   "lane": "product",
+   "quote": "the product team picks it up"
+  },
+  {
+   "id": "t5",
+   "kind": "task",
+   "text": "Write a reply",
+   "lane": "product",
+   "quote": "they write a reply"
+  },
+  {
+   "id": "t6",
+   "kind": "task",
+   "text": "Proofread the reply",
+   "lane": "desk",
+   "quote": "the support desk proofreads it"
+  },
+  {
+   "id": "t7",
+   "kind": "task",
+   "text": "Send reply to customer",
+   "lane": "desk",
+   "quote": "we send it to the customer"
+  },
+  {
+   "id": "end2",
+   "kind": "end",
+   "text": "Sent",
+   "lane": "desk"
+  }
+ ],
+ "flows": [
+  {
+   "from": "start",
+   "to": "t1"
+  },
+  {
+   "from": "t1",
+   "to": "d1"
+  },
+  {
+   "from": "d1",
+   "to": "t2",
+   "label": "Yes"
+  },
+  {
+   "from": "t2",
+   "to": "end1"
+  },
+  {
+   "from": "d1",
+   "to": "t3",
+   "label": "No"
+  },
+  {
+   "from": "t3",
+   "to": "t4"
+  },
+  {
+   "from": "t4",
+   "to": "t5"
+  },
+  {
+   "from": "t5",
+   "to": "t6"
+  },
+  {
+   "from": "t6",
+   "to": "t7"
+  },
+  {
+   "from": "t7",
+   "to": "end2"
+  }
+ ],
+ "questions": []
+}

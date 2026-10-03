@@ -63,6 +63,13 @@ ANSWERED = """\
 """
 
 
+def reading_schema() -> dict:
+    """The layout a model is asked to fill in. `assumed` is left out: a model is told not to add steps the text lacks."""
+    schema = Process.model_json_schema(by_alias=True)
+    schema["$defs"]["Step"]["properties"].pop("assumed", None)
+    return schema
+
+
 def reading_prompt(source: str, *, has_answers: bool = False) -> str:
-    schema = json.dumps(Process.model_json_schema(by_alias=True), indent=1)
+    schema = json.dumps(reading_schema(), indent=1)
     return RULES.format(schema=schema, source=source.strip(), extra=ANSWERED if has_answers else "")

@@ -1,0 +1,4 @@
+An employee submits a leave request in the HR portal. The manager reviews the
+request. If the team has enough cover, the manager approves the request.
+Otherwise the manager declines the request. In both cases the HR portal notifies
+the employee of the outcome.

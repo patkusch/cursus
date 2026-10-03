@@ -1,0 +1,110 @@
+{
+ "title": "Leave request",
+ "lanes": [
+  {
+   "id": "employee",
+   "name": "Employee"
+  },
+  {
+   "id": "manager",
+   "name": "Manager"
+  },
+  {
+   "id": "portal",
+   "name": "HR portal"
+  }
+ ],
+ "steps": [
+  {
+   "id": "start",
+   "kind": "start",
+   "text": "Start",
+   "lane": "employee"
+  },
+  {
+   "id": "t1",
+   "kind": "task",
+   "text": "Submit leave request",
+   "lane": "employee",
+   "quote": "An employee submits a leave request in the HR portal."
+  },
+  {
+   "id": "t2",
+   "kind": "task",
+   "text": "Review the request",
+   "lane": "manager",
+   "quote": "The manager reviews the request."
+  },
+  {
+   "id": "d1",
+   "kind": "decision",
+   "text": "Enough cover?",
+   "lane": "manager",
+   "quote": "If the team has enough cover"
+  },
+  {
+   "id": "t3",
+   "kind": "task",
+   "text": "Approve the request",
+   "lane": "manager",
+   "quote": "the manager approves the request"
+  },
+  {
+   "id": "t4",
+   "kind": "task",
+   "text": "Decline the request",
+   "lane": "manager",
+   "quote": "Otherwise the manager declines the request."
+  },
+  {
+   "id": "t5",
+   "kind": "task",
+   "text": "Notify employee of outcome",
+   "lane": "portal",
+   "quote": "the HR portal notifies the employee of the outcome"
+  },
+  {
+   "id": "end",
+   "kind": "end",
+   "text": "End",
+   "lane": "portal"
+  }
+ ],
+ "flows": [
+  {
+   "from": "start",
+   "to": "t1"
+  },
+  {
+   "from": "t1",
+   "to": "t2"
+  },
+  {
+   "from": "t2",
+   "to": "d1"
+  },
+  {
+   "from": "d1",
+   "to": "t3",
+   "label": "Yes"
+  },
+  {
+   "from": "d1",
+   "to": "t4",
+   "label": "No"
+  },
+  {
+   "from": "t3",
+   "to": "t5"
+  },
+  {
+   "from": "t4",
+   "to": "t5"
+  },
+  {
+   "from": "t5",
+   "to": "end"
+  }
+ ],
+ "questions": []
+}

@@ -1,0 +1,153 @@
+{
+ "title": "Invoice payment",
+ "lanes": [
+  {
+   "id": "ap",
+   "name": "Accounts payable"
+  },
+  {
+   "id": "owner",
+   "name": "Budget owner"
+  },
+  {
+   "id": "tax",
+   "name": "Tax team"
+  }
+ ],
+ "steps": [
+  {
+   "id": "start",
+   "kind": "start",
+   "text": "Start",
+   "lane": "ap"
+  },
+  {
+   "id": "t1",
+   "kind": "task",
+   "text": "Receive supplier invoice",
+   "lane": "ap",
+   "quote": "Accounts payable receives the supplier invoice"
+  },
+  {
+   "id": "t2",
+   "kind": "task",
+   "text": "Match to purchase order",
+   "lane": "ap",
+   "quote": "matches it to the purchase order"
+  },
+  {
+   "id": "d1",
+   "kind": "decision",
+   "text": "Invoice matches?",
+   "lane": "ap",
+   "quote": "If the invoice does not match"
+  },
+  {
+   "id": "t3",
+   "kind": "task",
+   "text": "Return invoice to supplier",
+   "lane": "ap",
+   "quote": "accounts payable returns it to the supplier"
+  },
+  {
+   "id": "end1",
+   "kind": "end",
+   "text": "Returned",
+   "lane": "ap"
+  },
+  {
+   "id": "p1",
+   "kind": "parallel",
+   "text": "At the same time",
+   "lane": "ap",
+   "quote": "two checks run at the same time"
+  },
+  {
+   "id": "t4",
+   "kind": "task",
+   "text": "Confirm goods arrived",
+   "lane": "owner",
+   "quote": "the budget owner confirms the goods arrived"
+  },
+  {
+   "id": "t5",
+   "kind": "task",
+   "text": "Check the VAT",
+   "lane": "tax",
+   "quote": "the tax team checks the VAT"
+  },
+  {
+   "id": "p2",
+   "kind": "parallel",
+   "text": "Both complete",
+   "lane": "ap",
+   "quote": "Once both checks are complete"
+  },
+  {
+   "id": "t6",
+   "kind": "task",
+   "text": "Pay the invoice",
+   "lane": "ap",
+   "quote": "accounts payable pays the invoice"
+  },
+  {
+   "id": "end2",
+   "kind": "end",
+   "text": "Paid",
+   "lane": "ap"
+  }
+ ],
+ "flows": [
+  {
+   "from": "start",
+   "to": "t1"
+  },
+  {
+   "from": "t1",
+   "to": "t2"
+  },
+  {
+   "from": "t2",
+   "to": "d1"
+  },
+  {
+   "from": "d1",
+   "to": "t3",
+   "label": "No"
+  },
+  {
+   "from": "t3",
+   "to": "end1"
+  },
+  {
+   "from": "d1",
+   "to": "p1",
+   "label": "Yes"
+  },
+  {
+   "from": "p1",
+   "to": "t4"
+  },
+  {
+   "from": "p1",
+   "to": "t5"
+  },
+  {
+   "from": "t4",
+   "to": "p2"
+  },
+  {
+   "from": "t5",
+   "to": "p2"
+  },
+  {
+   "from": "p2",
+   "to": "t6"
+  },
+  {
+   "from": "t6",
+   "to": "end2"
+  }
+ ],
+ "questions": []
+}

@@ -1,0 +1,80 @@
+{
+ "title": "Document review",
+ "lanes": [],
+ "steps": [
+  {
+   "id": "start",
+   "kind": "start",
+   "text": "Start"
+  },
+  {
+   "id": "t1",
+   "kind": "task",
+   "text": "Write the draft",
+   "quote": "A draft is written."
+  },
+  {
+   "id": "t2",
+   "kind": "task",
+   "text": "Review the draft",
+   "quote": "The draft is reviewed."
+  },
+  {
+   "id": "d1",
+   "kind": "decision",
+   "text": "Changes needed?",
+   "quote": "If changes are needed"
+  },
+  {
+   "id": "t3",
+   "kind": "task",
+   "text": "Revise the draft",
+   "quote": "the draft is revised"
+  },
+  {
+   "id": "t4",
+   "kind": "task",
+   "text": "Publish the document",
+   "quote": "the document is published"
+  },
+  {
+   "id": "end",
+   "kind": "end",
+   "text": "End"
+  }
+ ],
+ "flows": [
+  {
+   "from": "start",
+   "to": "t1"
+  },
+  {
+   "from": "t1",
+   "to": "t2"
+  },
+  {
+   "from": "t2",
+   "to": "d1"
+  },
+  {
+   "from": "d1",
+   "to": "t3",
+   "label": "Yes"
+  },
+  {
+   "from": "t3",
+   "to": "t2",
+   "quote": "reviewed again"
+  },
+  {
+   "from": "d1",
+   "to": "t4",
+   "label": "No"
+  },
+  {
+   "from": "t4",
+   "to": "end"
+  }
+ ],
+ "questions": []
+}

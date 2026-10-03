@@ -1,0 +1,3 @@
+When an order arrives, the items are picked from the shelves. The items are then
+packed into a box. A shipping label is stuck on the box. The box is handed to
+the courier.

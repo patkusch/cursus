@@ -1,0 +1,5 @@
+Accounts payable receives the supplier invoice and matches it to the purchase
+order. If the invoice does not match, accounts payable returns it to the
+supplier. If it matches, two checks run at the same time: the budget owner
+confirms the goods arrived, and the tax team checks the VAT. Once both checks
+are complete, accounts payable pays the invoice.

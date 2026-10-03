@@ -17,7 +17,7 @@ from pydantic import ValidationError
 
 from cursus.check import Finding, check
 from cursus.model import Process
-from cursus.prompts import reading_prompt
+from cursus.prompts import reading_prompt, reading_schema
 
 Ask = Callable[[list[dict]], str]  # the conversation so far -> the model's next reply
 
@@ -34,18 +34,23 @@ def parse_reading(raw: str) -> Process:
     if a < 0 or b < a:
         raise ReadError("the answer holds no JSON object")
     try:
-        return Process.model_validate_json(raw[a : b + 1])
+        process = Process.model_validate_json(raw[a : b + 1])
     except ValidationError as e:
         faults = "; ".join(f"{'.'.join(str(x) for x in err['loc'])}: {err['msg']}" for err in e.errors()[:8])
         raise ReadError(f"the answer does not match the expected layout ({faults})") from e
+    for step in process.steps:
+        if step.quote.strip():  # a step that quotes the text is a claim about the text, and gets checked as one
+            step.assumed = False
+    return process
 
 
 def ollama(model: str, host: str = OLLAMA, *, temperature: float = 0.0, seed: Optional[int] = None, timeout: float = 900) -> Ask:
     """A model served by Ollama on this machine. Nothing leaves the computer."""
-    schema = Process.model_json_schema(by_alias=True)
+    schema = reading_schema()
 
     def ask(messages: list[dict]) -> str:
-        options: dict = {"temperature": temperature, "num_ctx": 8192}
+        # num_predict stops a model that runs on without closing its JSON; the cut-off answer then fails and is retried
+        options: dict = {"temperature": temperature, "num_ctx": 12288, "num_predict": 3000}
         if seed is not None:
             options["seed"] = seed
         payload = {"model": model, "messages": messages, "stream": False, "format": schema, "options": options}
@@ -110,7 +115,8 @@ def read(text: str, ask: Ask, *, repairs: int = 2, has_answers: bool = False) ->
             if now.errors == 0:
                 break
             faults = [f"{f.where}: {f.message}" for f in findings if f.level == "error"]
-        messages += [{"role": "assistant", "content": reply}, {"role": "user", "content": _fix_request(faults)}]
+        # keep the first request and only the latest failed try, so a long text still fits in the model's window
+        messages = messages[:1] + [{"role": "assistant", "content": reply}, {"role": "user", "content": _fix_request(faults)}]
     best.attempts = attempt
     best.seconds = time.monotonic() - began
     return best

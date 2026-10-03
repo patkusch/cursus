@@ -1,0 +1,6 @@
+So I'm on the support desk, right. Basically what happens is the customer sends
+in a ticket, and the first thing the support desk does is check if it's a
+duplicate. If it is a duplicate we just close it. If it's not, we tag it with
+the product area. Then, yeah, the product team picks it up and they write a
+reply. Oh, and before the reply goes out, the support desk proofreads it. Then
+we send it to the customer.
