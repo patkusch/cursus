@@ -43,7 +43,7 @@ Rules
 9. Ids are short and unique: s1, s2, d1. Every arrow in `flows` joins two ids
    that exist.
 
-Answer with one JSON object and nothing else. It must match this layout:
+{extra}Answer with one JSON object and nothing else. It must match this layout:
 
 {schema}
 
@@ -55,6 +55,14 @@ The text:
 """
 
 
-def reading_prompt(source: str) -> str:
+ANSWERED = """\
+10. The text ends with questions the author has already answered. Treat each
+    answer as part of the text: build steps from it and quote from it like any
+    other passage. Do not ask a question that has been answered.
+
+"""
+
+
+def reading_prompt(source: str, *, has_answers: bool = False) -> str:
     schema = json.dumps(Process.model_json_schema(by_alias=True), indent=1)
-    return RULES.format(schema=schema, source=source.strip())
+    return RULES.format(schema=schema, source=source.strip(), extra=ANSWERED if has_answers else "")

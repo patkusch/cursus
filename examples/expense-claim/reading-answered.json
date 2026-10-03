@@ -1,0 +1,222 @@
+{
+  "title": "Expense claims",
+  "lanes": [
+    {
+      "id": "employee",
+      "name": "Employee"
+    },
+    {
+      "id": "manager",
+      "name": "Line manager"
+    },
+    {
+      "id": "finance",
+      "name": "Finance team"
+    },
+    {
+      "id": "director",
+      "name": "Finance director"
+    },
+    {
+      "id": "system",
+      "name": "System"
+    }
+  ],
+  "steps": [
+    {
+      "id": "start",
+      "kind": "start",
+      "text": "Start",
+      "lane": "employee"
+    },
+    {
+      "id": "s1",
+      "kind": "task",
+      "text": "Fill in claim form",
+      "lane": "employee",
+      "quote": "An employee fills in the claim form and attaches the receipts."
+    },
+    {
+      "id": "s2",
+      "kind": "task",
+      "text": "Submit claim to manager",
+      "lane": "employee",
+      "quote": "submits the claim to their line manager"
+    },
+    {
+      "id": "s3",
+      "kind": "task",
+      "text": "Check claim against policy",
+      "lane": "manager",
+      "quote": "The line manager checks the claim against the travel policy."
+    },
+    {
+      "id": "d1",
+      "kind": "decision",
+      "text": "Within policy?",
+      "lane": "manager",
+      "quote": "If the claim is within policy, the line manager approves it."
+    },
+    {
+      "id": "s4",
+      "kind": "task",
+      "text": "Approve claim",
+      "lane": "manager",
+      "quote": "the line manager approves it"
+    },
+    {
+      "id": "s5",
+      "kind": "task",
+      "text": "Send claim back with note",
+      "lane": "manager",
+      "quote": "the manager sends the claim back to the employee with a note"
+    },
+    {
+      "id": "s6",
+      "kind": "task",
+      "text": "Correct the claim",
+      "lane": "employee",
+      "quote": "the employee corrects the claim and submits it again"
+    },
+    {
+      "id": "d2",
+      "kind": "decision",
+      "text": "Over 500 pounds?",
+      "lane": "finance",
+      "quote": "Finance checks whether the claim is over 500 pounds."
+    },
+    {
+      "id": "s7",
+      "kind": "task",
+      "text": "Review large claim",
+      "lane": "director",
+      "quote": "The finance director reviews large claims within five working days."
+    },
+    {
+      "id": "d3",
+      "kind": "decision",
+      "text": "Signed off?",
+      "lane": "director",
+      "quote": "Claims over 500 pounds need sign-off from the finance director."
+    },
+    {
+      "id": "s8",
+      "kind": "task",
+      "text": "Schedule payment",
+      "lane": "finance",
+      "quote": "finance schedules the payment for the next pay run"
+    },
+    {
+      "id": "s10",
+      "kind": "task",
+      "text": "Reject claim and tell employee",
+      "lane": "finance",
+      "quote": "finance rejects the claim and tells the employee why"
+    },
+    {
+      "id": "s9",
+      "kind": "task",
+      "text": "Email confirmation to employee",
+      "lane": "system",
+      "quote": "the system emails a confirmation to the employee"
+    },
+    {
+      "id": "end",
+      "kind": "end",
+      "text": "End",
+      "lane": "system"
+    },
+    {
+      "id": "end2",
+      "kind": "end",
+      "text": "Claim rejected",
+      "lane": "finance"
+    }
+  ],
+  "flows": [
+    {
+      "from": "start",
+      "to": "s1"
+    },
+    {
+      "from": "s1",
+      "to": "s2"
+    },
+    {
+      "from": "s2",
+      "to": "s3"
+    },
+    {
+      "from": "s3",
+      "to": "d1"
+    },
+    {
+      "from": "d1",
+      "to": "s4",
+      "label": "Yes"
+    },
+    {
+      "from": "d1",
+      "to": "s5",
+      "label": "No"
+    },
+    {
+      "from": "s5",
+      "to": "s6"
+    },
+    {
+      "from": "s6",
+      "to": "s2"
+    },
+    {
+      "from": "s4",
+      "to": "d2",
+      "quote": "Approved claims go to the finance team."
+    },
+    {
+      "from": "d2",
+      "to": "s7",
+      "label": "Yes"
+    },
+    {
+      "from": "d2",
+      "to": "s8",
+      "label": "No"
+    },
+    {
+      "from": "s7",
+      "to": "d3"
+    },
+    {
+      "from": "d3",
+      "to": "s8",
+      "label": "Yes",
+      "quote": "Once a claim is cleared"
+    },
+    {
+      "from": "s8",
+      "to": "s9"
+    },
+    {
+      "from": "s9",
+      "to": "end"
+    },
+    {
+      "from": "d3",
+      "to": "s10",
+      "label": "No",
+      "quote": "If the finance director refuses"
+    },
+    {
+      "from": "s10",
+      "to": "end2"
+    }
+  ],
+  "questions": [
+    {
+      "about": "s7",
+      "text": "What happens if the review takes longer than five working days?",
+      "quote": "within five working days"
+    }
+  ]
+}
