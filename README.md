@@ -99,7 +99,12 @@ hand. A model reads each one several times and every reading is scored against
 the reference: steps found, arrows that agree, the right role on each step,
 and whether a gap in the text was asked about or papered over.
 
-Results are in [bench/SCOREBOARD.md](bench/SCOREBOARD.md).
+Results are in [bench/SCOREBOARD.md](bench/SCOREBOARD.md), and
+[bench/README.md](bench/README.md) says what they show. In short, for two
+models that run on a laptop:
+
+- The larger one (Gemma 3, 12B) produced a drawable reading 23 times out of 33, and asked about a gap instead of guessing 9 times out of 12. It usually left out who does each step.
+- The smaller one (Gemma 3, 4B) managed 7 out of 33. It is not usable for this.
 
 ```bash
 cursus score --model gemma3:12b --runs 3

@@ -6,13 +6,12 @@ really in the text. A reading with errors is not drawn.
 """
 from __future__ import annotations
 
-import re
 from collections import Counter
 from typing import Literal, Optional
 
 from pydantic import BaseModel
 
-from cursus.model import NEEDS_QUOTE, Process, open_decisions
+from cursus.model import NEEDS_QUOTE, Process, fold, open_decisions
 
 
 class Finding(BaseModel):
@@ -116,10 +115,10 @@ def check_shape(p: Process) -> list[Finding]:
                 if s.id in open_ids:
                     out.append(_warn("open-decision", s.id, "the text gives one exit only; the other is drawn as 'Not stated'"))
                 else:
-                    out.append(_err("one-exit-decision", s.id, "a decision needs two exits, or a question saying the text gives only one"))
+                    out.append(_err("one-exit-decision", s.id, f"this decision has one exit: add the other if the text states it, otherwise add a question with `about` set to '{s.id}' asking what the text leaves out"))
             labels = [f.label.strip().lower() for f in exits]
             if any(not l for l in labels):
-                out.append(_err("unlabelled-exit", s.id, "every exit from a decision needs a label"))
+                out.append(_err("unlabelled-exit", s.id, "every exit from a decision needs a label, such as Yes or No"))
             if len(set(labels)) < len(labels):
                 out.append(_err("repeated-label", s.id, "two exits from this decision carry the same label"))
         elif s.kind != "parallel" and len(exits) > 1:
@@ -141,14 +140,6 @@ def check_shape(p: Process) -> list[Finding]:
 
 
 # ------------------------------------------------------------------ source
-
-_FOLD = str.maketrans({"\u2018": "'", "\u2019": "'", "\u201c": '"', "\u201d": '"', "\u2013": "-", "\u2014": "-", "\u00a0": " "})
-
-
-def fold(text: str) -> str:
-    """Lower case, straight quotes, single spaces: differences a reader would not call a different sentence."""
-    return re.sub(r"\s+", " ", text.translate(_FOLD)).strip().lower()
-
 
 def quote_found(quote: str, source: str) -> bool:
     q = fold(quote).strip(" .\"'")

@@ -10,7 +10,7 @@ import re
 from pathlib import Path
 
 from cursus.check import check, has_errors
-from cursus.model import Process
+from cursus.model import Process, settle
 from cursus.read import ReadError, ollama, parse_reading, read
 from cursus.score import ZERO, Score, score
 
@@ -67,7 +67,7 @@ def score_record(record: dict, source: str, ref: Process) -> tuple[bool, Score]:
     """A reading the checks refuse is never drawn, so it scores nothing: the table shows what a user would get."""
     if not record.get("reading"):
         return False, ZERO
-    cand = Process.model_validate(record["reading"])
+    cand = settle(Process.model_validate(record["reading"]))
     if has_errors(check(cand, source)):
         return False, ZERO
     return True, score(ref, cand, source)
@@ -117,6 +117,7 @@ def table(bench: Path) -> str:
         "",
         f"Each model read {n_cases} process descriptions. Every reading was scored against a reference written by hand.",
         "A reading the checks refuse is never drawn, so it scores zero on everything: the numbers are what a user would get.",
+        "What the numbers show, and what changed since the first run, is in [README.md](README.md).",
         "",
         "Scores run from 0 to 1, and 1 means the same as the reference. The range in brackets is the lowest and highest of the runs.",
         "",
@@ -140,6 +141,7 @@ def table(bench: Path) -> str:
     if not data:
         lines.append("| *no results yet* | | " + " | ".join("" for _ in COLUMNS) + " | | | |")
     lines += ["", "What the columns mean:", ""]
+    lines[-3:-3] = _by_case(bench, data)
     lines += [f"- **{name}**: {meaning}." for name, _, meaning in COLUMNS]
     lines += [
         "- **Gaps asked**: places where the text does not say what happens, and the reading asked instead of making something up.",
@@ -150,6 +152,28 @@ def table(bench: Path) -> str:
         "",
     ]
     return "\n".join(lines)
+
+
+def _by_case(bench: Path, data: dict) -> list[str]:
+    """One row per case: how many of a model's readings were drawn, and how many of the reference's steps they found."""
+    if not data:
+        return []
+    models = list(data)
+    lines = ["", "## Case by case", "", "Readings drawn out of the runs made, then the share of the reference's steps found.", ""]
+    lines.append("| Case | Steps | " + " | ".join(models) + " |")
+    lines.append("| --- | --- | " + " | ".join("---" for _ in models) + " |")
+    for name, _, ref in cases(bench):
+        work = sum(s.kind not in ("start", "end") for s in ref.steps)
+        cells = []
+        for model in models:
+            rows = [r for run in data[model].values() for r in run if r[2]["case"] == name]
+            if not rows:
+                cells.append("")
+                continue
+            drawn = sum(passed for passed, _, _ in rows)
+            cells.append(f"{drawn} of {len(rows)} drawn, {_mean([s.steps_found for _, s, _ in rows]):.2f}")
+        lines.append(f"| {name} | {work} | " + " | ".join(cells) + " |")
+    return lines
 
 
 _GAPS: dict[tuple[str, str], int] = {}

@@ -5,6 +5,7 @@ after that is plain code: check.py tests it, and the writers draw it.
 """
 from __future__ import annotations
 
+import re
 from typing import Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -66,11 +67,50 @@ class Process(BaseModel):
 
 NOT_STATED = "Not stated"
 
+_FOLD = str.maketrans({"\u2018": "'", "\u2019": "'", "\u201c": '"', "\u201d": '"', "\u2013": "-", "\u2014": "-", "\u00a0": " "})
+
+
+def fold(text: str) -> str:
+    """Lower case, straight quotes, single spaces: differences a reader would not call a different sentence."""
+    return re.sub(r"\s+", " ", text.translate(_FOLD)).strip().lower()
+
+
+def _same_passage(a: str, b: str) -> bool:
+    a, b = fold(a).strip(" .\"'"), fold(b).strip(" .\"'")
+    return bool(a) and bool(b) and (a in b or b in a)
+
+
+def asked_about(p: Process, decision: Step) -> bool:
+    """Is there a question about this decision? Named by id, or, when the question names no step, by quoting the same passage."""
+    return any(q.about == decision.id or (not q.about and _same_passage(q.quote, decision.quote)) for q in p.questions)
+
 
 def open_decisions(p: Process) -> list[Step]:
     """Decisions with one exit that the reader asked a question about, instead of inventing the other exit."""
-    asked = {q.about for q in p.questions}
-    return [s for s in p.steps if s.kind == "decision" and len(p.out_of(s.id)) == 1 and s.id in asked]
+    return [s for s in p.steps if s.kind == "decision" and len(p.out_of(s.id)) == 1 and asked_about(p, s)]
+
+
+def settle(p: Process) -> Process:
+    """Tidy the parts of a reading that code can settle without guessing. Changes `p` and returns it.
+
+    A step that quotes the text is a claim about the text, so it is checked as
+    one and cannot call itself assumed. A start or end left without a lane
+    takes the lane of the step next to it: they are drawn for the reader, and
+    the text never says whose they are.
+    """
+    lanes = {l.id for l in p.lanes}
+    by_id = {s.id: s for s in p.steps}
+    for s in p.steps:
+        if s.quote.strip():
+            s.assumed = False
+        if not lanes or s.lane is not None or s.kind not in ("start", "end"):
+            continue
+        beside = [f.to_id for f in p.flows if f.from_id == s.id] if s.kind == "start" else [f.from_id for f in p.flows if f.to_id == s.id]
+        for other in beside:
+            if other in by_id and by_id[other].lane in lanes:
+                s.lane = by_id[other].lane
+                break
+    return p
 
 
 def with_stubs(p: Process) -> Process:

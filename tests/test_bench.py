@@ -48,6 +48,7 @@ def test_a_refused_reading_scores_zero_and_shows_in_the_table(tmp_path):
     row = next(line for line in text.splitlines() if line.startswith("| toy:1b"))
     assert "| 2 |" in row and "0.50 (0.00–1.00)" in row
     assert "0 of 0" in row  # this case has no gaps to ask about
+    assert "| order-packing | 4 | 1 of 2 drawn, 0.50 |" in text
 
 
 def test_table_without_results_says_so(tmp_path):

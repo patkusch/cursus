@@ -16,7 +16,7 @@ from typing import Callable, Optional
 from pydantic import ValidationError
 
 from cursus.check import Finding, check
-from cursus.model import Process
+from cursus.model import Process, settle
 from cursus.prompts import reading_prompt, reading_schema
 
 Ask = Callable[[list[dict]], str]  # the conversation so far -> the model's next reply
@@ -38,10 +38,7 @@ def parse_reading(raw: str) -> Process:
     except ValidationError as e:
         faults = "; ".join(f"{'.'.join(str(x) for x in err['loc'])}: {err['msg']}" for err in e.errors()[:8])
         raise ReadError(f"the answer does not match the expected layout ({faults})") from e
-    for step in process.steps:
-        if step.quote.strip():  # a step that quotes the text is a claim about the text, and gets checked as one
-            step.assumed = False
-    return process
+    return settle(process)
 
 
 def ollama(model: str, host: str = OLLAMA, *, temperature: float = 0.0, seed: Optional[int] = None, timeout: float = 900) -> Ask:

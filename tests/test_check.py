@@ -102,6 +102,34 @@ def test_one_exit_decision_is_an_error_unless_a_question_owns_up_to_it():
     assert not has_errors(check_shape(drawn))
 
 
+def test_a_question_that_quotes_the_decisions_passage_counts_without_naming_it():
+    one = [Flow(from_id="d", to_id="y", label="Yes")]
+    by_quote = decision(one, [Question(text="What if not?", quote="OK")])
+    by_quote.steps = [s for s in by_quote.steps if s.id != "n"]
+    assert not has_errors(check_shape(by_quote))
+
+    elsewhere = decision(one, [Question(text="What if not?", quote="something else entirely")])
+    elsewhere.steps = [s for s in elsewhere.steps if s.id != "n"]
+    assert "one-exit-decision" in codes(check_shape(elsewhere))
+
+    named_other = decision(one, [Question(about="a", text="What if not?", quote="ok")])
+    named_other.steps = [s for s in named_other.steps if s.id != "n"]
+    assert "one-exit-decision" in codes(check_shape(named_other))  # it names a different step, so it is about that step
+
+
+def test_start_and_end_take_the_lane_next_to_them():
+    from cursus.model import Lane, settle
+
+    p = simple(lanes=[Lane(id="x", name="X")])
+    p.steps[1].lane = "x"
+    assert "no-lane" in codes(check_shape(p))
+    settle(p)
+    assert [s.lane for s in p.steps] == ["x", "x", "x"] and check_shape(p) == []
+
+    q = simple(lanes=[Lane(id="x", name="X")])  # a real step with no lane is still a fault: code cannot know whose it is
+    assert "no-lane" in codes(check_shape(settle(q)))
+
+
 def test_lanes_all_or_nothing():
     from cursus.model import Lane
 
