@@ -1,0 +1,32 @@
+name: visio-viewer
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  # Microsoft's free Visio Viewer opens every Visio file we ship, next to
+  # control files whose answer is known: one saved by Visio, several broken on purpose.
+  open-with-visio-viewer:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      - run: python scripts/make_testpack.py
+      - run: python scripts/make_controls.py
+      - name: Install Microsoft Visio Viewer
+        shell: powershell
+        run: |
+          choco install visioviewer2016 -y --no-progress
+          Get-ChildItem 'Registry::HKEY_CLASSES_ROOT' | Where-Object { $_.PSChildName -like 'VisioViewer*' } | Select-Object -ExpandProperty PSChildName
+      - name: Open every file
+        shell: powershell -STA -ExecutionPolicy Bypass -File {0}
+        run: |
+          & "$env:GITHUB_WORKSPACE\scripts\open_in_visio_viewer.ps1" -Out "$env:GITHUB_WORKSPACE\viewer" -Paths "$env:GITHUB_WORKSPACE\testpack", "$env:GITHUB_WORKSPACE\controls"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: opened-by-visio-viewer
+          path: viewer/

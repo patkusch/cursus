@@ -1,0 +1,163 @@
+{
+ "model": "claude-sonnet (by paste)",
+ "case": "purchase-order",
+ "run": 1,
+ "attempts": 1,
+ "seconds": 0,
+ "fault": "",
+ "errors": [],
+ "reading": {
+  "title": "Purchase order",
+  "lanes": [
+   {
+    "id": "l1",
+    "name": "Requester"
+   },
+   {
+    "id": "l2",
+    "name": "Procurement"
+   },
+   {
+    "id": "l3",
+    "name": "Budget holder"
+   }
+  ],
+  "steps": [
+   {
+    "id": "st",
+    "kind": "start",
+    "text": "Start",
+    "lane": "l1",
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s1",
+    "kind": "task",
+    "text": "Raise purchase request",
+    "lane": "l1",
+    "quote": "A requester raises a purchase request.",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Is supplier on approved list?",
+    "lane": "l2",
+    "quote": "is on the approved list.",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Reject request",
+    "lane": "l2",
+    "quote": "If the supplier is not on the list, procurement rejects",
+    "assumed": false
+   },
+   {
+    "id": "d2",
+    "kind": "decision",
+    "text": "Is amount under 1,000 pounds?",
+    "lane": "l2",
+    "quote": "procurement checks the amount.",
+    "assumed": false
+   },
+   {
+    "id": "d3",
+    "kind": "decision",
+    "text": "Does budget holder approve request?",
+    "lane": "l3",
+    "quote": "If the budget holder",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Place order",
+    "lane": "l2",
+    "quote": "procurement places the order straight away.",
+    "assumed": false
+   },
+   {
+    "id": "e1",
+    "kind": "end",
+    "text": "Order placed",
+    "lane": "l2",
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "e2",
+    "kind": "end",
+    "text": "Request rejected",
+    "lane": "l2",
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "st",
+    "to": "s1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s1",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s2",
+    "label": "No",
+    "quote": "If the supplier is not on the list, procurement rejects"
+   },
+   {
+    "from": "d1",
+    "to": "d2",
+    "label": "Yes",
+    "quote": "If the supplier is on the list, procurement checks the amount. For"
+   },
+   {
+    "from": "d2",
+    "to": "s3",
+    "label": "Under 1,000",
+    "quote": "requests under 1,000 pounds, procurement places the order straight away."
+   },
+   {
+    "from": "d2",
+    "to": "d3",
+    "label": "1,000 or more",
+    "quote": "Requests of 1,000 pounds or more go to the budget holder."
+   },
+   {
+    "from": "d3",
+    "to": "s3",
+    "label": "Approves",
+    "quote": "approves the request, procurement places the order."
+   },
+   {
+    "from": "d3",
+    "to": "s2",
+    "label": "Refuses",
+    "quote": "refuses, procurement rejects the request."
+   },
+   {
+    "from": "s3",
+    "to": "e1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "e2",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": []
+ }
+}

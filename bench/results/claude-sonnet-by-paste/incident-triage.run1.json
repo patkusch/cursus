@@ -1,0 +1,210 @@
+{
+ "model": "claude-sonnet (by paste)",
+ "case": "incident-triage",
+ "run": 1,
+ "attempts": 1,
+ "seconds": 0,
+ "fault": "",
+ "errors": [],
+ "reading": {
+  "title": "Incident triage",
+  "lanes": [
+   {
+    "id": "l1",
+    "name": "Service desk"
+   },
+   {
+    "id": "l2",
+    "name": "Incident manager"
+   },
+   {
+    "id": "l3",
+    "name": "Duty engineer"
+   }
+  ],
+  "steps": [
+   {
+    "id": "st",
+    "kind": "start",
+    "text": "Start",
+    "lane": "l1",
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s1",
+    "kind": "task",
+    "text": "Log incident",
+    "lane": "l1",
+    "quote": "The service desk logs the incident",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "What is the incident's severity?",
+    "lane": "l1",
+    "quote": "rates its severity.",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Add to weekly backlog",
+    "lane": "l1",
+    "quote": "adds a low severity incident to the weekly backlog.",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Assign to duty engineer",
+    "lane": "l1",
+    "quote": "medium severity incident to the duty engineer.",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Escalate to incident manager",
+    "lane": "l1",
+    "quote": "severity incident to the incident manager.",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Open call with affected teams",
+    "lane": "l2",
+    "quote": "The incident manager opens a call",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "task",
+    "text": "Assign to duty engineer",
+    "lane": "l2",
+    "quote": "with the affected teams and then assigns the incident to the duty engineer.",
+    "assumed": false
+   },
+   {
+    "id": "s7",
+    "kind": "task",
+    "text": "Fix incident",
+    "lane": "l3",
+    "quote": "duty engineer fixes the incident.",
+    "assumed": false
+   },
+   {
+    "id": "s8",
+    "kind": "task",
+    "text": "Close ticket",
+    "lane": "l1",
+    "quote": "The service desk closes the ticket once the",
+    "assumed": false
+   },
+   {
+    "id": "e1",
+    "kind": "end",
+    "text": "Ticket closed",
+    "lane": "l1",
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "e2",
+    "kind": "end",
+    "text": "Left in backlog",
+    "lane": "l1",
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "st",
+    "to": "s1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s1",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s2",
+    "label": "Low",
+    "quote": "adds a low severity incident to the weekly backlog."
+   },
+   {
+    "from": "d1",
+    "to": "s3",
+    "label": "Medium",
+    "quote": "medium severity incident to the duty engineer."
+   },
+   {
+    "from": "d1",
+    "to": "s4",
+    "label": "High",
+    "quote": "severity incident to the incident manager."
+   },
+   {
+    "from": "s2",
+    "to": "e2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s3",
+    "to": "s7",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "s6",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "s7",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s7",
+    "to": "s8",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s8",
+    "to": "e1",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "s2",
+    "text": "What happens to a low severity incident after it is added to the weekly backlog? Is it ever fixed and closed?",
+    "quote": "adds a low severity incident to the weekly backlog."
+   },
+   {
+    "about": "s8",
+    "text": "Does the service desk also close tickets for low severity incidents, or only for those the duty engineer fixes?",
+    "quote": "The service desk closes the ticket once the"
+   }
+  ]
+ }
+}

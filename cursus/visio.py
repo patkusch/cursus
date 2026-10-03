@@ -378,7 +378,8 @@ def verify(path: Path | str) -> list[str]:
         if int(frm) not in known or int(to) not in known:
             problems.append(f"an attachment names a shape that is not on the page ({frm} -> {to})")
         ends.setdefault(int(frm), set()).add(cell)
-    arrows = [int(i) for i in re.findall(r"<Shape ID='(\d+)'[^>]*>(?=<Cell N='PinX' V='[^']*' F='Inh'/>)", page)]
+    arrow_master = seed_masters(parts).get("Dynamic connector", (None, ""))[0]
+    arrows = [int(i) for i in re.findall(rf"<Shape ID='(\d+)'[^>]*? Master='{arrow_master}'", page)]
     for a in arrows:
         if ends.get(a) != {"BeginX", "EndX"}:
             problems.append(f"arrow {a} is not attached at both ends")

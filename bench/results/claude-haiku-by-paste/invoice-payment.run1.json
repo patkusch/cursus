@@ -1,0 +1,195 @@
+{
+ "model": "claude-haiku (by paste)",
+ "case": "invoice-payment",
+ "run": 1,
+ "attempts": 2,
+ "seconds": 0,
+ "fault": "",
+ "errors": [],
+ "reading": {
+  "title": "Invoice Payment Process",
+  "lanes": [
+   {
+    "id": "l1",
+    "name": "accounts payable"
+   },
+   {
+    "id": "l2",
+    "name": "supplier"
+   },
+   {
+    "id": "l3",
+    "name": "budget owner"
+   },
+   {
+    "id": "l4",
+    "name": "tax team"
+   }
+  ],
+  "steps": [
+   {
+    "id": "s1",
+    "kind": "start",
+    "text": "Start",
+    "lane": "l1",
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Receive supplier invoice",
+    "lane": "l1",
+    "quote": "Accounts payable receives the supplier invoice",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Match to purchase order",
+    "lane": "l1",
+    "quote": "and matches it to the purchase order",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Invoice matches?",
+    "lane": "l1",
+    "quote": "If the invoice does not match, accounts payable returns it to the supplier. If it matches, two checks run at the same time",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Return to supplier",
+    "lane": "l1",
+    "quote": "accounts payable returns it to the supplier",
+    "assumed": false
+   },
+   {
+    "id": "p1",
+    "kind": "parallel",
+    "text": "Run checks at same time",
+    "lane": "l1",
+    "quote": "two checks run at the same time",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Confirm goods arrived",
+    "lane": "l3",
+    "quote": "the budget owner confirms the goods arrived",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "task",
+    "text": "Check VAT",
+    "lane": "l4",
+    "quote": "the tax team checks the VAT",
+    "assumed": false
+   },
+   {
+    "id": "p2",
+    "kind": "parallel",
+    "text": "Both checks complete",
+    "lane": "l1",
+    "quote": "Once both checks are complete",
+    "assumed": false
+   },
+   {
+    "id": "s7",
+    "kind": "task",
+    "text": "Pay invoice",
+    "lane": "l1",
+    "quote": "accounts payable pays the invoice",
+    "assumed": false
+   },
+   {
+    "id": "e1",
+    "kind": "end",
+    "text": "End",
+    "lane": "l1",
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s1",
+    "to": "s2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "s3",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s3",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s4",
+    "label": "No",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "e1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "p1",
+    "label": "Yes",
+    "quote": ""
+   },
+   {
+    "from": "p1",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "p1",
+    "to": "s6",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "p2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "p2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "p2",
+    "to": "s7",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s7",
+    "to": "e1",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": []
+ }
+}

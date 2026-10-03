@@ -1,0 +1,176 @@
+{
+ "model": "claude-sonnet (by paste)",
+ "case": "loan-application",
+ "run": 1,
+ "attempts": 1,
+ "seconds": 0,
+ "fault": "",
+ "errors": [],
+ "reading": {
+  "title": "Loan application",
+  "lanes": [
+   {
+    "id": "l1",
+    "name": "Applicant"
+   },
+   {
+    "id": "l2",
+    "name": "System"
+   },
+   {
+    "id": "l3",
+    "name": "Underwriter"
+   }
+  ],
+  "steps": [
+   {
+    "id": "st",
+    "kind": "start",
+    "text": "Start",
+    "lane": "l1",
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s1",
+    "kind": "task",
+    "text": "Fill in online loan form",
+    "lane": "l1",
+    "quote": "The applicant fills in the online loan form.",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Run credit check",
+    "lane": "l2",
+    "quote": "The system runs a credit check.",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Is credit score 600 or above?",
+    "lane": "l2",
+    "quote": "the credit score is 600 or above",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Pass application to underwriter",
+    "lane": "l2",
+    "quote": "the system passes the application to an",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Verify applicant's income",
+    "lane": "l3",
+    "quote": "The underwriter verifies the applicant's income.",
+    "assumed": false
+   },
+   {
+    "id": "d2",
+    "kind": "decision",
+    "text": "Is income verified?",
+    "lane": "l3",
+    "quote": "If the income is",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Approve loan",
+    "lane": "l3",
+    "quote": "the underwriter approves the loan",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "task",
+    "text": "Send contract to applicant",
+    "lane": "l2",
+    "quote": "the system sends the contract to",
+    "assumed": false
+   },
+   {
+    "id": "e1",
+    "kind": "end",
+    "text": "End",
+    "lane": "l2",
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "st",
+    "to": "s1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s1",
+    "to": "s2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s3",
+    "label": "Yes",
+    "quote": "the credit score is 600 or above"
+   },
+   {
+    "from": "s3",
+    "to": "s4",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "d2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d2",
+    "to": "s5",
+    "label": "Yes",
+    "quote": "If the income is"
+   },
+   {
+    "from": "s5",
+    "to": "s6",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "e1",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "d1",
+    "text": "What happens when the credit score is below 600? The text only says what happens at 600 or above.",
+    "quote": "the credit score is 600 or above"
+   },
+   {
+    "about": "d2",
+    "text": "What happens when the income cannot be verified? The text only says what happens when it is verified.",
+    "quote": "If the income is"
+   }
+  ]
+ }
+}

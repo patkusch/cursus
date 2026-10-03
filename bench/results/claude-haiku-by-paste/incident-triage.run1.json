@@ -1,0 +1,211 @@
+{
+ "model": "claude-haiku (by paste)",
+ "case": "incident-triage",
+ "run": 1,
+ "attempts": 1,
+ "seconds": 0,
+ "fault": "",
+ "errors": [],
+ "reading": {
+  "title": "Incident Triage Process",
+  "lanes": [
+   {
+    "id": "l1",
+    "name": "service desk"
+   },
+   {
+    "id": "l2",
+    "name": "incident manager"
+   },
+   {
+    "id": "l3",
+    "name": "duty engineer"
+   }
+  ],
+  "steps": [
+   {
+    "id": "s1",
+    "kind": "start",
+    "text": "Start",
+    "lane": "l1",
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Log incident",
+    "lane": "l1",
+    "quote": "The service desk logs the incident",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Rate severity",
+    "lane": "l1",
+    "quote": "then rates its severity",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "What is the severity?",
+    "lane": "l1",
+    "quote": "The service desk adds a low severity incident to the weekly backlog. The service desk assigns a medium severity incident to the duty engineer. The service desk escalates a high severity incident to the incident manager",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Add to weekly backlog",
+    "lane": "l1",
+    "quote": "The service desk adds a low severity incident to the weekly backlog",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Assign to duty engineer",
+    "lane": "l1",
+    "quote": "The service desk assigns a medium severity incident to the duty engineer",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "task",
+    "text": "Escalate to incident manager",
+    "lane": "l1",
+    "quote": "The service desk escalates a high severity incident to the incident manager",
+    "assumed": false
+   },
+   {
+    "id": "s7",
+    "kind": "task",
+    "text": "Open call with affected teams",
+    "lane": "l2",
+    "quote": "The incident manager opens a call with the affected teams",
+    "assumed": false
+   },
+   {
+    "id": "s8",
+    "kind": "task",
+    "text": "Assign to duty engineer",
+    "lane": "l2",
+    "quote": "then assigns the incident to the duty engineer",
+    "assumed": false
+   },
+   {
+    "id": "s9",
+    "kind": "task",
+    "text": "Fix incident",
+    "lane": "l3",
+    "quote": "The duty engineer fixes the incident",
+    "assumed": false
+   },
+   {
+    "id": "s10",
+    "kind": "task",
+    "text": "Close ticket",
+    "lane": "l1",
+    "quote": "The service desk closes the ticket once the incident is fixed",
+    "assumed": false
+   },
+   {
+    "id": "e1",
+    "kind": "end",
+    "text": "End",
+    "lane": "l1",
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s1",
+    "to": "s2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "s3",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s3",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s4",
+    "label": "Low",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s5",
+    "label": "Medium",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s6",
+    "label": "High",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "e1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "s9",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "s7",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s7",
+    "to": "s8",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s8",
+    "to": "s9",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s9",
+    "to": "s10",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s10",
+    "to": "e1",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "s4",
+    "text": "What happens to low severity incidents after they are added to the backlog?",
+    "quote": ""
+   }
+  ]
+ }
+}

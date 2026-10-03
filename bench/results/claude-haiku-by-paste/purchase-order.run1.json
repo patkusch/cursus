@@ -1,0 +1,239 @@
+{
+ "model": "claude-haiku (by paste)",
+ "case": "purchase-order",
+ "run": 1,
+ "attempts": 1,
+ "seconds": 0,
+ "fault": "",
+ "errors": [],
+ "reading": {
+  "title": "Purchase Order Process",
+  "lanes": [
+   {
+    "id": "l1",
+    "name": "requester"
+   },
+   {
+    "id": "l2",
+    "name": "procurement"
+   },
+   {
+    "id": "l3",
+    "name": "budget holder"
+   }
+  ],
+  "steps": [
+   {
+    "id": "s1",
+    "kind": "start",
+    "text": "Start",
+    "lane": "l1",
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Raise purchase request",
+    "lane": "l1",
+    "quote": "A requester raises a purchase request",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Check supplier on approved list",
+    "lane": "l2",
+    "quote": "Procurement checks whether the supplier is on the approved list",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Supplier on approved list?",
+    "lane": "l2",
+    "quote": "If the supplier is not on the list, procurement rejects the request. If the supplier is on the list, procurement checks the amount",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Reject request",
+    "lane": "l2",
+    "quote": "procurement rejects the request",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Check request amount",
+    "lane": "l2",
+    "quote": "procurement checks the amount",
+    "assumed": false
+   },
+   {
+    "id": "d2",
+    "kind": "decision",
+    "text": "Request under 1000 pounds?",
+    "lane": "l2",
+    "quote": "For requests under 1,000 pounds, procurement places the order straight away. Requests of 1,000 pounds or more go to the budget holder",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "task",
+    "text": "Place order",
+    "lane": "l2",
+    "quote": "procurement places the order straight away",
+    "assumed": false
+   },
+   {
+    "id": "s7",
+    "kind": "task",
+    "text": "Send to budget holder",
+    "lane": "l2",
+    "quote": "Requests of 1,000 pounds or more go to the budget holder",
+    "assumed": false
+   },
+   {
+    "id": "s8",
+    "kind": "task",
+    "text": "Review request",
+    "lane": "l3",
+    "quote": "If the budget holder approves the request, procurement places the order. If the budget holder refuses, procurement rejects the request",
+    "assumed": false
+   },
+   {
+    "id": "d3",
+    "kind": "decision",
+    "text": "Budget holder approves?",
+    "lane": "l3",
+    "quote": "If the budget holder approves the request, procurement places the order. If the budget holder refuses, procurement rejects the request",
+    "assumed": false
+   },
+   {
+    "id": "s9",
+    "kind": "task",
+    "text": "Place order",
+    "lane": "l2",
+    "quote": "If the budget holder approves the request, procurement places the order",
+    "assumed": false
+   },
+   {
+    "id": "s10",
+    "kind": "task",
+    "text": "Reject request",
+    "lane": "l2",
+    "quote": "If the budget holder refuses, procurement rejects the request",
+    "assumed": false
+   },
+   {
+    "id": "e1",
+    "kind": "end",
+    "text": "End",
+    "lane": "l2",
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s1",
+    "to": "s2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "s3",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s3",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s4",
+    "label": "No",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "e1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s5",
+    "label": "Yes",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "d2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d2",
+    "to": "s6",
+    "label": "Yes",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "e1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d2",
+    "to": "s7",
+    "label": "No",
+    "quote": ""
+   },
+   {
+    "from": "s7",
+    "to": "s8",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s8",
+    "to": "d3",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d3",
+    "to": "s9",
+    "label": "Yes",
+    "quote": ""
+   },
+   {
+    "from": "s9",
+    "to": "e1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d3",
+    "to": "s10",
+    "label": "No",
+    "quote": ""
+   },
+   {
+    "from": "s10",
+    "to": "e1",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": []
+ }
+}

@@ -1,0 +1,161 @@
+{
+ "model": "claude-haiku (by paste)",
+ "case": "new-starter",
+ "run": 1,
+ "attempts": 2,
+ "seconds": 0,
+ "fault": "",
+ "errors": [],
+ "reading": {
+  "title": "New Starter Onboarding Process",
+  "lanes": [
+   {
+    "id": "l1",
+    "name": "HR"
+   },
+   {
+    "id": "l2",
+    "name": "IT"
+   },
+   {
+    "id": "l3",
+    "name": "hiring manager"
+   },
+   {
+    "id": "l4",
+    "name": "new starter"
+   }
+  ],
+  "steps": [
+   {
+    "id": "s1",
+    "kind": "start",
+    "text": "Start",
+    "lane": "l1",
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Create staff record",
+    "lane": "l1",
+    "quote": "When a new starter accepts an offer, HR creates their staff record",
+    "assumed": false
+   },
+   {
+    "id": "p1",
+    "kind": "parallel",
+    "text": "Start parallel tasks",
+    "lane": "l1",
+    "quote": "two things happen at the same time",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Order laptop",
+    "lane": "l2",
+    "quote": "IT orders a laptop",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Write first-week plan",
+    "lane": "l3",
+    "quote": "the hiring manager writes a first-week plan",
+    "assumed": false
+   },
+   {
+    "id": "p2",
+    "kind": "parallel",
+    "text": "Both tasks done",
+    "lane": "l1",
+    "quote": "When both are done",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Send welcome email",
+    "lane": "l1",
+    "quote": "HR sends the welcome email",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "task",
+    "text": "Meet new starter",
+    "lane": "l3",
+    "quote": "On the first day, the hiring manager meets the new starter",
+    "assumed": false
+   },
+   {
+    "id": "e1",
+    "kind": "end",
+    "text": "End",
+    "lane": "l3",
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s1",
+    "to": "s2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "p1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "p1",
+    "to": "s3",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "p1",
+    "to": "s4",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s3",
+    "to": "p2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "p2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "p2",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "s6",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "e1",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": []
+ }
+}

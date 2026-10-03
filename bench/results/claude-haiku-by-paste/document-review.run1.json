@@ -1,0 +1,116 @@
+{
+ "model": "claude-haiku (by paste)",
+ "case": "document-review",
+ "run": 1,
+ "attempts": 1,
+ "seconds": 0,
+ "fault": "",
+ "errors": [],
+ "reading": {
+  "title": "Document Review Process",
+  "lanes": [],
+  "steps": [
+   {
+    "id": "s1",
+    "kind": "start",
+    "text": "Start",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Write draft",
+    "lane": null,
+    "quote": "A draft is written",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Review draft",
+    "lane": null,
+    "quote": "The draft is reviewed",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Changes needed?",
+    "lane": null,
+    "quote": "If changes are needed, the draft is revised and reviewed again. When no more changes are needed, the document is published",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Revise draft",
+    "lane": null,
+    "quote": "the draft is revised",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Publish document",
+    "lane": null,
+    "quote": "the document is published",
+    "assumed": false
+   },
+   {
+    "id": "e1",
+    "kind": "end",
+    "text": "End",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "s1",
+    "to": "s2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "s3",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s3",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s4",
+    "label": "Yes",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "s3",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s5",
+    "label": "No",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "e1",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": []
+ }
+}

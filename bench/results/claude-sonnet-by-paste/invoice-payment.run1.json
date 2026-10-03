@@ -1,0 +1,185 @@
+{
+ "model": "claude-sonnet (by paste)",
+ "case": "invoice-payment",
+ "run": 1,
+ "attempts": 1,
+ "seconds": 0,
+ "fault": "",
+ "errors": [],
+ "reading": {
+  "title": "Invoice payment",
+  "lanes": [
+   {
+    "id": "l1",
+    "name": "Accounts payable"
+   },
+   {
+    "id": "l2",
+    "name": "Budget owner"
+   },
+   {
+    "id": "l3",
+    "name": "Tax team"
+   }
+  ],
+  "steps": [
+   {
+    "id": "st",
+    "kind": "start",
+    "text": "Start",
+    "lane": "l1",
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s1",
+    "kind": "task",
+    "text": "Receive supplier invoice",
+    "lane": "l1",
+    "quote": "Accounts payable receives the supplier invoice",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Does invoice match purchase order?",
+    "lane": "l1",
+    "quote": "If the invoice does not match",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Return invoice to supplier",
+    "lane": "l1",
+    "quote": "accounts payable returns it to the",
+    "assumed": false
+   },
+   {
+    "id": "p1",
+    "kind": "parallel",
+    "text": "Run both checks together",
+    "lane": "l1",
+    "quote": "two checks run at the same time",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Confirm goods arrived",
+    "lane": "l2",
+    "quote": "confirms the goods arrived",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Check VAT",
+    "lane": "l3",
+    "quote": "the tax team checks the VAT.",
+    "assumed": false
+   },
+   {
+    "id": "p2",
+    "kind": "parallel",
+    "text": "Wait for both checks",
+    "lane": "l1",
+    "quote": "Once both checks",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Pay invoice",
+    "lane": "l1",
+    "quote": "accounts payable pays the invoice.",
+    "assumed": false
+   },
+   {
+    "id": "e1",
+    "kind": "end",
+    "text": "Invoice returned",
+    "lane": "l1",
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "e2",
+    "kind": "end",
+    "text": "Invoice paid",
+    "lane": "l1",
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "st",
+    "to": "s1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s1",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s2",
+    "label": "No match",
+    "quote": "If the invoice does not match"
+   },
+   {
+    "from": "d1",
+    "to": "p1",
+    "label": "Match",
+    "quote": "If it matches"
+   },
+   {
+    "from": "s2",
+    "to": "e1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "p1",
+    "to": "s3",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "p1",
+    "to": "s4",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s3",
+    "to": "p2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "p2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "p2",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "e2",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": []
+ }
+}
