@@ -8,6 +8,9 @@ Scores run from 0 to 1, and 1 means the same as the reference. The range in brac
 
 | Model | Runs | Drawn | Steps found | Steps right | Arrows found | Arrows right | Decisions found | Right role | Gaps asked | Gaps guessed | Seconds per reading |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| claude-haiku (by paste) | 1 | 1.00 | 0.93 | 0.89 | 0.82 | 0.78 | 0.85 | 0.99 | 3 of 4 | 1 of 4 | not timed |
+| claude-opus (by paste) | 1 | 1.00 | 0.96 | 0.96 | 0.93 | 0.93 | 0.94 | 1.00 | 4 of 4 | 0 of 4 | not timed |
+| claude-sonnet (by paste) | 1 | 1.00 | 0.94 | 0.98 | 0.92 | 0.94 | 0.94 | 1.00 | 4 of 4 | 0 of 4 | not timed |
 | gemma3:12b | 3 | 0.70 (0.64–0.73) | 0.62 (0.59–0.64) | 0.60 (0.58–0.61) | 0.54 (0.53–0.54) | 0.53 (0.53–0.53) | 0.65 (0.61–0.67) | 0.18 (0.18–0.18) | 9 of 12 | 2 of 12 | 154 |
 | gemma3:latest | 3 | 0.21 (0.09–0.27) | 0.17 (0.09–0.21) | 0.20 (0.07–0.27) | 0.12 (0.07–0.15) | 0.14 (0.06–0.19) | 0.21 (0.09–0.27) | 0.21 (0.09–0.27) | 0 of 12 | 0 of 12 | 67 |
 
@@ -15,19 +18,19 @@ Scores run from 0 to 1, and 1 means the same as the reference. The range in brac
 
 Readings drawn out of the runs made, then the share of the reference's steps found.
 
-| Case | Steps | gemma3:12b | gemma3:latest |
-| --- | --- | --- | --- |
-| customer-refund | 8 | 3 of 3 drawn, 0.88 | 0 of 3 drawn, 0.00 |
-| document-review | 5 | 3 of 3 drawn, 1.00 | 1 of 3 drawn, 0.20 |
-| expense-claim | 13 | 3 of 3 drawn, 0.90 | 0 of 3 drawn, 0.00 |
-| incident-triage | 9 | 0 of 3 drawn, 0.00 | 0 of 3 drawn, 0.00 |
-| invoice-payment | 9 | 0 of 3 drawn, 0.00 | 0 of 3 drawn, 0.00 |
-| leave-request | 6 | 3 of 3 drawn, 0.89 | 2 of 3 drawn, 0.56 |
-| loan-application | 8 | 3 of 3 drawn, 1.00 | 0 of 3 drawn, 0.00 |
-| new-starter | 7 | 0 of 3 drawn, 0.00 | 1 of 3 drawn, 0.24 |
-| order-packing | 4 | 3 of 3 drawn, 1.00 | 3 of 3 drawn, 0.83 |
-| purchase-order | 6 | 2 of 3 drawn, 0.44 | 0 of 3 drawn, 0.00 |
-| support-ticket-interview | 8 | 3 of 3 drawn, 0.75 | 0 of 3 drawn, 0.00 |
+| Case | Steps | claude-haiku (by paste) | claude-opus (by paste) | claude-sonnet (by paste) | gemma3:12b | gemma3:latest |
+| --- | --- | --- | --- | --- | --- | --- |
+| customer-refund | 8 | 1 of 1 drawn, 1.00 | 1 of 1 drawn, 1.00 | 1 of 1 drawn, 1.00 | 3 of 3 drawn, 0.88 | 0 of 3 drawn, 0.00 |
+| document-review | 5 | 1 of 1 drawn, 1.00 | 1 of 1 drawn, 1.00 | 1 of 1 drawn, 1.00 | 3 of 3 drawn, 1.00 | 1 of 3 drawn, 0.20 |
+| expense-claim | 13 | 1 of 1 drawn, 0.85 | 1 of 1 drawn, 0.77 | 1 of 1 drawn, 0.62 | 3 of 3 drawn, 0.90 | 0 of 3 drawn, 0.00 |
+| incident-triage | 9 | 1 of 1 drawn, 0.89 | 1 of 1 drawn, 1.00 | 1 of 1 drawn, 1.00 | 0 of 3 drawn, 0.00 | 0 of 3 drawn, 0.00 |
+| invoice-payment | 9 | 1 of 1 drawn, 1.00 | 1 of 1 drawn, 1.00 | 1 of 1 drawn, 0.89 | 0 of 3 drawn, 0.00 | 0 of 3 drawn, 0.00 |
+| leave-request | 6 | 1 of 1 drawn, 0.67 | 1 of 1 drawn, 1.00 | 1 of 1 drawn, 1.00 | 3 of 3 drawn, 0.89 | 2 of 3 drawn, 0.56 |
+| loan-application | 8 | 1 of 1 drawn, 1.00 | 1 of 1 drawn, 1.00 | 1 of 1 drawn, 1.00 | 3 of 3 drawn, 1.00 | 0 of 3 drawn, 0.00 |
+| new-starter | 7 | 1 of 1 drawn, 1.00 | 1 of 1 drawn, 1.00 | 1 of 1 drawn, 1.00 | 0 of 3 drawn, 0.00 | 1 of 3 drawn, 0.24 |
+| order-packing | 4 | 1 of 1 drawn, 1.00 | 1 of 1 drawn, 1.00 | 1 of 1 drawn, 1.00 | 3 of 3 drawn, 1.00 | 3 of 3 drawn, 0.83 |
+| purchase-order | 6 | 1 of 1 drawn, 0.83 | 1 of 1 drawn, 0.83 | 1 of 1 drawn, 1.00 | 2 of 3 drawn, 0.44 | 0 of 3 drawn, 0.00 |
+| support-ticket-interview | 8 | 1 of 1 drawn, 1.00 | 1 of 1 drawn, 1.00 | 1 of 1 drawn, 0.88 | 3 of 3 drawn, 0.75 | 0 of 3 drawn, 0.00 |
 
 What the columns mean:
 

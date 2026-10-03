@@ -1,0 +1,207 @@
+{
+ "model": "claude-opus (by paste)",
+ "case": "purchase-order",
+ "run": 1,
+ "attempts": 1,
+ "seconds": 0,
+ "fault": "",
+ "errors": [],
+ "reading": {
+  "title": "Purchase order",
+  "lanes": [
+   {
+    "id": "rq",
+    "name": "Requester"
+   },
+   {
+    "id": "pr",
+    "name": "Procurement"
+   },
+   {
+    "id": "bh",
+    "name": "Budget holder"
+   }
+  ],
+  "steps": [
+   {
+    "id": "start",
+    "kind": "start",
+    "text": "Purchase needed",
+    "lane": "rq",
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s1",
+    "kind": "task",
+    "text": "Raise purchase request",
+    "lane": "rq",
+    "quote": "A requester raises a purchase request",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Is supplier on approved list?",
+    "lane": "pr",
+    "quote": "Procurement checks whether the supplier is on the approved list",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Reject request",
+    "lane": "pr",
+    "quote": "If the supplier is not on the list, procurement rejects the request",
+    "assumed": false
+   },
+   {
+    "id": "d2",
+    "kind": "decision",
+    "text": "What is the amount?",
+    "lane": "pr",
+    "quote": "procurement checks the amount",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Place order",
+    "lane": "pr",
+    "quote": "procurement places the order straight away",
+    "assumed": false
+   },
+   {
+    "id": "d3",
+    "kind": "decision",
+    "text": "Does budget holder approve?",
+    "lane": "bh",
+    "quote": "Requests of 1,000 pounds or more go to the budget holder",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Place order",
+    "lane": "pr",
+    "quote": "If the budget holder approves the request, procurement places the order",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Reject request",
+    "lane": "pr",
+    "quote": "If the budget holder refuses, procurement rejects the request",
+    "assumed": false
+   },
+   {
+    "id": "e1",
+    "kind": "end",
+    "text": "Request rejected",
+    "lane": "pr",
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "e2",
+    "kind": "end",
+    "text": "Order placed",
+    "lane": "pr",
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "e3",
+    "kind": "end",
+    "text": "Order placed",
+    "lane": "pr",
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "e4",
+    "kind": "end",
+    "text": "Request rejected",
+    "lane": "pr",
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "start",
+    "to": "s1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s1",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s2",
+    "label": "No",
+    "quote": "If the supplier is not on the list, procurement rejects the request"
+   },
+   {
+    "from": "d1",
+    "to": "d2",
+    "label": "Yes",
+    "quote": "If the supplier is on the list, procurement checks the amount"
+   },
+   {
+    "from": "d2",
+    "to": "s3",
+    "label": "Under 1,000",
+    "quote": "For requests under 1,000 pounds, procurement places the order straight away"
+   },
+   {
+    "from": "d2",
+    "to": "d3",
+    "label": "1,000 or more",
+    "quote": "Requests of 1,000 pounds or more go to the budget holder"
+   },
+   {
+    "from": "d3",
+    "to": "s4",
+    "label": "Yes",
+    "quote": "If the budget holder approves the request, procurement places the order"
+   },
+   {
+    "from": "d3",
+    "to": "s5",
+    "label": "No",
+    "quote": "If the budget holder refuses, procurement rejects the request"
+   },
+   {
+    "from": "s2",
+    "to": "e1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s3",
+    "to": "e2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "e3",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "e4",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": []
+ }
+}

@@ -1,0 +1,190 @@
+{
+ "model": "claude-opus (by paste)",
+ "case": "support-ticket-interview",
+ "run": 1,
+ "attempts": 1,
+ "seconds": 0,
+ "fault": "",
+ "errors": [],
+ "reading": {
+  "title": "Support ticket handling",
+  "lanes": [
+   {
+    "id": "cu",
+    "name": "Customer"
+   },
+   {
+    "id": "sd",
+    "name": "Support desk"
+   },
+   {
+    "id": "pt",
+    "name": "Product team"
+   }
+  ],
+  "steps": [
+   {
+    "id": "start",
+    "kind": "start",
+    "text": "Customer has an issue",
+    "lane": "cu",
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s1",
+    "kind": "task",
+    "text": "Send in ticket",
+    "lane": "cu",
+    "quote": "the customer sends in a ticket",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Is the ticket a duplicate?",
+    "lane": "sd",
+    "quote": "the first thing the support desk does is check if it's a duplicate",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Close ticket",
+    "lane": "sd",
+    "quote": "If it is a duplicate we just close it",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Tag with product area",
+    "lane": "sd",
+    "quote": "we tag it with the product area",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Pick up ticket",
+    "lane": "pt",
+    "quote": "the product team picks it up",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Write reply",
+    "lane": "pt",
+    "quote": "they write a reply",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "task",
+    "text": "Proofread reply",
+    "lane": "sd",
+    "quote": "before the reply goes out, the support desk proofreads it",
+    "assumed": false
+   },
+   {
+    "id": "s7",
+    "kind": "task",
+    "text": "Send reply to customer",
+    "lane": "sd",
+    "quote": "Then we send it to the customer",
+    "assumed": false
+   },
+   {
+    "id": "e1",
+    "kind": "end",
+    "text": "Duplicate closed",
+    "lane": "sd",
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "e2",
+    "kind": "end",
+    "text": "Reply sent",
+    "lane": "sd",
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "start",
+    "to": "s1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s1",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s2",
+    "label": "Yes",
+    "quote": "If it is a duplicate we just close it"
+   },
+   {
+    "from": "d1",
+    "to": "s3",
+    "label": "No",
+    "quote": "If it's not, we tag it with the product area"
+   },
+   {
+    "from": "s2",
+    "to": "e1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s3",
+    "to": "s4",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "s6",
+    "label": "",
+    "quote": "before the reply goes out, the support desk proofreads it"
+   },
+   {
+    "from": "s6",
+    "to": "s7",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s7",
+    "to": "e2",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "s7",
+    "text": "Who sends the reply to the customer? The speaker says 'we', which most likely means the support desk, but it could mean the product team.",
+    "quote": "Then we send it to the customer"
+   },
+   {
+    "about": "s6",
+    "text": "What happens if the support desk finds problems when proofreading the reply? Does it go back to the product team?",
+    "quote": "the support desk proofreads it"
+   }
+  ]
+ }
+}

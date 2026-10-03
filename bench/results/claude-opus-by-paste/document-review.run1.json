@@ -1,0 +1,137 @@
+{
+ "model": "claude-opus (by paste)",
+ "case": "document-review",
+ "run": 1,
+ "attempts": 1,
+ "seconds": 0,
+ "fault": "",
+ "errors": [],
+ "reading": {
+  "title": "Document review",
+  "lanes": [],
+  "steps": [
+   {
+    "id": "start",
+    "kind": "start",
+    "text": "Start",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s1",
+    "kind": "task",
+    "text": "Write draft",
+    "lane": null,
+    "quote": "A draft is written",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Review draft",
+    "lane": null,
+    "quote": "The draft is reviewed",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Are changes needed?",
+    "lane": null,
+    "quote": "If changes are needed",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Revise draft",
+    "lane": null,
+    "quote": "the draft is revised and reviewed again",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Publish document",
+    "lane": null,
+    "quote": "the document is published",
+    "assumed": false
+   },
+   {
+    "id": "e1",
+    "kind": "end",
+    "text": "Document published",
+    "lane": null,
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "start",
+    "to": "s1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s1",
+    "to": "s2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s3",
+    "label": "Yes",
+    "quote": "If changes are needed, the draft is revised and reviewed again"
+   },
+   {
+    "from": "s3",
+    "to": "s2",
+    "label": "",
+    "quote": "revised and reviewed again"
+   },
+   {
+    "from": "d1",
+    "to": "s4",
+    "label": "No",
+    "quote": "When no more changes are needed, the document is published"
+   },
+   {
+    "from": "s4",
+    "to": "e1",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "s1",
+    "text": "Who writes the draft? The text does not say.",
+    "quote": "A draft is written"
+   },
+   {
+    "about": "s2",
+    "text": "Who reviews the draft? The text does not say.",
+    "quote": "The draft is reviewed"
+   },
+   {
+    "about": "s3",
+    "text": "Who revises the draft? The text does not say.",
+    "quote": "the draft is revised and reviewed again"
+   },
+   {
+    "about": "s4",
+    "text": "Who publishes the document, and where is it published?",
+    "quote": "the document is published"
+   }
+  ]
+ }
+}

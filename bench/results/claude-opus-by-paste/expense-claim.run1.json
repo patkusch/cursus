@@ -1,0 +1,248 @@
+{
+ "model": "claude-opus (by paste)",
+ "case": "expense-claim",
+ "run": 1,
+ "attempts": 1,
+ "seconds": 0,
+ "fault": "",
+ "errors": [],
+ "reading": {
+  "title": "Expense claims",
+  "lanes": [
+   {
+    "id": "em",
+    "name": "Employee"
+   },
+   {
+    "id": "lm",
+    "name": "Line manager"
+   },
+   {
+    "id": "fi",
+    "name": "Finance team"
+   },
+   {
+    "id": "fd",
+    "name": "Finance director"
+   },
+   {
+    "id": "sy",
+    "name": "System"
+   }
+  ],
+  "steps": [
+   {
+    "id": "start",
+    "kind": "start",
+    "text": "Start claim",
+    "lane": "em",
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s1",
+    "kind": "task",
+    "text": "Fill in form, attach receipts",
+    "lane": "em",
+    "quote": "An employee fills in the claim form and attaches the receipts",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Submit claim to line manager",
+    "lane": "em",
+    "quote": "The employee then submits the claim to their line manager",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Is the claim within policy?",
+    "lane": "lm",
+    "quote": "The line manager checks the claim against the travel policy",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Approve claim",
+    "lane": "lm",
+    "quote": "the line manager approves it",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Send claim back with note",
+    "lane": "lm",
+    "quote": "the manager sends the claim back to the employee with a note",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Correct and resubmit claim",
+    "lane": "em",
+    "quote": "the employee corrects the claim and submits it again",
+    "assumed": false
+   },
+   {
+    "id": "d2",
+    "kind": "decision",
+    "text": "Is the claim over 500 pounds?",
+    "lane": "fi",
+    "quote": "Finance checks whether the claim is over 500 pounds",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "task",
+    "text": "Review large claim",
+    "lane": "fd",
+    "quote": "The finance director reviews large claims within five working days",
+    "assumed": false
+   },
+   {
+    "id": "d3",
+    "kind": "decision",
+    "text": "Does the director sign off?",
+    "lane": "fd",
+    "quote": "Claims over 500 pounds need sign-off from the finance director",
+    "assumed": false
+   },
+   {
+    "id": "s7",
+    "kind": "task",
+    "text": "Schedule payment for next pay run",
+    "lane": "fi",
+    "quote": "finance schedules the payment for the next pay run",
+    "assumed": false
+   },
+   {
+    "id": "s8",
+    "kind": "task",
+    "text": "Email confirmation to employee",
+    "lane": "sy",
+    "quote": "the system emails a confirmation to the employee",
+    "assumed": false
+   },
+   {
+    "id": "e1",
+    "kind": "end",
+    "text": "Claim paid",
+    "lane": "sy",
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "start",
+    "to": "s1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s1",
+    "to": "s2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s3",
+    "label": "Yes",
+    "quote": "If the claim is within policy, the line manager approves it"
+   },
+   {
+    "from": "d1",
+    "to": "s4",
+    "label": "No",
+    "quote": "If it is not, the manager sends the claim back to the employee with a note"
+   },
+   {
+    "from": "s4",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "d1",
+    "label": "",
+    "quote": "the employee corrects the claim and submits it again"
+   },
+   {
+    "from": "s3",
+    "to": "d2",
+    "label": "",
+    "quote": "Approved claims go to the finance team"
+   },
+   {
+    "from": "d2",
+    "to": "s6",
+    "label": "Over 500",
+    "quote": "Claims over 500 pounds need sign-off from the finance director"
+   },
+   {
+    "from": "d2",
+    "to": "s7",
+    "label": "500 or under",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "d3",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d3",
+    "to": "s7",
+    "label": "Yes",
+    "quote": "Once a claim is cleared, finance schedules the payment for the next pay run"
+   },
+   {
+    "from": "s7",
+    "to": "s8",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s8",
+    "to": "e1",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "d3",
+    "text": "What happens if the finance director does not sign off a claim over 500 pounds? The text only describes the cleared path.",
+    "quote": "Claims over 500 pounds need sign-off from the finance director"
+   },
+   {
+    "about": "d2",
+    "text": "What does 'cleared' mean for a claim of 500 pounds or less? Is the finance check alone enough to clear it?",
+    "quote": "Once a claim is cleared"
+   },
+   {
+    "about": "s6",
+    "text": "What happens if the finance director has not reviewed a large claim within five working days?",
+    "quote": "The finance director reviews large claims within five working days"
+   },
+   {
+    "about": "s8",
+    "text": "Does the system send the confirmation after the payment is scheduled, or at the same time?",
+    "quote": "finance schedules the payment for the next pay run and the system emails a confirmation to the employee"
+   }
+  ]
+ }
+}

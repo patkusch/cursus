@@ -1,0 +1,149 @@
+{
+ "model": "claude-opus (by paste)",
+ "case": "leave-request",
+ "run": 1,
+ "attempts": 1,
+ "seconds": 0,
+ "fault": "",
+ "errors": [],
+ "reading": {
+  "title": "Leave request",
+  "lanes": [
+   {
+    "id": "em",
+    "name": "Employee"
+   },
+   {
+    "id": "mg",
+    "name": "Manager"
+   },
+   {
+    "id": "hr",
+    "name": "HR portal"
+   }
+  ],
+  "steps": [
+   {
+    "id": "start",
+    "kind": "start",
+    "text": "Leave wanted",
+    "lane": "em",
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s1",
+    "kind": "task",
+    "text": "Submit leave request",
+    "lane": "em",
+    "quote": "An employee submits a leave request in the HR portal",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Review request",
+    "lane": "mg",
+    "quote": "The manager reviews the request",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Does the team have enough cover?",
+    "lane": "mg",
+    "quote": "If the team has enough cover",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Approve request",
+    "lane": "mg",
+    "quote": "the manager approves the request",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Decline request",
+    "lane": "mg",
+    "quote": "Otherwise the manager declines the request",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Notify employee of outcome",
+    "lane": "hr",
+    "quote": "In both cases the HR portal notifies the employee of the outcome",
+    "assumed": false
+   },
+   {
+    "id": "e1",
+    "kind": "end",
+    "text": "Employee notified",
+    "lane": "hr",
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "start",
+    "to": "s1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s1",
+    "to": "s2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s3",
+    "label": "Yes",
+    "quote": "If the team has enough cover, the manager approves the request"
+   },
+   {
+    "from": "d1",
+    "to": "s4",
+    "label": "No",
+    "quote": "Otherwise the manager declines the request"
+   },
+   {
+    "from": "s3",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "e1",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "d1",
+    "text": "How does the manager judge whether the team has enough cover?",
+    "quote": "If the team has enough cover"
+   }
+  ]
+ }
+}

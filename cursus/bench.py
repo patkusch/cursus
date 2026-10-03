@@ -137,7 +137,8 @@ def table(bench: Path) -> str:
         asked = sum(s.gaps_asked for _, s, _ in rows)
         guessed = sum(s.gaps_guessed for _, s, _ in rows)
         seconds = _mean([r[2]["seconds"] for r in rows])
-        lines.append(f"| {model} | {len(by_run)} | " + " | ".join(cells) + f" | {asked} of {gaps} | {guessed} of {gaps} | {seconds:.0f} |")
+        timed = f"{seconds:.0f}" if seconds else "not timed"
+        lines.append(f"| {model} | {len(by_run)} | " + " | ".join(cells) + f" | {asked} of {gaps} | {guessed} of {gaps} | {timed} |")
     if not data:
         lines.append("| *no results yet* | | " + " | ".join("" for _ in COLUMNS) + " | | | |")
     lines += ["", "What the columns mean:", ""]

@@ -1,0 +1,176 @@
+{
+ "model": "claude-opus (by paste)",
+ "case": "loan-application",
+ "run": 1,
+ "attempts": 1,
+ "seconds": 0,
+ "fault": "",
+ "errors": [],
+ "reading": {
+  "title": "Loan application",
+  "lanes": [
+   {
+    "id": "ap",
+    "name": "Applicant"
+   },
+   {
+    "id": "sy",
+    "name": "System"
+   },
+   {
+    "id": "uw",
+    "name": "Underwriter"
+   }
+  ],
+  "steps": [
+   {
+    "id": "start",
+    "kind": "start",
+    "text": "Applicant applies",
+    "lane": "ap",
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s1",
+    "kind": "task",
+    "text": "Fill in online loan form",
+    "lane": "ap",
+    "quote": "The applicant fills in the online loan form",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Run credit check",
+    "lane": "sy",
+    "quote": "The system runs a credit check",
+    "assumed": false
+   },
+   {
+    "id": "d1",
+    "kind": "decision",
+    "text": "Is credit score 600 or above?",
+    "lane": "sy",
+    "quote": "If the credit score is 600 or above",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Pass application to underwriter",
+    "lane": "sy",
+    "quote": "the system passes the application to an underwriter",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Verify applicant's income",
+    "lane": "uw",
+    "quote": "The underwriter verifies the applicant's income",
+    "assumed": false
+   },
+   {
+    "id": "d2",
+    "kind": "decision",
+    "text": "Is the income verified?",
+    "lane": "uw",
+    "quote": "If the income is verified",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Approve loan",
+    "lane": "uw",
+    "quote": "the underwriter approves the loan",
+    "assumed": false
+   },
+   {
+    "id": "s6",
+    "kind": "task",
+    "text": "Send contract to applicant",
+    "lane": "sy",
+    "quote": "the system sends the contract to the applicant",
+    "assumed": false
+   },
+   {
+    "id": "e1",
+    "kind": "end",
+    "text": "Contract sent",
+    "lane": "sy",
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "start",
+    "to": "s1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s1",
+    "to": "s2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "d1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d1",
+    "to": "s3",
+    "label": "Yes",
+    "quote": "If the credit score is 600 or above, the system passes the application to an underwriter"
+   },
+   {
+    "from": "s3",
+    "to": "s4",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s4",
+    "to": "d2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "d2",
+    "to": "s5",
+    "label": "Yes",
+    "quote": "If the income is verified, the underwriter approves the loan"
+   },
+   {
+    "from": "s5",
+    "to": "s6",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s6",
+    "to": "e1",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "d1",
+    "text": "What happens when the credit score is below 600? The text only says what happens at 600 or above.",
+    "quote": "If the credit score is 600 or above"
+   },
+   {
+    "about": "d2",
+    "text": "What happens when the underwriter cannot verify the income? The text only says what happens when it is verified.",
+    "quote": "If the income is verified"
+   }
+  ]
+ }
+}

@@ -1,0 +1,172 @@
+{
+ "model": "claude-opus (by paste)",
+ "case": "new-starter",
+ "run": 1,
+ "attempts": 1,
+ "seconds": 0,
+ "fault": "",
+ "errors": [],
+ "reading": {
+  "title": "New starter onboarding",
+  "lanes": [
+   {
+    "id": "ns",
+    "name": "New starter"
+   },
+   {
+    "id": "hr",
+    "name": "HR"
+   },
+   {
+    "id": "it",
+    "name": "IT"
+   },
+   {
+    "id": "hm",
+    "name": "Hiring manager"
+   }
+  ],
+  "steps": [
+   {
+    "id": "start",
+    "kind": "start",
+    "text": "Offer accepted",
+    "lane": "ns",
+    "quote": "",
+    "assumed": false
+   },
+   {
+    "id": "s1",
+    "kind": "task",
+    "text": "Create staff record",
+    "lane": "hr",
+    "quote": "HR creates their staff record",
+    "assumed": false
+   },
+   {
+    "id": "p1",
+    "kind": "parallel",
+    "text": "Split into two tasks",
+    "lane": "hr",
+    "quote": "two things happen at the same time",
+    "assumed": false
+   },
+   {
+    "id": "s2",
+    "kind": "task",
+    "text": "Order laptop",
+    "lane": "it",
+    "quote": "IT orders a laptop",
+    "assumed": false
+   },
+   {
+    "id": "s3",
+    "kind": "task",
+    "text": "Write first-week plan",
+    "lane": "hm",
+    "quote": "the hiring manager writes a first-week plan",
+    "assumed": false
+   },
+   {
+    "id": "p2",
+    "kind": "parallel",
+    "text": "Wait for both tasks",
+    "lane": "hr",
+    "quote": "When both are done",
+    "assumed": false
+   },
+   {
+    "id": "s4",
+    "kind": "task",
+    "text": "Send welcome email",
+    "lane": "hr",
+    "quote": "HR sends the welcome email",
+    "assumed": false
+   },
+   {
+    "id": "s5",
+    "kind": "task",
+    "text": "Meet new starter",
+    "lane": "hm",
+    "quote": "On the first day, the hiring manager meets the new starter",
+    "assumed": false
+   },
+   {
+    "id": "e1",
+    "kind": "end",
+    "text": "First day met",
+    "lane": "hm",
+    "quote": "",
+    "assumed": false
+   }
+  ],
+  "flows": [
+   {
+    "from": "start",
+    "to": "s1",
+    "label": "",
+    "quote": "When a new starter accepts an offer, HR creates their staff record"
+   },
+   {
+    "from": "s1",
+    "to": "p1",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "p1",
+    "to": "s2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "p1",
+    "to": "s3",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s2",
+    "to": "p2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s3",
+    "to": "p2",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "p2",
+    "to": "s4",
+    "label": "",
+    "quote": "When both are done, HR sends the welcome email"
+   },
+   {
+    "from": "s4",
+    "to": "s5",
+    "label": "",
+    "quote": ""
+   },
+   {
+    "from": "s5",
+    "to": "e1",
+    "label": "",
+    "quote": ""
+   }
+  ],
+  "questions": [
+   {
+    "about": "p2",
+    "text": "Does 'done' for the laptop mean ordered or delivered?",
+    "quote": "When both are done"
+   },
+   {
+    "about": "s4",
+    "text": "Who receives the welcome email? The text does not say it goes to the new starter.",
+    "quote": "HR sends the welcome email"
+   }
+  ]
+ }
+}
