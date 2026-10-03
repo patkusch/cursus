@@ -13,3 +13,30 @@ jobs:
           python-version: "3.12"
       - run: pip install -e ".[dev]"
       - run: python -m pytest -q
+
+  # A second, independent program opens every Visio file we ship and draws it.
+  # LibreOffice is not Visio, but it shares no code with us: if it cannot read
+  # a file, or draws something else, we got the format wrong.
+  open-with-libreoffice:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      - run: python scripts/make_testpack.py
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libreoffice-draw fonts-liberation
+      - name: Draw each file
+        run: |
+          mkdir drawn
+          for f in testpack/*.vsdx; do
+            soffice --headless --convert-to png --outdir drawn "$f"
+            soffice --headless --convert-to pdf --outdir drawn "$f"
+          done
+          ls -la drawn
+          test "$(ls drawn/*.png | wc -l)" = "$(ls testpack/*.vsdx | wc -l)"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: drawn-by-libreoffice
+          path: drawn/
