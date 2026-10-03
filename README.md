@@ -137,6 +137,9 @@ each box. This is its picture of the expense-claim file:
 
 ![The expense-claim flow as drawn by Microsoft's Visio Viewer](docs/expense-claim-in-visio-viewer.png)
 
+The Yes and No labels look faint there. A file saved by Visio itself looks the
+same in the Viewer, so that is the Viewer, not our file.
+
 **LibreOffice opens it.** A second program that shares no code with us or with
 Microsoft draws the same file:
 
