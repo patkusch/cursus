@@ -4,8 +4,12 @@
 # not Visio, and it cannot tell us whether Visio would ask to repair a file,
 # but it is the closest thing to Visio that runs without a licence.
 #
-# Usage: powershell -STA -File scripts/open_in_visio_viewer.ps1 <out folder> <file or folder> [...]
-param([Parameter(Mandatory)][string]$Out, [Parameter(Mandatory, ValueFromRemainingArguments)][string[]]$Paths)
+# With -Expected <expected.json> it also judges: our files and the Visio-saved
+# control must open with the right number of shapes and source sentences, and
+# the files broken on purpose must not pass. Exit code 1 if any of that fails.
+#
+# Usage: powershell -STA -File scripts/open_in_visio_viewer.ps1 -Out <folder> [-Expected <json>] -Paths <file or folder> [...]
+param([Parameter(Mandatory)][string]$Out, [string]$Expected = '', [Parameter(Mandatory, ValueFromRemainingArguments)][string[]]$Paths)
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.Windows.Forms, System.Drawing
 Add-Type -ReferencedAssemblies System.Windows.Forms -TypeDefinition @"
@@ -75,3 +79,27 @@ foreach ($file in ($files | Sort-Object FullName -Unique)) {
 }
 $report | ConvertTo-Json -Depth 4 | Set-Content (Join-Path $Out 'report.json') -Encoding UTF8
 $form.Close()
+
+if ($Expected) {
+    $want = Get-Content $Expected -Raw | ConvertFrom-Json
+    $failed = @()
+    foreach ($row in $report) {
+        $w = $want.($row.file)
+        if ($w) {
+            if (-not $row.loaded) { $failed += "$($row.file): did not open" ; continue }
+            if ($row.shapes -ne $w.shapes) { $failed += "$($row.file): $($row.shapes) shapes, expected $($w.shapes)" }
+            if ($row.data.Count -ne $w.source_texts) { $failed += "$($row.file): $($row.data.Count) source sentences, expected $($w.source_texts)" }
+            foreach ($stock in $w.stock) {
+                if (-not ($row.names | Where-Object { $_ -like "$stock*" })) { $failed += "$($row.file): no shape recognised as $stock" }
+            }
+        } elseif ($row.file -like 'good-*') {
+            if (-not $row.loaded -or $row.shapes -lt 1) { $failed += "$($row.file): the Visio-saved control did not open, so this check cannot be trusted" }
+        } elseif ($row.file -in 'bad-cut-off-xml.vsdx', 'bad-no-page-part.vsdx') {
+            if ($row.loaded) { $failed += "$($row.file): a file broken on purpose opened, so this check is too forgiving" }
+        }
+    }
+    $ours = ($report | Where-Object { $want.($_.file) }).Count
+    if ($ours -lt 1) { $failed += 'none of our files were opened' }
+    if ($failed) { $failed | ForEach-Object { Write-Host "FAILED $_" }; exit 1 }
+    Write-Host "All $ours of our files opened in the Visio Viewer with the expected shapes and source sentences."
+}

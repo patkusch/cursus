@@ -104,7 +104,11 @@ def cmd_build(args: argparse.Namespace) -> int:
         return 1
     out = Path(args.out)
     name = args.name or Path(args.reading).stem
-    vsdx = write_vsdx(p, out / f"{name}.vsdx", recalc=not args.no_recalc)
+    try:
+        vsdx = write_vsdx(p, out / f"{name}.vsdx", recalc=not args.no_recalc, seed=args.seed)
+    except ValueError as e:
+        print(f"error: {e}", file=sys.stderr)
+        return 2
     problems = verify(vsdx)
     for problem in problems:
         print(f"ERROR   file check: {problem}")
@@ -165,6 +169,7 @@ def main(argv: list[str] | None = None) -> int:
     a.add_argument("--out", default="out", help="folder to write into (default: out)")
     a.add_argument("--name", help="file name without extension (default: the reading's name)")
     a.add_argument("--no-recalc", action="store_true", help="do not ask Visio to recalculate the file when it opens")
+    a.add_argument("--seed", help="a drawing saved from your own Visio to start from, instead of the bundled one")
     a.set_defaults(run=cmd_build)
 
     a = sub.add_parser("score", help="score a model's readings against the reference processes in bench/")

@@ -1,0 +1,31 @@
+{
+ "1-three-boxes.vsdx": {
+  "shapes": 7,
+  "source_texts": 0,
+  "stock": [
+   "Dynamic connector",
+   "Process",
+   "Start/End"
+  ]
+ },
+ "2-expense-claim.vsdx": {
+  "shapes": 42,
+  "source_texts": 13,
+  "stock": [
+   "Decision",
+   "Dynamic connector",
+   "Process",
+   "Start/End"
+  ]
+ },
+ "3-expense-claim-recalculated.vsdx": {
+  "shapes": 42,
+  "source_texts": 13,
+  "stock": [
+   "Decision",
+   "Dynamic connector",
+   "Process",
+   "Start/End"
+  ]
+ }
+}

@@ -1,5 +1,6 @@
 import re
 import zipfile
+from pathlib import Path
 
 import pytest
 
@@ -96,6 +97,21 @@ def test_recalc_switch_and_no_leftovers_from_the_seed(expense, tmp_path):
     assert "thumbnail" not in on["_rels/.rels"]
     assert "<dc:creator>cursus</dc:creator>" in on["docProps/core.xml"]
     assert "CFF Container" not in on["visio/pages/page1.xml"]
+
+
+def test_starting_from_your_own_visio_file(expense, tmp_path):
+    from importlib import resources
+
+    own = tmp_path / "mine.vsdx"
+    own.write_bytes(resources.files("cursus").joinpath("seed/cff_seed.vsdx").read_bytes())
+    path = write_vsdx(expense, tmp_path / "out.vsdx", seed=own)
+    assert verify(path) == []
+    xml = page(path)
+    assert "#d49f00" not in xml and "EndArrow" not in xml  # the bundled seed's colours are not forced onto another seed
+
+    no_shapes = Path(__file__).resolve().parent / "visio_saved" / "s02_glue_pin.vsdx"
+    with pytest.raises(ValueError, match="no 'Decision' stock shape"):
+        write_vsdx(expense, tmp_path / "bad.vsdx", seed=no_shapes)
 
 
 def test_page_grows_to_fit(written):

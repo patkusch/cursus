@@ -87,13 +87,14 @@ def seed_masters(parts: dict[str, bytes]) -> dict[str, tuple[int, str]]:
 # ------------------------------------------------------------------ shapes
 
 
-def _step_shape(sheet: int, step: Step, box: Box, master_id: int) -> str:
+def _step_shape(sheet: int, step: Step, box: Box, master_id: int, look: bool = True) -> str:
     line, fill = LOOK[STOCK[step.kind]]
-    cells = (
-        f"<Cell N='PinX' V='{num(box.cx)}'/><Cell N='PinY' V='{num(box.cy)}'/><Cell N='LayerMember' V='0'/>"
-        f"<Cell N='LineWeight' V='0.01736111111111111' U='PT' F='Inh'/><Cell N='LineColor' V='{line}' F='Inh'/>"
-        f"<Cell N='FillBkgnd' V='{fill}' F='Inh'/>"
-    )
+    cells = f"<Cell N='PinX' V='{num(box.cx)}'/><Cell N='PinY' V='{num(box.cy)}'/><Cell N='LayerMember' V='0'/>"
+    if look:  # the colours Visio stored per shape under the bundled seed's theme; another seed keeps its own
+        cells += (
+            f"<Cell N='LineWeight' V='0.01736111111111111' U='PT' F='Inh'/><Cell N='LineColor' V='{line}' F='Inh'/>"
+            f"<Cell N='FillBkgnd' V='{fill}' F='Inh'/>"
+        )
     if step.assumed:
         cells += f"<Cell N='LinePattern' V='{DASHED}'/>"
     source = ""
@@ -154,7 +155,7 @@ def _plain(sheet: int, cx: float, cy: float, w: float, h: float, *, line: bool, 
     return f"<Shape ID='{sheet}' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>{cells}{char}{_RECT}{words}</Shape>"
 
 
-def _arrow(sheet: int, route: Route, from_sheet: int, to_sheet: int, master_id: int) -> str:
+def _arrow(sheet: int, route: Route, from_sheet: int, to_sheet: int, master_id: int, look: bool = True) -> str:
     """An arrow attached at both ends, written the way Visio writes one it has just routed."""
     (bx, by), (ex, ey) = route.points[0], route.points[-1]
     w, h = ex - bx, ey - by
@@ -179,10 +180,13 @@ def _arrow(sheet: int, route: Route, from_sheet: int, to_sheet: int, master_id: 
         "<Cell N='LayerMember' V='1'/>"
         f"<Cell N='BegTrigger' V='2' F='_XFTRIGGER(Sheet.{from_sheet}!EventXFMod)'/>"
         f"<Cell N='EndTrigger' V='2' F='_XFTRIGGER(Sheet.{to_sheet}!EventXFMod)'/>"
-        "<Cell N='LineWeight' V='0.01388888888888889' U='PT' F='Inh'/><Cell N='LineColor' V='#7f7f7f' F='Inh'/>"
-        "<Cell N='Rounding' V='0.0325' U='IN' F='Inh'/><Cell N='EndArrow' V='5' F='Inh'/><Cell N='BeginArrowSize' V='1' F='Inh'/>"
-        f"<Cell N='TxtPinX' V='{num(tx)}' F='Inh'/><Cell N='TxtPinY' V='{num(ty)}' F='Inh'/>"
     )
+    if look:
+        cells += (
+            "<Cell N='LineWeight' V='0.01388888888888889' U='PT' F='Inh'/><Cell N='LineColor' V='#7f7f7f' F='Inh'/>"
+            "<Cell N='Rounding' V='0.0325' U='IN' F='Inh'/><Cell N='EndArrow' V='5' F='Inh'/><Cell N='BeginArrowSize' V='1' F='Inh'/>"
+        )
+    cells += f"<Cell N='TxtPinX' V='{num(tx)}' F='Inh'/><Cell N='TxtPinY' V='{num(ty)}' F='Inh'/>"
     label = route.label.strip()
     if label:
         text_w = max(0.5555555555555556, 0.075 * len(label) + 0.11)
@@ -216,7 +220,7 @@ def _connects(arrow_sheet: int, from_sheet: int, to_sheet: int) -> str:
 # ------------------------------------------------------------------ the page
 
 
-def page_xml(p: Process, layout: Layout, masters: dict[str, tuple[int, str]]) -> str:
+def page_xml(p: Process, layout: Layout, masters: dict[str, tuple[int, str]], look: bool = True) -> str:
     shapes: list[str] = []
     sheet = 0
 
@@ -227,7 +231,7 @@ def page_xml(p: Process, layout: Layout, masters: dict[str, tuple[int, str]]) ->
 
     for band in layout.bands:  # first in the file means furthest back on the page
         shapes.append(_plain(next_sheet(), band.x + band.w / 2, band.y + band.h / 2, band.w, band.h, line=True, fill=None))
-        shapes.append(_plain(next_sheet(), band.x + HEADER_W / 2, band.y + band.h / 2, HEADER_W, band.h, line=True, fill="#f2f2f2", text=band.name, upright=False, bold=True))
+        shapes.append(_plain(next_sheet(), band.x + HEADER_W / 2, band.y + band.h / 2, HEADER_W, band.h, line=True, fill="#f2f2f2", text=band.name, upright=False, size_pt=8, bold=True))
     if layout.title.strip():
         tx, ty = layout.title_at
         shapes.append(_plain(next_sheet(), tx, ty, min(layout.page_w - 20 * MM, 200 * MM), 8 * MM, line=False, fill=None, text=layout.title, size_pt=14, bold=True))
@@ -235,14 +239,14 @@ def page_xml(p: Process, layout: Layout, masters: dict[str, tuple[int, str]]) ->
     sheet_of: dict[str, int] = {}
     for step in p.steps:
         sheet_of[step.id] = next_sheet()
-        shapes.append(_step_shape(sheet_of[step.id], step, layout.boxes[step.id], masters[STOCK[step.kind]][0]))
+        shapes.append(_step_shape(sheet_of[step.id], step, layout.boxes[step.id], masters[STOCK[step.kind]][0], look))
 
     connects = ""
     arrow_master = masters["Dynamic connector"][0]
     for route in layout.routes:
         a, b = sheet_of[route.from_id], sheet_of[route.to_id]
         s = next_sheet()
-        shapes.append(_arrow(s, route, a, b, arrow_master))
+        shapes.append(_arrow(s, route, a, b, arrow_master, look))
         connects += _connects(s, a, b)
 
     tail = f"<Connects>{connects}</Connects>" if connects else ""
@@ -283,21 +287,28 @@ def _core(xml: str, title: str, when: datetime) -> str:
 RECALC = '<property fmtid="{D5CDD505-2E9C-101B-9397-08002B2CF9AE}" pid="7" name="RecalcDocument"><vt:bool>true</vt:bool></property>'
 
 
-def write_vsdx(p: Process, path: Path | str, *, recalc: bool = True, when: Optional[datetime] = None) -> Path:
+def write_vsdx(p: Process, path: Path | str, *, recalc: bool = True, when: Optional[datetime] = None, seed: Path | str | None = None) -> Path:
     """Draw the process and save it as a Visio file.
 
     `recalc` asks Visio to work every formula out again when it opens the file
     (Microsoft's documented switch for files edited outside Visio). With it, a
     box grows to fit long text. Without it, Visio shows exactly what we wrote.
+
+    `seed` is a drawing saved from your own Visio to start from instead of the
+    bundled one. It must hold the Process, Decision, Start/End and Dynamic
+    connector shapes: a new cross-functional or basic flowchart with one of
+    each dropped on the page will do.
     """
     p = with_stubs(p)
     layout = lay_out(p)
-    with zipfile.ZipFile(io.BytesIO(_seed_bytes())) as z:
+    with zipfile.ZipFile(io.BytesIO(Path(seed).read_bytes() if seed else _seed_bytes())) as z:
         parts = {name: z.read(name) for name in z.namelist()}
+    if "visio/masters/masters.xml" not in parts or "visio/pages/page1.xml" not in parts:
+        raise ValueError("the seed is not a Visio drawing with stock shapes in it")
     masters = seed_masters(parts)
-    for name in set(STOCK.values()) | {"Dynamic connector"}:
+    for name in sorted(set(STOCK.values()) | {"Dynamic connector"}):
         if name not in masters:
-            raise ValueError(f"the seed file has no '{name}' stock shape")
+            raise ValueError(f"the seed file has no '{name}' stock shape: drop one on the page in Visio and save again")
 
     def text(name: str) -> str:
         return parts[name].decode("utf-8")
@@ -306,7 +317,7 @@ def write_vsdx(p: Process, path: Path | str, *, recalc: bool = True, when: Optio
     for n in drop:
         del parts[n]
     parts["_rels/.rels"] = re.sub(r'<Relationship [^>]*thumbnail[^>]*/>', "", text("_rels/.rels")).encode("utf-8")
-    parts["visio/pages/page1.xml"] = page_xml(p, layout, masters).encode("utf-8")
+    parts["visio/pages/page1.xml"] = page_xml(p, layout, masters, look=seed is None).encode("utf-8")
     parts["visio/pages/_rels/page1.xml.rels"] = _page_rels(masters).encode("utf-8")
     pages = _set_cell(_set_cell(text("visio/pages/pages.xml"), "PageWidth", layout.page_w), "PageHeight", layout.page_h)
     parts["visio/pages/pages.xml"] = _set_view(pages, layout.page_w / 2, layout.page_h / 2).encode("utf-8")

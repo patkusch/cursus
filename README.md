@@ -34,7 +34,7 @@ For one description, four files:
 | --- | --- |
 | Checking a reading against the text | Built and tested. |
 | Excel table for Visio | Built. Not yet tried in Visio. |
-| Visio file | Built. **Not yet opened in Visio.** See [testpack](testpack/README.md). |
+| Visio file | Built. Opened and drawn correctly by Microsoft's free Visio Viewer and by LibreOffice on every push. **Not yet opened in full Visio**, the only program that can show a "repair" message or let you drag a box. See [testpack](testpack/README.md). |
 | Rows per role | Drawn as plain rectangles. Visio's own swimlanes come next. |
 | Reading the text with a model | Built for models running on your own machine through Ollama. Any other model works by copy and paste. |
 | Asking the author about gaps | Built. Answers are added to the text and the flow is redrawn. |
@@ -125,6 +125,37 @@ A reading with any of these faults is refused, not drawn:
 - Two arrows leaving a step that is not a decision.
 - A step nothing leads to, or a path that never reaches an end.
 
+## How we know the Visio file is right
+
+We do not own Visio, so three other things check every file on every push.
+
+**Microsoft's free Visio Viewer opens it.** This is Microsoft's own code for
+reading and drawing Visio files. In CI it opens each file, and we check that it
+finds the right number of shapes, recognises them as Visio's stock Process,
+Decision and Start/End shapes, and reads back the source sentence stored on
+each box. This is its picture of the expense-claim file:
+
+![The expense-claim flow as drawn by Microsoft's Visio Viewer](docs/expense-claim-in-visio-viewer.png)
+
+**LibreOffice opens it.** A second program that shares no code with us or with
+Microsoft draws the same file:
+
+![The expense-claim flow as drawn by LibreOffice](docs/expense-claim-drawn-by-libreoffice.png)
+
+**We only write what Visio writes.** A test compares every kind of thing in our
+files (each cell, the kind of formula in it, each attachment) against files
+Visio itself saved. Of about 150, all but three appear in Visio's own files, and
+the three are listed with the reason in
+[the test](tests/test_same_words_as_visio.py).
+
+A checker that passes everything proves nothing, so each program is also handed
+files with a known answer: one saved by Visio, which must pass, and files broken
+on purpose, which must not.
+
+What none of this can show: whether full Visio opens the file without a
+"repair" message, and whether arrows follow a box when you drag it. The Viewer
+only looks; it does not edit.
+
 ## How the Visio file is made
 
 For engineers. The plain version ends above.
@@ -152,7 +183,11 @@ For engineers. The plain version ends above.
 - Calling a hosted model directly (local models work today; hosted ones by copy and paste).
 - Public reference sets on the scoreboard, next to our own eleven cases.
 
-## Credits
+## Credits and the stock shapes
 
-The starting file comes from [vsdxkit](https://github.com/firmfooting/vsdxkit)'s
-reference files (BSD 3-Clause). See [cursus/seed/NOTICE](cursus/seed/NOTICE).
+The starting file and the Visio-saved comparison files come from
+[vsdxkit](https://github.com/firmfooting/vsdxkit)'s reference files (BSD
+3-Clause). The stock shapes inside them are Microsoft's. Microsoft allows
+sharing drawings that contain its shapes, which is what cursus writes. If you
+would rather start from a file saved by your own Visio, pass it with `--seed`.
+Details are in [cursus/seed/NOTICE](cursus/seed/NOTICE).

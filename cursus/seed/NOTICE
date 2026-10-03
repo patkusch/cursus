@@ -9,5 +9,18 @@ This copy comes from the vsdxkit project
 s05_swimlanes_cfflow.vsdx), BSD 3-Clause, Copyright (c) 2020 Dave Howard,
 Copyright (c) 2026 Firm Footing. The stock shapes inside it are Microsoft's.
 
-Open point: replace this with a blank cross-functional flowchart saved from
-our own copy of Visio, and confirm the stock shapes may be shipped.
+What Microsoft allows
+
+Microsoft's own wording (support.microsoft.com, "Edit a master shape") is that
+you may "distribute drawings that contain them" but may not sell or distribute
+the stock shapes themselves.
+
+- Every file cursus writes is a drawing that contains the shapes. Sharing
+  those is plainly allowed.
+- This seed is also a drawing: it is the starter diagram Visio makes from its
+  own template. Its job here, though, is to carry the shapes, which sits
+  closer to the line. Many public projects ship such files; none of that is
+  legal advice.
+- If you would rather not rely on it, start from a drawing saved by your own
+  copy of Visio: `cursus build ... --seed my-own.vsdx`. A new flowchart with
+  one Process, one Decision, one Start/End and one connector on it is enough.
