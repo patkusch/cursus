@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cursus"
+version = "0.1.0"
+description = "Turn a written description of a process into a Visio flow, and show which sentence each box came from."
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.11"
+dependencies = [
+  "openpyxl>=3.1",
+  "pydantic>=2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+cursus = "cursus.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["cursus*"]
+
+[tool.setuptools.package-data]
+cursus = ["seed/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

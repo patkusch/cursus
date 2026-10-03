@@ -1,0 +1,13 @@
+cff_seed.vsdx is a file written by Microsoft Visio. It is the blank
+cross-functional flowchart that Visio creates from its own template, and it
+carries Visio's stock shapes (Process, Decision, Start/End, Dynamic connector,
+Swimlane). cursus uses it as the starting point for every file it writes, so
+the output holds what Visio itself writes rather than a guess at it.
+
+This copy comes from the vsdxkit project
+(https://github.com/firmfooting/vsdxkit, tests/fixtures/com_reference/
+s05_swimlanes_cfflow.vsdx), BSD 3-Clause, Copyright (c) 2020 Dave Howard,
+Copyright (c) 2026 Firm Footing. The stock shapes inside it are Microsoft's.
+
+Open point: replace this with a blank cross-functional flowchart saved from
+our own copy of Visio, and confirm the stock shapes may be shipped.

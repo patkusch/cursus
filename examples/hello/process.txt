@@ -1,0 +1,1 @@
+A customer sends in an order. The warehouse packs the order.

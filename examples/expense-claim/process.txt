@@ -1,0 +1,16 @@
+Expense claims
+
+An employee fills in the claim form and attaches the receipts. The employee
+then submits the claim to their line manager.
+
+The line manager checks the claim against the travel policy. If the claim is
+within policy, the line manager approves it. If it is not, the manager sends
+the claim back to the employee with a note, and the employee corrects the claim
+and submits it again.
+
+Approved claims go to the finance team. Finance checks whether the claim is
+over 500 pounds. Claims over 500 pounds need sign-off from the finance
+director. Once a claim is cleared, finance schedules the payment for the next
+pay run and the system emails a confirmation to the employee.
+
+The finance director reviews large claims within five working days.

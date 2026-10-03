@@ -1,0 +1,16 @@
+{
+  "title": "Order packing",
+  "lanes": [],
+  "steps": [
+    {"id": "start", "kind": "start", "text": "Start"},
+    {"id": "s1", "kind": "task", "text": "Send in order", "quote": "A customer sends in an order."},
+    {"id": "s2", "kind": "task", "text": "Pack the order", "quote": "The warehouse packs the order."},
+    {"id": "end", "kind": "end", "text": "End"}
+  ],
+  "flows": [
+    {"from": "start", "to": "s1"},
+    {"from": "s1", "to": "s2"},
+    {"from": "s2", "to": "end"}
+  ],
+  "questions": []
+}
