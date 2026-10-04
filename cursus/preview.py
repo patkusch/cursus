@@ -127,7 +127,10 @@ def to_svg(path: Path | str) -> str:
             parts.append(f'<rect x="{x:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" fill="{"#f2f2f2" if s.filled else "none"}" stroke="{"#7f7f7f" if s.line else "none"}"/>')
         if s.text:
             if s.turned:
-                parts.append(f'<g transform="rotate(-90 {cx:.1f} {cy:.1f})">{words([s.text], cx, cy, 12, " font-weight=\"bold\"")}</g>')
+                # The attribute is a variable because a backslash inside an f-string
+                # expression is a SyntaxError before Python 3.12.
+                bold = ' font-weight="bold"'
+                parts.append(f'<g transform="rotate(-90 {cx:.1f} {cy:.1f})">{words([s.text], cx, cy, 12, bold)}</g>')
             elif s.master:
                 parts.append(words(_wrap(s.text, 15), cx, cy, 10))
             else:
