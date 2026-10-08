@@ -8,6 +8,7 @@ version = "0.1.0"
 description = "Turn a written description of a process into a Visio flow, and show which sentence each box came from."
 readme = "README.md"
 license = {file = "LICENSE"}
+authors = [{ name = "Patricia Kusch" }]
 requires-python = ">=3.11"
 dependencies = [
   "openpyxl>=3.1",
@@ -16,6 +17,11 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8"]
+
+[project.urls]
+Homepage = "https://github.com/patkusch/cursus"
+Repository = "https://github.com/patkusch/cursus"
+Issues = "https://github.com/patkusch/cursus/issues"
 
 [project.scripts]
 cursus = "cursus.cli:main"
