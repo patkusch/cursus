@@ -1,5 +1,7 @@
 # cursus
 
+[![ci](https://github.com/patkusch/cursus/actions/workflows/ci.yml/badge.svg)](https://github.com/patkusch/cursus/actions/workflows/ci.yml)
+
 **Write the process down. Get the Visio flow chart. See the sentence behind every box.**
 
 ![An expense-claim process drawn as a flow chart with one row per role](docs/expense-claim.svg)
