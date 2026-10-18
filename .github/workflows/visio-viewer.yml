@@ -3,6 +3,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+permissions:
+  contents: read
+
 jobs:
   # Microsoft's free Visio Viewer opens every Visio file we ship, next to
   # control files whose answer is known: one saved by Visio, several broken on purpose.
