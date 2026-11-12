@@ -108,7 +108,7 @@ def to_svg(path: Path | str) -> str:
     parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{page_w * PX:.0f}" height="{page_h * PX:.0f}" viewBox="0 0 {page_w * PX:.0f} {page_h * PX:.0f}" font-family="Helvetica, Arial, sans-serif">',
         '<defs><marker id="tip" markerWidth="9" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0,0 L9,4 L0,8 z" fill="#555"/></marker></defs>',
-        f'<rect width="100%" height="100%" fill="white"/>',
+        '<rect width="100%" height="100%" fill="white"/>',
     ]
     for s in shapes:
         if s.master == "Dynamic connector":
