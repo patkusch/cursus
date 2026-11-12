@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "cursus"
+abstract: "Write the process down. Get the Visio flow chart. See the sentence behind every box."
+type: software
+authors:
+  - family-names: "Kusch"
+    given-names: "Patricia"
+repository-code: "https://github.com/patkusch/cursus"
+license: MIT
