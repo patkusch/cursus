@@ -222,3 +222,7 @@ The starting file and the Visio-saved comparison files come from
 sharing drawings that contain its shapes, which is what cursus writes. If you
 would rather start from a file saved by your own Visio, pass it with `--seed`.
 Details are in [cursus/seed/NOTICE](cursus/seed/NOTICE).
+
+---
+
+[Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md) · [Security policy](SECURITY.md)
