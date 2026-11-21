@@ -30,6 +30,7 @@ dev = ["pytest>=8"]
 Homepage = "https://github.com/patkusch/cursus"
 Repository = "https://github.com/patkusch/cursus"
 Issues = "https://github.com/patkusch/cursus/issues"
+Changelog = "https://github.com/patkusch/cursus/blob/main/CHANGELOG.md"
 
 [project.scripts]
 cursus = "cursus.cli:main"
